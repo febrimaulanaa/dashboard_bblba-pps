@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use setasign\Fpdi\Fpdi;
+use Illuminate\Http\Request;
+use App\Models\DataSertifOSMB;
+use Illuminate\Support\Facades\DB;
+
+class SertifikatOSMBController extends Controller
+{
+    public function index()
+    {
+        $usersCount = DataSertifOSMB::count();
+        $usersData = DataSertifOSMB::all();
+        $masa = DB::SELECT('select masa from datasertif_osmb');
+        return view('sertifikat.indexosmb')->with(compact('usersCount', 'usersData', 'masa'));
+    }
+
+    public function process(Request $request)
+    {
+        $nim = $request->post('nim');
+        $pdf = DataSertifOSMB::select('nama')->where('nim', $nim)->first();
+
+        if ($pdf == NULL) {
+            alert()->error('ErrorAlert', 'Anda Tidak Terdaftar OSMB');
+            return redirect('/sertifikatosmb');
+        } else {
+            $outputfile = public_path() . 'sertifikatosmb.pdf';
+            $this->fillPDF(public_path() . '/master/sertifikatosmb.pdf', $outputfile, $pdf->nama);
+
+            return response()->file($outputfile);
+        }
+    }
+
+    public function fillPDF($file, $outputfile, $nama)
+    {
+
+
+        // Cetak Cert
+        // initiate FPDI
+        $pdf = new FPDI();
+
+        // set the source file
+        $pdf->setSourceFile($file);
+        // import page 1
+        $template = $pdf->importPage(1);
+        $size = $pdf->getTemplateSize($template);
+        $pdf->AddPage($size['orientation'], array($size['width'], $size['height']));
+        // use the imported page and place it at point 10,10 with a width of 100 mm
+        $pdf->useTemplate($template);
+        $name = strtoupper($nama);
+        // now write some text above the imported page
+        $pdf->SetFont('Helvetica', "", 25);
+        $pdf->SetTextColor(0, 0, 0);
+        $panjangnama = $pdf->GetStringWidth($name) - 5;
+        $pdf->SetXY(143 - ($panjangnama / 2), 90);
+        $pdf->Write(0, $name);
+
+        return $pdf->Output($outputfile, 'F');
+    }
+}
