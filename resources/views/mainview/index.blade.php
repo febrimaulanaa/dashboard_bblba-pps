@@ -33,7 +33,7 @@
                 </div>
             </div>
         </header>
-        <section class="pt-3 pb-4" id="count-stats">
+        {{-- <section class="pt-3 pb-4" id="count-stats">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
@@ -68,14 +68,14 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         <section class="my-5 py-5">
             <div class="container">
                 <div class="row">
                     <div class="row justify-content-center text-center my-sm-5">
                         <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Dashboard BBLBA</h2>
+                            <h2 class="text-dark mb-0">Dashboard BBLBA & PPS</h2>
                             <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
                             {{-- <p class="lead">We have created multiple options for you to put together and customise
                                 into pixel perfect pages. </p> --}}

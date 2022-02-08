@@ -156,11 +156,6 @@
                                   Surat Keterangan Mahasiswa Aktif
                               </a>
                           </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
-                                  Licenses (EULA)
-                              </a>
-                          </li>
                       </ul>
                   </div>
               </div>

@@ -9,6 +9,13 @@ class DataSertifOSMB extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'id',
+        'masa',
+        'nama',
+        'nim',
+        'prodi',
+    ];
     protected $table = 'datasertif_osmb';
     protected $primaryKey = 'id';
 }

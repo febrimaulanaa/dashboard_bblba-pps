@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\DaftarTutorController;
 use App\Http\Controllers\SertifikatOSMBController;
+use App\Http\Controllers\TestController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +17,7 @@ use App\Http\Controllers\SertifikatOSMBController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Tampilan Utama
 
 Route::get('/', function () {
     return view('mainview.index');
@@ -28,3 +32,19 @@ Route::post('/cetaksertifikat', [SertifikatController::class, 'process'])->name(
 //Sertif OSMB
 Route::get('/sertifikatosmb', [SertifikatOSMBController::class, 'index'])->name('sertifosmb');
 Route::post('/cetaksertifikatosmb', [SertifikatOSMBController::class, 'process'])->name('cetak');
+
+// ---------------------------------------------------------------------------------------------------------------
+
+//Admin
+
+Route::get('/admin', [AdminController::class, 'index'])->name('hlmadmin');
+Route::get('/admin/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
+Route::get('/admin/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
+
+// Export & Import Excel PKBJJ
+Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
+Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
+
+// Export & Import Excel OSMB
+Route::get('/osmb/export_excelosmb', [TestController::class, 'export_excelosmb'])->name('exportosmb');
+Route::post('/osmb/import_excelosmb', [TestController::class, 'import_excelosmb'])->name('importosmb');

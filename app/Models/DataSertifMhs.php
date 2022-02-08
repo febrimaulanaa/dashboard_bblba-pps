@@ -9,6 +9,13 @@ class DataSertifMhs extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'id',
+        'masa',
+        'nama',
+        'nim',
+        'prodi',
+    ];
     protected $table = 'datasertif_mhs';
     protected $primaryKey = 'id';
 }
