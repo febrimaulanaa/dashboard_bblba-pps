@@ -19,16 +19,11 @@ class AdminController extends Controller
         return view('backend.mainview.index');
     }
 
+    //PKBJJ
     public function admin_pkbjj()
     {
         $pkbjj = DataSertifMhs::all();
         return view('backend.pkbjj.data_pkbjj', compact('pkbjj'));
-    }
-
-    public function admin_osmb()
-    {
-        $osmb = DataSertifOSMB::all();
-        return view('backend.osmb.data_osmb', compact('osmb'));
     }
 
     public function export_excel()
@@ -36,10 +31,6 @@ class AdminController extends Controller
         return Excel::download(new PKBJJExport, 'MhsPKBJJ.xlsx');
     }
 
-    public function export_excelosmb()
-    {
-        return Excel::download(new OSMBExport, 'MhsOSMB.xlsx');
-    }
 
     public function import_excel(Request $request)
     {
@@ -67,6 +58,19 @@ class AdminController extends Controller
 
         // alihkan halaman kembali
         return redirect()->back()->with(compact('pkbjj'));
+    }
+
+    //OSMB
+
+    public function admin_osmb()
+    {
+        $osmb = DataSertifOSMB::all();
+        return view('backend.osmb.data_osmb', compact('osmb'));
+    }
+
+    public function export_excelosmb()
+    {
+        return Excel::download(new OSMBExport, 'MhsOSMB.xlsx');
     }
 
     public function import_excelosmb(Request $request)

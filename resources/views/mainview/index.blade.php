@@ -4,7 +4,7 @@
 
     <body class="presentation-page">
         <header class="header-2">
-            <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/background.jpg')">
+            <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/ut.jpeg')">
                 <div class="container">
                     <div class="row">
                         {{-- <div class="col-lg-7 text-center mx-auto">

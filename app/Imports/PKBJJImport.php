@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-
 use App\Models\DataSertifMhs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;

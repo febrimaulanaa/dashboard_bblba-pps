@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\DaftarTutorController;
 use App\Http\Controllers\SertifikatOSMBController;
-use App\Http\Controllers\TestController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,5 +44,5 @@ Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->nam
 Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
 
 // Export & Import Excel OSMB
-Route::get('/osmb/export_excelosmb', [TestController::class, 'export_excelosmb'])->name('exportosmb');
-Route::post('/osmb/import_excelosmb', [TestController::class, 'import_excelosmb'])->name('importosmb');
+Route::get('/osmb/export_excelosmb', [AdminController::class, 'export_excelosmb'])->name('exportosmb');
+Route::post('/osmb/import_excelosmb', [AdminController::class, 'import_excelosmb'])->name('importosmb');
