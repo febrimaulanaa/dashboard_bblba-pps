@@ -135,7 +135,7 @@
                     </div>
                     <div class="col-lg-9">
                         <div class="row mt-3">
-                            <div class="col-md-4 mt-md-0 mt-4">
+                            {{-- <div class="col-md-4 mt-md-0 mt-4">
                                 <a href="./sections/navigation/nav-tabs.html">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
                                         <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}" alt="">
@@ -145,7 +145,7 @@
                                         <p class="text-secondary text-sm">Jadwal Tutorial Webinar UT Jakarta 2021.2</p>
                                     </div>
                                 </a>
-                            </div>
+                            </div> --}}
                             <div class="col-md-4 mt-md-0 mt-4">
                                 <a href="{{ route('daftartutor') }}">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
