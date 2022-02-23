@@ -25,8 +25,8 @@ class SertifikatController extends Controller
             alert()->error('ErrorAlert', 'Anda Tidak Terdaftar PKBJJ');
             return redirect('/sertifikat');
         } else {
-            $outputfile = public_path() . 'sertifikatpkbjj.pdf';
-            $this->fillPDF(public_path() . '/master/sertifikatpkbjj.pdf', $outputfile, $pdf->nama);
+            $outputfile = storage_path() . 'sertifikatpkbjj.pdf';
+            $this->fillPDF(storage_path() . '/template_sertif/sertifikatpkbjj.pdf', $outputfile, $pdf->nama);
 
             return response()->file($outputfile);
         }

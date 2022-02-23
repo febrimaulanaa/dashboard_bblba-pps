@@ -26,8 +26,8 @@ class SertifikatOSMBController extends Controller
             alert()->error('ErrorAlert', 'Anda Tidak Terdaftar OSMB');
             return redirect('/sertifikatosmb');
         } else {
-            $outputfile = public_path() . 'sertifikatosmb.pdf';
-            $this->fillPDF(public_path() . '/master/sertifikatosmb.pdf', $outputfile, $pdf->nama);
+            $outputfile = storage_path() . 'sertifikatosmb.pdf';
+            $this->fillPDF(storage_path() . '/template_sertif/sertifikatosmb.pdf', $outputfile, $pdf->nama);
 
             return response()->file($outputfile);
         }
