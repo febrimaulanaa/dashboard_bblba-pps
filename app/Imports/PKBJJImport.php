@@ -16,11 +16,9 @@ class PKBJJImport implements ToCollection
         foreach ($rows as $row) {
             $p = DataSertifMhs::create([
                 'masa' => $row[1],
-                'email' => $row[2],
-                'nama' => $row[3],
-                'nim' => $row[4],
-                'prodi' => $row[5],
-                'kelompok' => $row[6],
+                'nama' => $row[2],
+                'nim' => $row[3],
+                'prodi' => $row[4],
             ]);
         }
     }

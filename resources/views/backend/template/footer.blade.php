@@ -57,7 +57,7 @@
  <!-- Atlantis JS -->
  <script src="{{ asset('atlantis/assets/js/atlantis.min.js') }}"></script>
 
- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+ <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
 
 
  <script>

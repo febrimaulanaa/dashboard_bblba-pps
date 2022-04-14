@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Admin Dashboard BBLBA & PPS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{ asset('atlantis/assets/img/ut2.png') }}" width="100%" height="100%"
+    <link rel="icon" href="{{ asset('atlantis/assets/img/backut.png') }}" width="100%" height="100%"
         type="image/x-icon" />
 
     <!-- Fonts and icons -->
@@ -30,12 +30,14 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.dataTables.css') }}">
 
     <!-- DataTables -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <script type="text/javascript" src="{{ asset('assets/js/datatables_jquery.min.js') }}">
+    </script>
+    <link href="{{ asset('asset/js/jquery-3.5.1.js') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
 </head>
 
 <body data-background-color="blue">

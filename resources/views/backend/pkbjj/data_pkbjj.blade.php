@@ -1,8 +1,6 @@
 @extends('backend.template.master')
 
 @section('content')
-
-
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
@@ -91,9 +89,4 @@
             $('#example').DataTable();
         });
     </script>
-
-    <link href="https://code.jquery.com/jquery-3.5.1.js">
-    <link href="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js">
-    <link href=" https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js">
-
 @endsection

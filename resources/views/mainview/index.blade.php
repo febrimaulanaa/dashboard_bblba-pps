@@ -4,7 +4,7 @@
 
     <body class="presentation-page">
         <header class="header-2">
-            <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/ut.jpeg')">
+            <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/backut.png')">
                 <div class="container">
                     <div class="row">
                         {{-- <div class="col-lg-7 text-center mx-auto">
@@ -125,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="container mt-sm-5 mt-3">
+            {{-- <div class="container mt-sm-5 mt-3">
                 <div class="row pt-lg-6">
                     <div class="col-lg-3">
                         <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="col-lg-9">
                         <div class="row mt-3">
-                            {{-- <div class="col-md-4 mt-md-0 mt-4">
+                            <div class="col-md-4 mt-md-0 mt-4">
                                 <a href="./sections/navigation/nav-tabs.html">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
                                         <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}" alt="">
@@ -145,7 +145,7 @@
                                         <p class="text-secondary text-sm">Jadwal Tutorial Webinar UT Jakarta 2021.2</p>
                                     </div>
                                 </a>
-                            </div> --}}
+                            </div>
                             <div class="col-md-4 mt-md-0 mt-4">
                                 <a href="{{ route('daftartutor') }}">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
@@ -171,11 +171,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </section>
 
     </body>
 
     </html>
-
 @endsection
