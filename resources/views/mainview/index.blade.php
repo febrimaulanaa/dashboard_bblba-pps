@@ -94,6 +94,19 @@
                     <div class="col-lg-9">
                         <div class="row mt-3">
                             <div class="col-md-4">
+                                <a href="{{ route('sertifosmb') }}">
+                                    <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
+                                        <img class="w-100 m-auto" src="{{ asset('assets/img/sertifikat2.png') }}"
+                                            alt="">
+                                    </div>
+                                    <div class="mt-2 ms-2">
+                                        <h6 class="mb-0">Sertifikat Orientasi Studi Mahasiswa Baru (OSMB)</h6>
+                                        <p class="text-secondary text-sm">Sertifikat Orientasi Studi Mahasiswa Baru (OSMB)
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
                                 <a href="{{ route('sertif') }}">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
                                         <img class="w-100 m-auto" src="{{ asset('assets/img/sertifikat.png') }}" alt="">
@@ -103,19 +116,6 @@
                                             (PKBJJ)</h6>
                                         <p class="text-secondary text-sm">Sertifikat Pelatihan Keterampilan Belajar Jarak
                                             Jauh (PKBJJ)
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{{ route('sertifosmb') }}">
-                                    <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
-                                        <img class="w-100 m-auto" src="{{ asset('assets/img/sertifikat2.png') }}"
-                                            alt="">
-                                    </div>
-                                    <div class="mt-2 ms-2">
-                                        <h6 class="mb-0">Sertifikat Orientasi Studi Mahasiswa Baru (OSMB)</h6>
-                                        <p class="text-secondary text-sm">Sertifikat Orientasi Studi Mahasiswa Baru (OSMB)
                                         </p>
                                     </div>
                                 </a>

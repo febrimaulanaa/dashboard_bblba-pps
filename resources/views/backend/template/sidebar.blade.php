@@ -60,15 +60,15 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li
-                                class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'pkbjj' ? 'active' : '' }}">
-                                <a href="{{ route('adminpkbjj') }}">
-                                    <span class="sub-item">PKBJJ</span>
-                                </a>
-                            </li>
-                            <li
                                 class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'osmb' ? 'active' : '' }}">
                                 <a href="{{ route('adminosmb') }}">
                                     <span class="sub-item">OSMB</span>
+                                </a>
+                            </li>
+                            <li
+                                class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'pkbjj' ? 'active' : '' }}">
+                                <a href="{{ route('adminpkbjj') }}">
+                                    <span class="sub-item">PKBJJ</span>
                                 </a>
                             </li>
                         </ul>
