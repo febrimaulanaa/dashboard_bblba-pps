@@ -21,4 +21,6 @@
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/soft-design-system.css?v=1.0.5') }}" rel="stylesheet" />
+
+
 </head>

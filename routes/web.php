@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\DaftarTutorController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SertifikatOSMBController;
 /*
 |--------------------------------------------------------------------------
