@@ -27,13 +27,13 @@ class SertifikatOSMBController extends Controller
             return redirect('/sertifikatosmb');
         } else {
             $outputfile = storage_path() . 'sertifikatosmb.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/sertifikatosmb.pdf', $outputfile, $pdf->nama);
+            $this->fillPDF(storage_path() . '/template_sertif/sertifikatosmb.pdf', $outputfile, $pdf->nama, $nim);
 
             return response()->file($outputfile);
         }
     }
 
-    public function fillPDF($file, $outputfile, $nama)
+    public function fillPDF($file, $outputfile, $nama, $nim)
     {
 
 
@@ -56,6 +56,12 @@ class SertifikatOSMBController extends Controller
         $panjangnama = $pdf->GetStringWidth($name) - 5;
         $pdf->SetXY(143 - ($panjangnama / 2), 90);
         $pdf->Write(0, $name);
+
+        $pdf->SetFont('Helvetica', "", 20);
+        $pdf->SetTextColor(0, 0, 0);
+        $noindukmhs = $pdf->GetStringWidth($nim) - 5;
+        $pdf->SetXY(134 - ($noindukmhs / 2), 103);
+        $pdf->Write(0, "NIM : $nim");
 
         return $pdf->Output($outputfile, 'F');
     }

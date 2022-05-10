@@ -26,13 +26,13 @@ class SertifikatController extends Controller
             return redirect('/sertifikat');
         } else {
             $outputfile = storage_path() . 'sertifikatpkbjj.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/sertifikatpkbjj.pdf', $outputfile, $pdf->nama);
+            $this->fillPDF(storage_path() . '/template_sertif/sertifikatpkbjj.pdf', $outputfile, $pdf->nama, $nim);
 
             return response()->file($outputfile);
         }
     }
 
-    public function fillPDF($file, $outputfile, $nama)
+    public function fillPDF($file, $outputfile, $nama, $nim)
     {
 
 
@@ -55,6 +55,12 @@ class SertifikatController extends Controller
         $panjangnama = $pdf->GetStringWidth($name) - 5;
         $pdf->SetXY(143 - ($panjangnama / 2), 90);
         $pdf->Write(0, $name);
+
+        $pdf->SetFont('Helvetica', "", 20);
+        $pdf->SetTextColor(0, 0, 0);
+        $noindukmhs = $pdf->GetStringWidth($nim) - 5;
+        $pdf->SetXY(134 - ($noindukmhs / 2), 102);
+        $pdf->Write(0, "NIM : $nim");
 
         $template2 = $pdf->importPage(2);
         $pdf->AddPage($size['orientation'], array($size['width'], $size['height']));

@@ -36,9 +36,9 @@ Route::post('/cetaksertifikatosmb', [SertifikatOSMBController::class, 'process']
 
 //Admin
 
-Route::get('/admin', [AdminController::class, 'index'])->name('hlmadmin');
-Route::get('/admin/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
-Route::get('/admin/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
+Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');
+Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
+Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
 
 // Export & Import Excel PKBJJ
 Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
