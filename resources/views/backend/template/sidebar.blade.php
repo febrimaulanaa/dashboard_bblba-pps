@@ -71,6 +71,12 @@
                                     <span class="sub-item">PKBJJ</span>
                                 </a>
                             </li>
+                            <li
+                                class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'seminar' ? 'active' : '' }}">
+                                <a href="{{ route('adminseminar') }}">
+                                    <span class="sub-item">Seminar Akademik</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

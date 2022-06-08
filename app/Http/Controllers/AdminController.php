@@ -8,7 +8,10 @@ use App\Exports\PKBJJExport;
 use App\Imports\PKBJJImport;
 use Illuminate\Http\Request;
 use App\Models\DataSertifMhs;
+use App\Exports\SeminarExport;
+use App\Imports\SeminarImport;
 use App\Models\DataSertifOSMB;
+use App\Models\DataSertifSeminar;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -99,5 +102,44 @@ class AdminController extends Controller
 
         // alihkan halaman kembali
         return redirect()->back()->with(compact('osmb'));
+    }
+
+    public function admin_seminar()
+    {
+        $seminar = DataSertifSeminar::all();
+        return view('backend.seminar.data_seminar', compact('seminar'));
+    }
+
+    public function export_excelseminar()
+    {
+        return Excel::download(new SeminarExport, 'MhsSeminar.xlsx');
+    }
+
+    public function import_excelseminar(Request $request)
+    {
+        $seminar = DataSertifSeminar::all();
+
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        // upload ke folder file_siswa di dalam folder public
+        $file->move('file_seminar', $nama_file);
+
+        // import data
+        Excel::import(new SeminarImport, public_path('/file_seminar/' . $nama_file));
+
+        // notifikasi dengan session
+        toast('Data Berhasil Diimport!', 'success');
+
+        // alihkan halaman kembali
+        return redirect()->back()->with(compact('seminar'));
     }
 }
