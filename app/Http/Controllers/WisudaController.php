@@ -40,6 +40,7 @@ class WisudaController extends Controller
         // Cetak Cert
         // initiate FPDI
         $pdf = new FPDI();
+        
        
 
         // set the source file
@@ -77,7 +78,7 @@ class WisudaController extends Controller
         $pdf->SetFont('Helvetica', "", 20);
         $pdf->SetTextColor(0, 0, 0);
         $programstudi = $pdf->GetStringWidth($prodi);
-        $pdf->SetXY(90 - ($programstudi / 2), 150);
+        $pdf->SetXY(103 - ($programstudi / 2), 150);
         $pdf->Write(0, $prodi);
 
         $pdf->SetFont('Helvetica', "B", 30);
