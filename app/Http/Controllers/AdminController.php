@@ -369,10 +369,10 @@ class AdminController extends Controller
         $nama_file = rand() . $file->getClientOriginalName();
 
         // upload ke folder file_siswa di dalam folder public
-        $file->move('file_wisuda', $nama_file);
+        $file->move('file_seminar', $nama_file);
 
         // import data
-        Excel::import(new WisudaImport, public_path('/file_wisuda/' . $nama_file));
+        Excel::import(new WisudaImport, public_path('/file_seminar/' . $nama_file));
 
         // notifikasi dengan session
         toast('Data Berhasil Diimport!', 'success');
