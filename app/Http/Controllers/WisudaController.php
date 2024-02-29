@@ -55,47 +55,53 @@ class WisudaController extends Controller
     
         // now write some text above the imported page
 
-        $pdf->SetFont('Helvetica', 'B', 58);
+        $pdf->SetFont('Helvetica', 'B', 30);
         $pdf->SetTextColor(0, 0, 0);
         $nokel = $pdf->GetStringWidth($kelompok);
-        $pdf->SetXY(49 - ($nokel / 2), 81);
-        $pdf->Write(0, "KELOMPOK");
-        $pdf->SetXY(102 - ($nokel / 2), 82);
-        $pdf->Write(45, $kelompok);
+        $pdf->SetXY(27 - ($nokel / 2), 81);
+        $pdf->Write(0, "Orientasi Studi Mahasiswa Baru");
+        $pdf->SetXY(87 - ($nokel / 2), 96);
+        $pdf->Write(0, "(OSMB)");
+
+        $pdf->SetFont('Helvetica', 'B', 30);
+        $pdf->SetTextColor(0, 0, 0);
+        $nokel = $pdf->GetStringWidth($kelompok);
+        $pdf->SetXY(91 - ($nokel / 2), 81);
+        $pdf->Write(83, "Meja $kelompok" );
 
         $pdf->SetFont('Helvetica', "", 23);
         $pdf->SetTextColor(0, 0, 0);
         $panjangnama = $pdf->GetStringWidth($name) - 5;
-        $pdf->SetXY(100 - ($panjangnama / 2), 126);
-        $pdf->Write(0, $name);
+        $pdf->SetXY(100 - ($panjangnama / 2), 146);
+        $pdf->Write(83, $name);
 
         $pdf->SetFont('Helvetica', "", 20);
         $pdf->SetTextColor(0, 0, 0);
         $noindukmhs = $pdf->GetStringWidth($nim) - 5;
-        $pdf->SetXY(90 - ($noindukmhs / 2), 138);
-        $pdf->Write(0, "NIM : $nim");
+        $pdf->SetXY(90 - ($noindukmhs / 2), 158);
+        $pdf->Write(89, "NIM : $nim");
 
         $pdf->SetFont('Helvetica', "", 20);
         $pdf->SetTextColor(0, 0, 0);
         $programstudi = $pdf->GetStringWidth($prodi);
-        $pdf->SetXY(103 - ($programstudi / 2), 150);
-        $pdf->Write(0, $prodi);
+        $pdf->SetXY(103 - ($programstudi / 2), 170);
+        $pdf->Write(97, $prodi);
 
         $pdf->SetFont('Helvetica', "B", 30);
         $pdf->SetTextColor(0, 0, 0);
         $nourut = $pdf->GetStringWidth($no_urut_ijazah);
-        $pdf->SetXY(59 - ($nourut / 2), 176);
-        $pdf->Write(0, "Nomor Urut Ijazah");
-        $pdf->SetXY(102 - ($nourut / 2), 167);
+        $pdf->SetXY(59 - ($nourut / 2), 143);
+        $pdf->Write(0, "Nomor Urut Peserta");
+        $pdf->SetXY(102 - ($nourut / 2), 136);
         $pdf->Write(45, $no_urut_ijazah);
 
-        $pdf->SetFont('Helvetica', "B", 30);
-        $pdf->SetTextColor(0, 0, 0);
-        $mejaijazah = $pdf->GetStringWidth($no_meja_ambil_ijazah);
-        $pdf->SetXY(59 - ($mejaijazah / 2), 209);
-        $pdf->Write(0, "Nomor Meja Ijazah");
-        $pdf->SetXY(102 - ($mejaijazah / 2), 201);
-        $pdf->Write(45, $no_meja_ambil_ijazah);
+        // $pdf->SetFont('Helvetica', "B", 30);
+        // $pdf->SetTextColor(0, 0, 0);
+        // $mejaijazah = $pdf->GetStringWidth($no_meja_ambil_ijazah);
+        // $pdf->SetXY(59 - ($mejaijazah / 2), 209);
+        // $pdf->Write(0, "Nomor Meja Ijazah");
+        // $pdf->SetXY(102 - ($mejaijazah / 2), 201);
+        // $pdf->Write(45, $no_meja_ambil_ijazah);
 
 
         return $pdf->Output($outputfile, 'F');
