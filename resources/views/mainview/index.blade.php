@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="container mt-sm-5 mt-3">
+            <!-- <div class="container mt-sm-5 mt-3">
                 <div class="row pt-lg-6">
                     <div class="col-lg-3">
                         <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
@@ -179,14 +179,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="container mt-sm-5 mt-3">
                 <div class="row pt-lg-6">
                     <div class="col-lg-3">
                         <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
-                            <h3>Wisuda Daerah</h3>
-                            <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Nomor Meja Ijazah</h6>
+                            <h3>Cek Meja Absensi OSMB</h3>
+                            <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Meja Absensi Orientasi Mahasiswa Baru</h6>
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -194,10 +194,10 @@
                             <div class="col-md-4 mt-md-0 mt-4">
                                 <a href="{{ route('mejaijazah') }}">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
-                                        <img class="w-100 m-auto" src="{{ asset('assets/img/meja2.png') }}" alt="">
+                                        <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}" alt="">
                                     </div>
                                     <div class="mt-2 ms-2">
-                                        <h6 class="mb-0">Nomor Meja Ijazah</h6>
+                                        <h6 class="mb-0">Nomor Meja Absensi</h6>
                                         </p>
                                     </div>
                                 </a>

@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="row justify-content-center text-center my-sm-5">
                         <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Form Cek Meja Ambil Ijazah
+                            <h2 class="text-dark mb-0">Form Cek Meja Absensi Mahasiswa
                             </h2>
                             <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
                             {{-- <p class="lead">We have created multiple options for you to put together and customise
@@ -54,7 +54,7 @@
                         <h4>Nomor Induk Mahasiswa</h4>
                         <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
                         <br>
-                        <button type="submit" class="btn btn-primary">Cek Nomor Meja Ijazah</button>
+                        <button type="submit" class="btn btn-primary">Cek Nomor Meja Absensi</button>
                     </form>
                 </div>
             </div>
