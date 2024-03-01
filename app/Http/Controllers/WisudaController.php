@@ -22,7 +22,7 @@ class WisudaController extends Controller
         $pdf = Wisuda::select('kelompok', 'prodi','no_meja_ambil_ijazah', 'no_urut_ijazah', 'nama')->where('nim', $nim)->first();
 
         if ($pdf == NULL) {
-            alert()->error('Maaf', 'Anda Tidak Terdaftar');
+            alert()->error('Maaf', 'Anda Tidak Terdaftar Wisuda Daerah UT Jakarta');
             return redirect('/mejaijazah');
         } else {
             $outputfile = storage_path() . 'mejaijazah.pdf';
@@ -78,14 +78,14 @@ class WisudaController extends Controller
         $pdf->SetFont('Helvetica', "", 20);
         $pdf->SetTextColor(0, 0, 0);
         $noindukmhs = $pdf->GetStringWidth($nim) - 5;
-        $pdf->SetXY(93 - ($noindukmhs / 2), 158);
+        $pdf->SetXY(94 - ($noindukmhs / 2), 158);
         $pdf->Write(89, "NIM : $nim");
 
-        // $pdf->SetFont('Helvetica', "", 20);
-        // $pdf->SetTextColor(0, 0, 0);
-        // $programstudi = $pdf->GetStringWidth($prodi);
-        // $pdf->SetXY(103 - ($programstudi / 2), 170);
-        // $pdf->Write(97, $prodi);
+        $pdf->SetFont('Helvetica', "B", 20);
+        $pdf->SetTextColor(0, 0, 0);
+        $programstudi = $pdf->GetStringWidth($prodi);
+        $pdf->SetXY(71 - ($programstudi / 2), 170);
+        $pdf->Write(101, "Tanggal Pelaksanaan $prodi");
 
         $pdf->SetFont('Helvetica', "B", 30);
         $pdf->SetTextColor(0, 0, 0);
