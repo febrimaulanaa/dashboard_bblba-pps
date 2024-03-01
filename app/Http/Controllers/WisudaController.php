@@ -22,7 +22,7 @@ class WisudaController extends Controller
         $pdf = Wisuda::select('kelompok', 'prodi','no_meja_ambil_ijazah', 'no_urut_ijazah', 'nama')->where('nim', $nim)->first();
 
         if ($pdf == NULL) {
-            alert()->error('Maaf', 'Anda Tidak Terdaftar Wisuda Daerah UT Jakarta');
+            alert()->error('Maaf', 'Anda Tidak Terdaftar');
             return redirect('/mejaijazah');
         } else {
             $outputfile = storage_path() . 'mejaijazah.pdf';
@@ -72,27 +72,31 @@ class WisudaController extends Controller
         $pdf->SetFont('Helvetica', "", 23);
         $pdf->SetTextColor(0, 0, 0);
         $panjangnama = $pdf->GetStringWidth($name) - 5;
-        $pdf->SetXY(100 - ($panjangnama / 2), 146);
+        $pdf->SetXY(103 - ($panjangnama / 2), 146);
         $pdf->Write(83, $name);
 
         $pdf->SetFont('Helvetica', "", 20);
         $pdf->SetTextColor(0, 0, 0);
         $noindukmhs = $pdf->GetStringWidth($nim) - 5;
-        $pdf->SetXY(90 - ($noindukmhs / 2), 158);
+        $pdf->SetXY(93 - ($noindukmhs / 2), 158);
         $pdf->Write(89, "NIM : $nim");
 
-        $pdf->SetFont('Helvetica', "", 20);
+        // $pdf->SetFont('Helvetica', "", 20);
+        // $pdf->SetTextColor(0, 0, 0);
+        // $programstudi = $pdf->GetStringWidth($prodi);
+        // $pdf->SetXY(103 - ($programstudi / 2), 170);
+        // $pdf->Write(97, $prodi);
+
+        $pdf->SetFont('Helvetica', "B", 30);
         $pdf->SetTextColor(0, 0, 0);
-        $programstudi = $pdf->GetStringWidth($prodi);
-        $pdf->SetXY(103 - ($programstudi / 2), 170);
-        $pdf->Write(97, $prodi);
+        $mejaijazah = $pdf->GetStringWidth($no_meja_ambil_ijazah);
+        $pdf->SetXY(59 - ($mejaijazah / 2), 143);
+        $pdf->Write(0, "Nomor Urut Peserta");
 
         $pdf->SetFont('Helvetica', "B", 30);
         $pdf->SetTextColor(0, 0, 0);
         $nourut = $pdf->GetStringWidth($no_urut_ijazah);
-        $pdf->SetXY(59 - ($nourut / 2), 143);
-        $pdf->Write(0, "Nomor Urut Peserta");
-        $pdf->SetXY(102 - ($nourut / 2), 136);
+        $pdf->SetXY(104 - ($nourut / 2), 136);
         $pdf->Write(45, $no_urut_ijazah);
 
         // $pdf->SetFont('Helvetica', "B", 30);
