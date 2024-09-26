@@ -22,7 +22,7 @@
       </div>
   </div>
   <!-- -------   END PRE-FOOTER 2 - simple social line w/ title & 3 buttons    -------- -->
-  <footer class="footer pt-5 mt-5">
+   <footer class="footer pt-5 mt-5">
       <hr class="horizontal dark mb-5">
       <div class="container">
           <div class=" row">
@@ -30,7 +30,7 @@
                   <div>
                       <h6 class="text-gradient text-primary font-weight-bolder">Dashboard BBLBA</h6>
                   </div>
-                  <div>
+                  <!-- <div>
                       <h6 class="mt-3 mb-2 opacity-8">SOSIAL MEDIA</h6>
                       <ul class="d-flex flex-row ms-n3 nav">
                           <li class="nav-item">
@@ -56,10 +56,10 @@
                               </a>
                           </li>
                       </ul>
-                  </div>
+                  </div> -->
               </div>
               <div class="col-md-2 col-sm-6 col-6 mb-4">
-                  <div>
+                  <!-- <div>
                       <h6 class="text-gradient text-primary text-sm">ALAMAT UNIVERSITAS TERBUKA JAKARTA</h6>
                       <ul class="flex-column ms-n3 nav">
                           <li class="nav-item">
@@ -68,9 +68,9 @@
                               </a>
                           </li>
                       </ul>
-                  </div>
+                  </div> -->
               </div>
-              <div class="col-md-2 col-sm-6 col-6 mb-4">
+              <!-- <div class="col-md-2 col-sm-6 col-6 mb-4">
                   <div>
                       <h6 class="text-gradient text-primary text-sm">HUBUNGI KAMI</h6>
                       <ul class="flex-column ms-n3 nav">
@@ -104,8 +104,8 @@
                           </li>
                       </ul>
                   </div>
-              </div>
-              <div class="col-md-2 col-sm-6 col-6 mb-4">
+              </div> -->
+              <!-- <div class="col-md-2 col-sm-6 col-6 mb-4">
                   <div>
                       <h6 class="text-gradient text-primary text-sm">UT ONLINE</h6>
                       <ul class="flex-column ms-n3 nav">
@@ -136,9 +136,9 @@
                           </li>
                       </ul>
                   </div>
-              </div>
+              </div> -->
               <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
-                  <div>
+                  <!-- <div>
                       <h6 class="text-gradient text-primary text-sm">PELAYANAN ONLINE</h6>
                       <ul class="flex-column ms-n3 nav">
                           <li class="nav-item">
@@ -157,9 +157,9 @@
                               </a>
                           </li>
                       </ul>
-                  </div>
+                  </div> -->
               </div>
-              {{-- <div class="col-12">
+              <!-- <div class="col-12">
                   <div class="text-center">
                       <p class="my-4 text-sm">
                           <script>
@@ -168,7 +168,7 @@
                               target="_blank">Creative Tim</a>.
                       </p>
                   </div>
-              </div> --}}
+              </div> -->
           </div>
       </div>
   </footer>

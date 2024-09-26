@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="row justify-content-center text-center my-sm-5">
                         <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Dashboard BBLBA & PPS</h2>
+                            <h2 class="text-dark mb-0">Dashboard BBLBA</h2>
                             <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
                             {{-- <p class="lead">We have created multiple options for you to put together and customise
                                 into pixel perfect pages. </p> --}}
@@ -155,64 +155,38 @@
             </div>
 
             <!-- <div class="container mt-sm-5 mt-3">
-                <div class="row pt-lg-6">
-                    <div class="col-lg-3">
-                        <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
-                            <h3>LPKBJJ</h3>
-                            <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Jadwal LPKBJJ</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row mt-3">
-                            <div class="col-md-4 mt-md-0 mt-4">
-                                <a href="{{ route('jadwalpkbjj') }}">
-                                    <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
-                                        <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}" alt="">
-                                    </div>
-                                    <div class="mt-2 ms-2">
-                                        <h6 class="mb-0">Jadwal PKBJJ</h6>
-                                        <p class="text-secondary text-sm">Jadwal Pelatihan Keterampilan Jarak Jauh 2023.1
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="container mt-sm-5 mt-3">
-                <div class="row pt-lg-6">
-                    <div class="col-lg-3">
-                        <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
-                            <h3>Cek Meja Absensi OSMB</h3>
-                            <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Meja Absensi Orientasi Mahasiswa Baru</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row mt-3">
-                            <div class="col-md-4 mt-md-0 mt-4">
-                                <a href="{{ route('mejaijazah') }}">
-                                    <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
-                                        <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}" alt="">
-                                    </div>
-                                    <div class="mt-2 ms-2">
-                                        <h6 class="mb-0">Nomor Meja Absensi</h6>
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                        <div class="row pt-lg-6">
+                                                            <div class="col-lg-3">
+                                                                <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
+                                                                    <h3>LPKBJJ</h3>
+                                                                    <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Jadwal LPKBJJ</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <div class="row mt-3">
+                                                                    <div class="col-md-4 mt-md-0 mt-4">
+                                                                        <a href="{{ route('jadwalpkbjj') }}">
+                                                                            <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
+                                                                                <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}" alt="">
+                                                                            </div>
+                                                                            <div class="mt-2 ms-2">
+                                                                                <h6 class="mb-0">Jadwal PKBJJ</h6>
+                                                                                <p class="text-secondary text-sm">Jadwal Pelatihan Keterampilan Jarak Jauh 2023.1
+                                                                                </p>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
 
             {{-- <div class="container mt-sm-5 mt-3">
                 <div class="row pt-lg-6">
                     <div class="col-lg-3">
                         <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
-                            <h3>Jadwal Tuweb</h3>
-                            <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Jadwal Tuweb</h6>
+                            <h3>Jadwal Tutorial</h3>
+                            <h6 class="text-secondary font-weight-normal pe-3">Menu untuk Lihat Jadwal TTM/Tuweb</h6>
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -224,8 +198,8 @@
                                             alt="">
                                     </div>
                                     <div class="mt-2 ms-2">
-                                        <h6 class="mb-0">Jadwal Tuweb Mahasiswa</h6>
-                                        <p class="text-secondary text-sm">Jadwal Tutorial Webinar (TUWEB) Mahasiswa
+                                        <h6 class="mb-0">Jadwal Tutorial Tatap Muka / Tutorial Webinar Mahasiswa</h6>
+                                        <p class="text-secondary text-sm">Jadwal Tutorial Mahasiswa
                                         </p>
                                     </div>
                                 </a>
@@ -234,6 +208,34 @@
                     </div>
                 </div>
             </div> --}}
+            <div class="container mt-sm-5 mt-3">
+                <div class="row pt-lg-6">
+                    <div class="col-lg-3">
+                        <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
+                            <h3>Wisuda</h3>
+                            <h6 class="text-secondary font-weight-normal pe-3">Menu Untuk Lihat Meja Pengambilan Ijazah
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row mt-3">
+                            <div class="col-md-4 mt-md-0 mt-4">
+                                <a href="{{ route('mejaijazah') }}">
+                                    <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
+                                        <img class="w-100 m-auto" src="{{ asset('assets/img/jadwal.png') }}"
+                                            alt="">
+                                    </div>
+                                    <div class="mt-2 ms-2">
+                                        <h6 class="mb-0">Nomor Meja</h6>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
     </body>

@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="row justify-content-center text-center my-sm-5">
                         <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Cek Jadwal Tuweb Mahasiswa
+                            <h2 class="text-dark mb-0">Cek Jadwal Tutorial Tatap Muka/Tutorial Webinar Mahasiswa
                             </h2>
                             <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
                             {{-- <p class="lead">We have created multiple options for you to put together and customise
@@ -49,17 +49,80 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <form action="{{ route('cetak') }}" method="post">
-                        {{ csrf_field() }}
-                        <h4>Nomor Induk Mahasiswa</h4>
-                        <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
-                        <br>
-                        <button type="submit" class="btn btn-primary">Cek Jadwal</button>
-                    </form>
+                    <h4>Nomor Induk Mahasiswa</h4>
+                    <input type="text" id="data-id" class='form-control' name="nim" placeholder="Isikan NIM">
+                    <br>
+                    <button type="button" id="get-data" class="btn btn-primary">Cek Jadwal</button>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div id="result" class="mt-4">
+                            <!-- Hasil data akan ditampilkan di sini -->
+                            <p class="text-center text-muted">Data akan muncul di sini setelah pencarian.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#get-data').on('click', function() {
+                    var id = $('#data-id').val();
+
+                    if (id) {
+                        $.ajax({
+                            url: '/data/' + id,
+                            type: 'GET',
+                            success: function(data) {
+                                if (data.length > 0) {
+                                    var tableHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-bordered transparent-table">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th>ID</th>
+                                            <th>Masa</th>
+                                            <th>NIM</th>
+                                            <th>Nama Mahasiswa</th>
+                                            <th>Nama Tutor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+                                    data.forEach(function(item) {
+                                        tableHtml += `
+                                <tr>
+                                    <td>${item.id}</td>
+                                    <td>${item.masa}</td>
+                                    <td>${item.nim}</td>
+                                    <td>${item.nama_mhs}</td>
+                                    <td>${item.nama_tutor}</td>
+                                </tr>`;
+                                    });
+                                    tableHtml += `</tbody></table></div>`;
+                                    $('#result').html(tableHtml);
+                                } else {
+                                    $('#result').html(
+                                        '<p class="text-danger text-center">Data tidak ditemukan.</p>'
+                                    );
+                                }
+                            },
+                            error: function() {
+                                $('#result').html(
+                                    '<p class="text-danger text-center">Terjadi kesalahan saat mengambil data.</p>'
+                                );
+                            }
+                        });
+                    } else {
+                        $('#result').html(
+                            '<p class="text-warning text-center">Masukkan ID terlebih dahulu.</p>');
+                    }
+                });
+            });
+        </script>
 
     </body>
 
