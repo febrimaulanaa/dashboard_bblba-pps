@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="row justify-content-center text-center my-sm-5">
                         <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Form Cek Meja Absensi Mahasiswa
+                            <h2 class="text-dark mb-0">Form Cek Meja Ambil Ijazah
                             </h2>
                             <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
                             {{-- <p class="lead">We have created multiple options for you to put together and customise
