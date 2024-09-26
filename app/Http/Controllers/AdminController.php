@@ -390,6 +390,16 @@ class AdminController extends Controller
         return view('backend.tuweb.data_tuweb_mhs')->with(compact('tuweb'));
     }
 
+    public function show($id)
+    {
+
+        // Mengambil data berdasarkan NIM
+        $data = JadwalTuweb::where('nim', $id)->get();
+
+        // Mengembalikan data dalam format JSON
+        return response()->json($data);
+    }
+
     public function export_exceltuweb()
     {
         return Excel::download(new TuwebExport, 'MahasiswaTuweb.xlsx');

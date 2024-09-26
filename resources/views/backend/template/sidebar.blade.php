@@ -116,7 +116,7 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-layer-group"></i>
                         <p>TTM & Tuweb</p>
@@ -124,13 +124,13 @@
                     </a>
                     <ul class="nav nav-collapse">
                         <li
-                            class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'admintuweb' ? 'active' : '' }}">
+                            class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'tuweb' ? 'active' : '' }}">
                             <a href="{{ route('admintuweb') }}">
                                 <span class="sub-item">Jadwal TTM & Tuweb</span>
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
             </ul>
         </div>
     </div>

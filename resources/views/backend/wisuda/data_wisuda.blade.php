@@ -56,8 +56,9 @@
                                                         </div>
                                                         <div class="form-group">
                                                             No Meja Ambil Ijazah: <br>
-                                                            <input type="text" class="form-control" id="no_meja_ambil_ijazah"
-                                                                name="no_meja_ambil_ijazah" placeholder="">
+                                                            <input type="text" class="form-control"
+                                                                id="no_meja_ambil_ijazah" name="no_meja_ambil_ijazah"
+                                                                placeholder="">
                                                             <span id="taskError" class="alert-message"></span>
                                                         </div>
                                                         <div class="form-group">

@@ -54,7 +54,7 @@
                         <h4>Nomor Induk Mahasiswa</h4>
                         <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
                         <br>
-                        <button type="submit" class="btn btn-primary">Cek Nomor Meja Absensi</button>
+                        <button type="submit" class="btn btn-primary">Cek Nomor Meja Ijazah</button>
                     </form>
                 </div>
             </div>
