@@ -205,16 +205,16 @@ class WisudaController extends Controller
         $pdf->Write(45, "Nomor Meja Ijazah");
 
         // Ambil lebar teks variabel $no_urut_ijazah
-        $lebarTeksNomorMeja = $pdf->GetStringWidth($no_urut_ijazah);
+        $lebarTeksNomorMeja = $pdf->GetStringWidth($no_meja_ambil_ijazah);
 
-        // Hitung posisi X untuk teks $no_urut_ijazah agar berada di tengah
+        // Hitung posisi X untuk teks $no_meja_ambil_ijazah agar berada di tengah
         $posisiXNomorMeja = ($lebarHalaman - $lebarTeksNomorMeja) / 2;
 
-        // Set posisi X dan Y untuk teks $no_urut_ijazah, Y digeser lebih ke bawah (misalnya 140)
+        // Set posisi X dan Y untuk teks $no_meja_ambil_ijazah, Y digeser lebih ke bawah (misalnya 140)
         $pdf->SetXY($posisiXNomorMeja, 212); // Sesuaikan Y agar berada di bawah teks sebelumnya
 
         // Cetak teks varNomor Meja Ijazah"
-        $pdf->Write(45, $no_urut_ijazah);
+        $pdf->Write(45, $no_meja_ambil_ijazah);
 
 
         return $pdf->Output($outputfile, 'F');
