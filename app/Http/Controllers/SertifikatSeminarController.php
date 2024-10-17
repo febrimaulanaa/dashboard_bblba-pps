@@ -20,49 +20,78 @@ class SertifikatSeminarController extends Controller
     public function process(Request $request)
     {
         $nim = $request->post('nim');
-        $pdf = DataSertifSeminar::select('nama')->where('nim', $nim)->first();
+        $pdf = DataSertifSeminar::select('nama', 'prodi')->where('nim', $nim)->first(); // Ambil juga kolom prodi
 
         if ($pdf == NULL) {
             alert()->error('ErrorAlert', 'Anda Tidak Terdaftar Kegiatan Seminar Akademik');
             return redirect('/sertifikatseminar');
         } else {
-            $outputfile = storage_path() . 'sertifikatseminar.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/sertifikatseminar.pdf', $outputfile, $pdf->nama, $nim);
+            $outputfile = storage_path() . '/sertifikatseminar.pdf';
+            $this->fillPDF(storage_path() . '/template_sertif/sertifikatseminar.pdf', $outputfile, $pdf->nama, $nim, $pdf->prodi); // Tambahkan $pdf->prodi
 
             return response()->file($outputfile);
         }
     }
 
-    public function fillPDF($file, $outputfile, $nama, $nim)
+    public function fillPDF($file, $outputfile, $nama, $nim, $prodi)
     {
-
-
-        // Cetak Cert
         // initiate FPDI
         $pdf = new FPDI();
 
-        // set the source file
+        // Set the source file
         $pdf->setSourceFile($file);
-        // import page 1
+        // Import page 1
         $template = $pdf->importPage(1);
         $size = $pdf->getTemplateSize($template);
         $pdf->AddPage($size['orientation'], array($size['width'], $size['height']));
-        // use the imported page and place it at point 10,10 with a width of 100 mm
+        // Use the imported page
         $pdf->useTemplate($template);
-        $name = strtoupper($nama);
-        // now write some text above the imported page
-        $pdf->SetFont('Helvetica', "", 25);
+
+        // Set font and color
+        $pdf->SetFont('Helvetica', '', 25);
         $pdf->SetTextColor(0, 0, 0);
-        $panjangnama = $pdf->GetStringWidth($name) - 5;
-        $pdf->SetXY(143 - ($panjangnama / 2), 98);
+
+        // Convert the name to uppercase
+        $name = strtoupper($nama);
+
+        // Calculate the width of the page and the text
+        $pageWidth = $pdf->GetPageWidth();
+        $textWidthName = $pdf->GetStringWidth($name);
+
+        // Calculate the X position for centering the text
+        $centerXName = ($pageWidth - $textWidthName) / 2;
+
+        // Set the X and Y position for the text
+        $pdf->SetXY($centerXName, 78);
         $pdf->Write(0, $name);
 
-        $pdf->SetFont('Helvetica', "", 18);
-        $pdf->SetTextColor(0, 0, 0);
-        $noindukmhs = $pdf->GetStringWidth($nim) - 5;
-        $pdf->SetXY(134 - ($noindukmhs / 2), 110);
+        // Set font and size for the NIM
+        $pdf->SetFont('Helvetica', '', 18);
+
+        // Calculate the width of the text "NIM : $nim"
+        $textWidthNIM = $pdf->GetStringWidth("NIM : $nim");
+
+        // Calculate the X position for centering the text
+        $centerXNIM = ($pageWidth - $textWidthNIM) / 2;
+
+        // Set the X and Y position for the NIM text
+        $pdf->SetXY($centerXNIM, 92);
         $pdf->Write(0, "NIM : $nim");
 
+        // Set font and size for the Program Studi
+        $pdf->SetFont('Helvetica', '', 18);
+
+        // Calculate the width of the text "Program Studi : $prodi"
+        $textWidthProdi = $pdf->GetStringWidth("Program Studi : $prodi");
+
+        // Calculate the X position for centering the text
+        $centerXProdi = ($pageWidth - $textWidthProdi) / 2;
+
+        // Set the X and Y position for the Program Studi text
+        $pdf->SetXY($centerXProdi, 100); // Sesuaikan posisi Y sesuai kebutuhan
+        $pdf->Write(0, "Program Studi : $prodi");
+
+        // Output the PDF
         return $pdf->Output($outputfile, 'F');
     }
 }
