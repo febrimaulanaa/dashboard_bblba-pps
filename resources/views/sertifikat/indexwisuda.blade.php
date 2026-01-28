@@ -49,12 +49,12 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <form action="{{ route('cetakmejaijazah') }}" method="post">
-                        {{ csrf_field() }}
+                    <form action="{{ route('mejaijazah.verify') }}" method="POST">
+                        @csrf
                         <h4>Nomor Induk Mahasiswa</h4>
                         <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
                         <br>
-                        <button type="submit" class="btn btn-primary">Cek Nomor Meja Ijazah</button>
+                        <button type="submit" class="btn btn-primary">Lihat Informasi Meja</button>
                     </form>
                 </div>
             </div>

@@ -53,10 +53,18 @@ Route::get('/sertifikatwtku', [SertifikatWTKUController::class, 'index'])->name(
 Route::post('/cetaksertifikatwtku', [SertifikatWTKUController::class, 'process'])->name('cetakwtku');
 
 //Cek Meja Wisuda
-Route::get('/mejaijazah', [WisudaController::class, 'index'])->name('mejaijazah');
-Route::post('/cetakmejaijazah', [WisudaController::class, 'process'])->name('cetakmejaijazah');
 
-// ---------------------------------------------------------------------------------------------------------------
+// 1. Form input NIM
+Route::get('/mejaijazah', [WisudaController::class, 'index'])
+    ->name('mejaijazah');
+
+// 2. Proses validasi & generate PDF (POST)
+Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
+    ->name('mejaijazah.verify');
+
+// 3. Download PDF (GET)
+Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
+    ->name('mejaijazah.download');
 
 //Admin
 Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');

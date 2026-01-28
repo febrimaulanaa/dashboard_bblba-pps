@@ -16,22 +16,58 @@ class WisudaController extends Controller
         return view('sertifikat.indexwisuda')->with(compact('usersCount', 'usersData'));
     }
 
-    public function process(Request $request)
+    public function verify(Request $request)
     {
-        $nim = $request->post('nim');
-        $pdf = Wisuda::select('kelompok', 'prodi', 'no_meja_ambil_ijazah', 'no_urut_ijazah', 'nama')->where('nim', $nim)->first();
+        $nim = $request->input('nim');
 
-        if ($pdf == NULL) {
+        $data = Wisuda::select(
+            'kelompok',
+            'prodi',
+            'no_meja_ambil_ijazah',
+            'no_urut_ijazah',
+            'nama'
+        )->where('nim', $nim)->first();
+
+        if (!$data) {
             alert()->error('Maaf', 'Anda Tidak Terdaftar Wisuda Daerah UT Jakarta');
-            return redirect('/mejaijazah');
-        } else {
-            $outputfile = storage_path() . 'mejaijazah.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/mejaijazah.pdf', $outputfile, $pdf->nama, $nim, $pdf->kelompok, $pdf->prodi, $pdf->no_meja_ambil_ijazah, $pdf->no_urut_ijazah);
-
-            return response()->file($outputfile);
+            return redirect()->route('mejaijazah');
         }
+
+        // nama file unik
+        $filename = 'mejaijazah_' . $nim . '.pdf';
+        $path = storage_path('app/public/' . $filename);
+
+        // generate PDF
+        $this->fillPDF(
+            storage_path('template_sertif/mejaijazah.pdf'),
+            $path,
+            $data->nama,
+            $nim,
+            $data->kelompok,
+            $data->prodi,
+            $data->no_meja_ambil_ijazah,
+            $data->no_urut_ijazah
+        );
+
+        // token untuk download
+        $token = sha1($nim . now());
+
+        session()->put('pdf_' . $token, $filename);
+
+        // redirect ke GET (AMAN)
+        return redirect()->route('mejaijazah.download', $token);
     }
 
+    public function download($token)
+    {
+        $filename = session()->get('pdf_' . $token);
+        if (!$filename) abort(404);
+
+        $path = storage_path('app/public/' . $filename);
+        if (!file_exists($path)) abort(404);
+
+        return response()->download($path)->deleteFileAfterSend(true);
+    }
 
     public function fillPDF($file, $outputfile, $nama, $nim, $kelompok, $prodi, $no_meja_ambil_ijazah, $no_urut_ijazah)
     {
