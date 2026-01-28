@@ -69,7 +69,6 @@ class WisudaController extends Controller
         return response()->download($path)->deleteFileAfterSend(true);
     }
 
-
     public function fillPDF($file, $outputfile, $nama, $nim, $kelompok, $prodi, $no_meja_ambil_ijazah, $no_urut_ijazah)
     {
 
