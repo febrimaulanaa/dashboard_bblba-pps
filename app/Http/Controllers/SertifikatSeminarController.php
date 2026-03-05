@@ -26,7 +26,7 @@ class SertifikatSeminarController extends Controller
             alert()->error('ErrorAlert', 'Anda Tidak Terdaftar Kegiatan Seminar Akademik');
             return redirect('/sertifikatseminar');
         } else {
-            $outputfile = storage_path() . '/sertifikatseminar.pdf';
+            $outputfile = storage_path() . 'sertifikatseminar.pdf';
             $this->fillPDF(storage_path() . '/template_sertif/sertifikatseminar.pdf', $outputfile, $pdf->nama, $nim, $pdf->prodi); // Tambahkan $pdf->prodi
 
             return response()->file($outputfile);
