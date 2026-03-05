@@ -22,7 +22,7 @@
       </div>
   </div>
   <!-- -------   END PRE-FOOTER 2 - simple social line w/ title & 3 buttons    -------- -->
-   <footer class="footer pt-5 mt-5">
+  <footer class="footer pt-5 mt-5">
       <hr class="horizontal dark mb-5">
       <div class="container">
           <div class=" row">
