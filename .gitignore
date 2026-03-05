@@ -18,3 +18,7 @@ yarn-error.log
 /public/file_wtku
 /public/file_seminar
 .DS_Store
+
+.DS_Store
+storage/*.pdf
+storage/template_sertif/*.pdf
