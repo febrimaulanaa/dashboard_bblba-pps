@@ -19,7 +19,7 @@ class SertifikatSeminarController extends Controller
 
     public function process(Request $request)
     {
-        $nim = $request->post('nim');
+        $nim = $request->nim;
 
         // Ambil data peserta
         $data = DataSertifSeminar::select('nama', 'prodi')

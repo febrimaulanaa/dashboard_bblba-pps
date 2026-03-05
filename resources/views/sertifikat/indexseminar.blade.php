@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <form action="{{ route('cetakseminar') }}" method="post">
+                    <form action="{{ route('cetakseminar') }}" method="GET">
                         {{ csrf_field() }}
                         <h4>Nomor Induk Mahasiswa</h4>
                         <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
