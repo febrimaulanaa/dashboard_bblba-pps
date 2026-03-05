@@ -20,17 +20,35 @@ class SertifikatSeminarController extends Controller
     public function process(Request $request)
     {
         $nim = $request->post('nim');
-        $pdf = DataSertifSeminar::select('nama', 'prodi')->where('nim', $nim)->first(); // Ambil juga kolom prodi
 
-        if ($pdf == NULL) {
-            alert()->error('ErrorAlert', 'Anda Tidak Terdaftar Kegiatan Seminar Akademik');
+        // Ambil data peserta
+        $data = DataSertifSeminar::select('nama', 'prodi')
+            ->where('nim', $nim)
+            ->first();
+
+        // Jika tidak ditemukan
+        if (!$data) {
+            alert()->error('Error', 'Anda Tidak Terdaftar Kegiatan Seminar Akademik');
             return redirect('/sertifikatseminar');
-        } else {
-            $outputfile = storage_path() . 'sertifikatseminar.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/sertifikatseminar.pdf', $outputfile, $pdf->nama, $nim, $pdf->prodi); // Tambahkan $pdf->prodi
-
-            return response()->file($outputfile);
         }
+
+        // Path template sertifikat
+        $templatePath = storage_path('template_sertif/sertifikatseminar.pdf');
+
+        // Output file (dibuat unik agar tidak bentrok)
+        $outputFile = storage_path('app/sertifikat_seminar_' . $nim . '.pdf');
+
+        // Generate PDF
+        $this->fillPDF(
+            $templatePath,
+            $outputFile,
+            $data->nama,
+            $nim,
+            $data->prodi
+        );
+
+        // Tampilkan file
+        return response()->file($outputFile);
     }
 
     public function fillPDF($file, $outputfile, $nama, $nim, $prodi)
