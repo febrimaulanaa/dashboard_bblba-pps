@@ -30,8 +30,7 @@ class SertifikatSeminarController extends Controller
                 ->with('error', 'Anda Tidak Terdaftar');
         }
 
-        $templatePath = storage_path('template_sertif/sertifikatseminar.pdf');
-
+        $templatePath = public_path('template_sertif/sertifikatseminar.pdf');
         $pdf = $this->fillPDF(
             $templatePath,
             $data->nama,
