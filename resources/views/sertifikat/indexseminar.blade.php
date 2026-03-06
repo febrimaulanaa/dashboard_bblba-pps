@@ -48,17 +48,17 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <form method="GET" action="{{ route('cetakseminar') }}">
-                        <h4>Nomor Induk Mahasiswa</h4>
 
-                        <input type="text" class="form-control" name="nim" placeholder="Isikan NIM">
+                    <h4>Nomor Induk Mahasiswa</h4>
 
-                        <br>
+                    <input type="text" id="nim" class="form-control" placeholder="Isikan NIM">
 
-                        <button type="submit" class="btn btn-primary">
-                            Buat Sertifikat
-                        </button>
-                    </form>
+                    <br>
+
+                    <button id="btnCetak" class="btn btn-primary">
+                        Buat Sertifikat
+                    </button>
+
                 </div>
             </div>
         </section>
@@ -85,4 +85,46 @@
             </div>
             </div>
         </section>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            $('#btnCetak').click(function() {
+
+                let nim = $('#nim').val();
+
+                if (nim == '') {
+                    alert('NIM harus diisi');
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ route('cetakseminar') }}",
+                    type: "POST",
+                    data: {
+                        nim: nim,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function(data) {
+
+                        let blob = new Blob([data], {
+                            type: 'application/pdf'
+                        });
+                        let link = document.createElement('a');
+
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "sertifikat_seminar_" + nim + ".pdf";
+
+                        link.click();
+                    },
+                    error: function() {
+                        alert('Data tidak ditemukan atau terjadi kesalahan');
+                    }
+                });
+
+            });
+        </script>
     @endsection

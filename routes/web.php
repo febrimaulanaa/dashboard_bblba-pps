@@ -46,7 +46,7 @@ Route::post('/cetaksertifikatosmb', [SertifikatOSMBController::class, 'process']
 
 //Sertif Seminar Akademik
 Route::get('/sertifikatseminar', [SertifikatSeminarController::class, 'index'])->name('sertifseminar');
-Route::get('/generate-seminar', [SertifikatSeminarController::class, 'process'])->name('cetakseminar');
+Route::post('/generate-seminar', [SertifikatSeminarController::class, 'process'])->name('cetakseminar');
 
 //Sertif WTKU
 Route::get('/sertifikatwtku', [SertifikatWTKUController::class, 'index'])->name('sertifwtku');
