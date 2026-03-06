@@ -110,18 +110,24 @@
                     },
                     success: function(data) {
 
-                        let blob = new Blob([data], {
+                        const blob = new Blob([data], {
                             type: 'application/pdf'
                         });
-                        let link = document.createElement('a');
 
-                        link.href = window.URL.createObjectURL(blob);
-                        link.download = "sertifikat_seminar_" + nim + ".pdf";
+                        const url = window.URL.createObjectURL(blob);
 
-                        link.click();
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = "sertifikat_seminar_" + nim + ".pdf";
+
+                        document.body.appendChild(a);
+                        a.click();
+
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
                     },
                     error: function() {
-                        alert('Data tidak ditemukan atau terjadi kesalahan');
+                        alert("Gagal membuat sertifikat");
                     }
                 });
 
