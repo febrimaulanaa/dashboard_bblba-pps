@@ -1,8 +1,7 @@
 @extends('template.master')
 
 @section('content')
-
-    <body class="presentation-page">
+    <class="presentation-page">
         <header class="header-2">
             <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/backut.png')">
                 <div class="container">
@@ -49,12 +48,16 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <form action="{{ route('cetakseminar') }}">
-                        {{ csrf_field() }}
+                    <form method="GET" action="{{ route('cetakseminar') }}">
                         <h4>Nomor Induk Mahasiswa</h4>
-                        <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
+
+                        <input type="text" class="form-control" name="nim" placeholder="Isikan NIM">
+
                         <br>
-                        <button type="submit" class="btn btn-primary">Buat Sertifikat</button>
+
+                        <button type="submit" class="btn btn-primary">
+                            Buat Sertifikat
+                        </button>
                     </form>
                 </div>
             </div>
@@ -82,9 +85,4 @@
             </div>
             </div>
         </section>
-
-
-    </body>
-
-    </html>
-@endsection
+    @endsection
