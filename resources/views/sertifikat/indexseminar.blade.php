@@ -47,19 +47,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <form method="POST" action="{{ route('cetakseminar') }}">
+                    @csrf
 
                     <h4>Nomor Induk Mahasiswa</h4>
 
-                    <input type="text" id="nim" class="form-control" placeholder="Isikan NIM">
+                    <input type="text" class="form-control" name="nim" placeholder="Isikan NIM">
 
                     <br>
 
-                    <button id="btnCetak" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         Buat Sertifikat
                     </button>
 
-                </div>
+                </form>
             </div>
         </section>
         <section class="pt-3 pb-4" id="count-stats">
@@ -87,50 +88,4 @@
         </section>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script>
-            $('#btnCetak').click(function() {
-
-                let nim = $('#nim').val();
-
-                if (nim == '') {
-                    alert('NIM harus diisi');
-                    return;
-                }
-
-                $.ajax({
-                    url: "{{ route('cetakseminar') }}",
-                    type: "POST",
-                    data: {
-                        nim: nim,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    xhrFields: {
-                        responseType: 'blob'
-                    },
-                    success: function(data) {
-
-                        const blob = new Blob([data], {
-                            type: 'application/pdf'
-                        });
-
-                        const url = window.URL.createObjectURL(blob);
-
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = "sertifikat_seminar_" + nim + ".pdf";
-
-                        document.body.appendChild(a);
-                        a.click();
-
-                        a.remove();
-                        window.URL.revokeObjectURL(url);
-                    },
-                    error: function() {
-                        alert("Gagal membuat sertifikat");
-                    }
-                });
-
-            });
-        </script>
     @endsection

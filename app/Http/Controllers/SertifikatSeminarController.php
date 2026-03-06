@@ -26,8 +26,8 @@ class SertifikatSeminarController extends Controller
             ->first();
 
         if (!$data) {
-            alert()->error('Error', 'Anda Tidak Terdaftar Kegiatan Seminar Akademik');
-            return redirect('/sertifikatseminar');
+            return redirect('/sertifikatseminar')
+                ->with('error', 'Anda Tidak Terdaftar');
         }
 
         $templatePath = storage_path('template_sertif/sertifikatseminar.pdf');
