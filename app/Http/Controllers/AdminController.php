@@ -25,6 +25,7 @@ use App\Imports\TuwebImport;
 use App\Models\JadwalPKBJJ;
 use App\Models\JadwalTuweb;
 use App\Models\Wisuda;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
@@ -421,27 +422,30 @@ class AdminController extends Controller
                 // Request dengan timeout 5 detik untuk mencegah ERR_EMPTY_RESPONSE
                 $loginResponse = \Illuminate\Support\Facades\Http::timeout(5)
                     ->post(env('API_LOGIN_URL', 'http://example.com/api/login'), [
-                        'username' => env('API_USERNAME', 'your_username'),
-                        'password' => env('API_PASSWORD', 'your_password'),
-                    ]);
+                    'username' => env('API_USERNAME', 'your_username'),
+                    'password' => env('API_PASSWORD', 'your_password'),
+                ]);
 
                 if ($loginResponse->successful() && $loginResponse->json('status')) {
+                    Log::info("Success login");
                     $token = $loginResponse->json('token');
                     \Illuminate\Support\Facades\Cache::put('api_login_token', $token, now()->addMinutes(30));
                 }
             }
 
             if ($token) {
+                Log::info("Token is valid");
                 $dataUrl = env('API_DATA_URL', 'http://example.com/api/data');
-                
+
                 $dataResponse = \Illuminate\Support\Facades\Http::withToken($token)
                     ->timeout(5)
                     ->get($dataUrl, [
-                        'nim' => $id,
-                        'masa' => $masa
-                    ]);
+                    'nim' => $id,
+                    'masa' => $masa
+                ]);
 
                 if ($dataResponse->successful()) {
+                    Log::info("Data is successfully fetched");
                     $jsonPayload = $dataResponse->json();
                     $apiData = isset($jsonPayload['data']) ? $jsonPayload['data'] : $jsonPayload;
                 }
@@ -450,13 +454,15 @@ class AdminController extends Controller
                     \Illuminate\Support\Facades\Cache::forget('api_login_token');
                 }
             }
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             // Tangkap timeout (RequestException) agar tidak menyebabkan ERR_EMPTY_RESPONSE
-            \Illuminate\Support\Facades\Log::warning('API UT Timeout/Error: ' . $e->getMessage());
+            Log::warning('API UT Timeout/Error: ' . $e->getMessage());
         }
 
         // Jika API gagal, timeout, atau datanya kosong, gunakan Database Lokal sebagai Fallback
         if (empty($apiData)) {
+            Log::info("Fallback to database cause empty data");
             $localData = JadwalTuweb::where('nim', $id)->get();
             return response()->json($localData);
         }
