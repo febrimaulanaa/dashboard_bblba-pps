@@ -399,15 +399,19 @@ class AdminController extends Controller
         $month = $now->month;
         $day = $now->day;
 
-        $isAgustusQ1 = ($month == 8 && $day <= 7);
+        $isMaretQ2    = ($month == 3 && $day >= 16);
+        $isAgustusQ1  = ($month == 8 && $day <= 15);
 
+        // Tahun akademik: Jan-Agustus Q1 = tahun sebelumnya, Agustus Q2-Des = tahun ini
         $tahunAktif = $year;
         if ($month < 8 || $isAgustusQ1) {
             $tahunAktif = $year - 1;
         }
 
-        $semester = 1; // Default 1 (Gasal)
-        if ($month >= 4 && ($month < 8 || $isAgustusQ1)) {
+        // Semester 2 (Genap): Maret Q2 (16 Mar) s.d Agustus Q1 (15 Ags)
+        // Semester 1 (Gasal): Agustus Q2 (16 Ags) s.d Maret Q1 (15 Mar)
+        $semester = 1; // Default Gasal
+        if ($isMaretQ2 || ($month >= 4 && $month <= 7) || $isAgustusQ1) {
             $semester = 2; // Genap
         }
 
