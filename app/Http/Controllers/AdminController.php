@@ -473,7 +473,26 @@ class AdminController extends Controller
             return response()->json($localData);
         }
 
-        return response()->json($apiData);
+        // Mapping API response ke format database lokal
+        $mappedData = array_map(function ($item) {
+            return [
+                'masa'             => $item['masa'] ?? null,
+                'nim'              => $item['nim'] ?? null,
+                'nama_mhs'         => $item['nama_mahasiswa'] ?? null,
+                'nama_tutor'       => $item['nama_tutor'] ?? null,
+                'kode_matkul'      => $item['kode_matakuliah'] ?? null,
+                'nama_matkul'      => $item['nama_matakuliah'] ?? null,
+                'link_tuweb'       => $item['link'] ?? null,
+                'lokasi'           => $item['lokasi'] ?? null,
+                'jam'              => $item['jam'] ?? null,
+                'hari'             => $item['nama_hari'] ?? null,
+                'tanggal_mulai'    => $item['tanggal_mulai'] ?? null,
+                'tanggal_selesai'  => $item['tanggal_selesai'] ?? null,
+                'keterangan'       => $item['status_tutorial'] ?? null,
+            ];
+        }, $apiData);
+
+        return response()->json($mappedData);
     }
 
     public function storetuweb(\Illuminate\Http\Request $request)
