@@ -421,6 +421,9 @@ class AdminController extends Controller
             if (!$token) {
                 // Request dengan timeout 5 detik untuk mencegah ERR_EMPTY_RESPONSE
                 $loginResponse = \Illuminate\Support\Facades\Http::timeout(5)
+                    ->withHeaders([
+                    'Content-Type' => 'application/json',
+                ])
                     ->post(env('API_LOGIN_URL', 'http://example.com/api/login'), [
                     'username' => env('API_USERNAME', 'your_username'),
                     'password' => env('API_PASSWORD', 'your_password'),
@@ -439,6 +442,9 @@ class AdminController extends Controller
 
                 $dataResponse = \Illuminate\Support\Facades\Http::withToken($token)
                     ->timeout(5)
+                    ->withHeaders([
+                    'Content-Type' => 'application/json',
+                ])
                     ->get($dataUrl, [
                     'nim' => $id,
                     'masa' => $masa
