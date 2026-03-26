@@ -10,4 +10,9 @@ class TuwebController extends Controller
     {
         return view('jadwaltuweb.jadwaltuwebmhs');
     }
+
+    public function indexTutor()
+    {
+        return view('jadwaltuweb.jadwaltuwebtutor');
+    }
 }

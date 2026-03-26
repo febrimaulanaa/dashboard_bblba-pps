@@ -399,8 +399,8 @@ class AdminController extends Controller
         $month = $now->month;
         $day = $now->day;
 
-        $isMaretQ2    = ($month == 3 && $day >= 16);
-        $isAgustusQ1  = ($month == 8 && $day <= 15);
+        $isMaretQ2 = ($month == 3 && $day >= 16);
+        $isAgustusQ1 = ($month == 8 && $day <= 15);
 
         // Tahun akademik: Jan-Agustus Q1 = tahun sebelumnya, Agustus Q2-Des = tahun ini
         $tahunAktif = $year;
@@ -428,9 +428,9 @@ class AdminController extends Controller
                     ->withHeaders([
                     'Content-Type' => 'application/json',
                 ])
-                    ->post(env('API_LOGIN_URL', 'http://example.com/api/login'), [
-                    'email' => env('API_USERNAME', 'your_username'),
-                    'password' => env('API_PASSWORD', 'your_password'),
+                    ->post(config('srs.base_url') . config('srs.endpoints.login'), [
+                    'email' => config('srs.email'),
+                    'password' => config('srs.password'),
                 ]);
 
                 if ($loginResponse->successful() && $loginResponse->json('status')) {
@@ -442,14 +442,13 @@ class AdminController extends Controller
 
             if ($token) {
                 Log::info("Token is valid");
-                $dataUrl = env('API_DATA_URL', 'http://example.com/api/data');
 
                 $dataResponse = \Illuminate\Support\Facades\Http::withToken($token)
                     ->timeout(5)
                     ->withHeaders([
                     'Content-Type' => 'application/json',
                 ])
-                    ->get($dataUrl, [
+                    ->get(config('srs.base_url') . config('srs.endpoints.tutorial'), [
                     'nim' => $id,
                     'masa' => $masa
                 ]);
@@ -480,19 +479,113 @@ class AdminController extends Controller
         // Mapping API response ke format database lokal
         $mappedData = array_map(function ($item) {
             return [
-                'masa'             => $item['masa'] ?? null,
-                'nim'              => $item['nim'] ?? null,
-                'nama_mhs'         => $item['nama_mahasiswa'] ?? null,
-                'nama_tutor'       => $item['nama_tutor'] ?? null,
-                'kode_matkul'      => $item['kode_matakuliah'] ?? null,
-                'nama_matkul'      => $item['nama_matakuliah'] ?? null,
-                'link_tuweb'       => $item['link'] ?? null,
-                'lokasi'           => $item['lokasi'] ?? null,
-                'jam'              => $item['jam'] ?? null,
-                'hari'             => $item['nama_hari'] ?? null,
-                'tanggal_mulai'    => $item['tanggal_mulai'] ?? null,
-                'tanggal_selesai'  => $item['tanggal_selesai'] ?? null,
-                'keterangan'       => $item['status_tutorial'] ?? null,
+            'masa' => $item['masa'] ?? null,
+            'nim' => $item['nim'] ?? null,
+            'nama_mhs' => $item['nama_mahasiswa'] ?? null,
+            'nama_tutor' => $item['nama_tutor'] ?? null,
+            'kode_matkul' => $item['kode_matakuliah'] ?? null,
+            'nama_matkul' => $item['nama_matakuliah'] ?? null,
+            'link_tuweb' => $item['link'] ?? null,
+            'lokasi' => $item['lokasi'] ?? null,
+            'jam' => $item['jam'] ?? null,
+            'hari' => $item['nama_hari'] ?? null,
+            'tanggal_mulai' => $item['tanggal_mulai'] ?? null,
+            'tanggal_selesai' => $item['tanggal_selesai'] ?? null,
+            'keterangan' => $item['status_tutorial'] ?? null,
+            ];
+        }, $apiData);
+
+        return response()->json($mappedData);
+    }
+
+    public function showTutor($id)
+    {
+        // Penentuan masa aktif (sama dengan show mahasiswa)
+        $now = \Carbon\Carbon::now();
+        $year = $now->year;
+        $month = $now->month;
+        $day = $now->day;
+
+        $isMaretQ2 = ($month == 3 && $day >= 16);
+        $isAgustusQ1 = ($month == 8 && $day <= 15);
+
+        $tahunAktif = $year;
+        if ($month < 8 || $isAgustusQ1) {
+            $tahunAktif = $year - 1;
+        }
+
+        $semester = 1;
+        if ($isMaretQ2 || ($month >= 4 && $month <= 7) || $isAgustusQ1) {
+            $semester = 2;
+        }
+
+        $masa = $tahunAktif . $semester;
+        $apiData = null;
+
+        try {
+            $token = \Illuminate\Support\Facades\Cache::get('api_login_token');
+
+            if (!$token) {
+                $loginResponse = \Illuminate\Support\Facades\Http::timeout(5)
+                    ->withHeaders(['Content-Type' => 'application/json'])
+                    ->post(config('srs.base_url') . config('srs.endpoints.login'), [
+                        'email' => config('srs.email'),
+                        'password' => config('srs.password'),
+                    ]);
+
+                if ($loginResponse->successful() && $loginResponse->json('status')) {
+                    Log::info("Success login (tutor)");
+                    $token = $loginResponse->json('token');
+                    \Illuminate\Support\Facades\Cache::put('api_login_token', $token, now()->addMinutes(30));
+                }
+            }
+
+            if ($token) {
+                Log::info("Token is valid, fetching tutor data...");
+
+                $dataResponse = \Illuminate\Support\Facades\Http::withToken($token)
+                    ->timeout(5)
+                    ->withHeaders(['Content-Type' => 'application/json'])
+                    ->get(config('srs.base_url') . config('srs.endpoints.tutorial_tutor'), [
+                        'id_tutor' => $id,
+                        'masa' => $masa,
+                    ]);
+
+                if ($dataResponse->successful()) {
+                    Log::info("Tutor data is successfully fetched");
+                    $jsonPayload = $dataResponse->json();
+                    $apiData = isset($jsonPayload['data']) ? $jsonPayload['data'] : $jsonPayload;
+                }
+
+                if ($dataResponse->status() === 401) {
+                    \Illuminate\Support\Facades\Cache::forget('api_login_token');
+                }
+            }
+        } catch (\Exception $e) {
+            Log::warning('API UT Timeout/Error (tutor): ' . $e->getMessage());
+        }
+
+        if (empty($apiData)) {
+            return response()->json([]);
+        }
+
+        // Mapping API response ke format lokal
+        $mappedData = array_map(function ($item) {
+            return [
+                'masa' => $item['masa'] ?? null,
+                'nim' => $item['nim'] ?? null,
+                'nama_mhs' => $item['nama_mahasiswa'] ?? null,
+                'nama_tutor' => $item['nama_tutor'] ?? null,
+                'kode_matkul' => $item['kode_matakuliah'] ?? null,
+                'nama_matkul' => $item['nama_matakuliah'] ?? null,
+                'link_tuweb' => $item['link'] ?? null,
+                'lokasi' => $item['lokasi'] ?? null,
+                'jam' => $item['jam'] ?? null,
+                'hari' => $item['nama_hari'] ?? null,
+                'tanggal_mulai' => $item['tanggal_mulai'] ?? null,
+                'tanggal_selesai' => $item['tanggal_selesai'] ?? null,
+                'keterangan' => $item['status_tutorial'] ?? null,
+                'kelas' => $item['id_kelas'] ?? null,
             ];
         }, $apiData);
 
