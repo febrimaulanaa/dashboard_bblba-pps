@@ -300,8 +300,8 @@
                                         <div class="flex items-center gap-3">
                                             <div class="w-1 h-8 bg-secondary rounded-full"></div>
                                             <div>
-                                                <div class="font-bold text-on-surface">${item.nama_mhs || '-'}</div>
-                                                <div class="text-xs text-on-surface-variant">NIM: ${item.nim || '-'} <span class="mx-1">•</span> Masa: ${item.masa || '-'}</div>
+                                                <div class="font-bold text-on-surface">${item.nama_tutor || '-'}</div>
+                                                <div class="text-xs text-on-surface-variant">NIM: ${item.nama_tutor || '-'} <span class="mx-1">•</span> Masa: ${item.masa || '-'}</div>
                                             </div>
                                         </div>
                                     </td>
