@@ -20,49 +20,82 @@
                                         IMPORT EXCEL
                                     </button>
 
-                                    {{-- Tambah Data --}}
-                                    {{-- <div class="modal fade" id="ajaxModel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                    <!-- Tambah Data Modal -->
+                                    <div class="modal fade" id="ajaxModel" aria-hidden="true" tabindex="-1">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="modalHeading">Tambah Mahasiswa</h4>
+                                                    <h4 class="modal-title" id="modalHeading">Tambah Jadwal Tuweb</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {{ csrf_field() }}
                                                     <form id="dataForm" name="dataForm" class="form-horizontal">
-                                                        <div class="form-group">
-                                                            Masa: <br>
-                                                            <input type="text" class="form-control" id="masa"
-                                                                name="masa" placeholder="">
-                                                            <span id="taskError" class="alert-message"></span>
+                                                        <div class="row">
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Masa</label>
+                                                                <input type="text" class="form-control" id="masa" name="masa" placeholder="Contoh: 2024.1">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>NIM</label>
+                                                                <input type="text" class="form-control" id="nim" name="nim">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Nama Mahasiswa</label>
+                                                                <input type="text" class="form-control" id="nama_mhs" name="nama_mhs">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Nama Tutor</label>
+                                                                <input type="text" class="form-control" id="nama_tutor" name="nama_tutor">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Kode Matkul</label>
+                                                                <input type="text" class="form-control" id="kode_matkul" name="kode_matkul">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Nama Matkul</label>
+                                                                <input type="text" class="form-control" id="nama_matkul" name="nama_matkul">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Lokasi</label>
+                                                                <input type="text" class="form-control" id="lokasi" name="lokasi">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Link Tuweb (Opsional)</label>
+                                                                <input type="text" class="form-control" id="link_tuweb" name="link_tuweb">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Hari</label>
+                                                                <input type="text" class="form-control" id="hari" name="hari" placeholder="Contoh: Senin">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Jam</label>
+                                                                <input type="text" class="form-control" id="jam" name="jam" placeholder="Contoh: 08:00 - 10:00">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Tanggal Mulai</label>
+                                                                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Tanggal Selesai</label>
+                                                                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
+                                                            </div>
+                                                            <div class="col-md-12 form-group">
+                                                                <label>Keterangan</label>
+                                                                <textarea class="form-control" id="keterangan" name="keterangan" rows="2"></textarea>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            Nama: <br>
-                                                            <input type="text" class="form-control" id="nama"
-                                                                name="nama" placeholder="">
-                                                            <span id="taskError" class="alert-message"></span>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            Nim: <br>
-                                                            <input type="text" class="form-control" id="nim"
-                                                                name="nim" placeholder="">
-                                                            <span id="taskError" class="alert-message"></span>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            Prodi: <br>
-                                                            <input type="text" class="form-control" id="prodi"
-                                                                name="prodi" placeholder="">
-                                                            <span id="taskError" class="alert-message"></span>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button id="savedata" type="button"
-                                                                class="btn btn-primary">Save</button>
+                                                        <span id="taskError" class="text-danger mt-2 d-block"></span>
+                                                        <div class="modal-footer mt-3 p-0 pt-3">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button id="savedata" type="button" class="btn btn-primary">Save Jadwal</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <!-- Import Excel -->
                                     <div class="modal fade" id="importExcel" tabindex="-1" role="dialog"
@@ -153,57 +186,63 @@
     </div>
 
     <script>
-        let number = 1
         $(document).ready(function() {
-            let url = "{!! route('getosmb') !!}"
-            let table = $('#example').DataTable()
+            let table = $('#example').DataTable();
 
             $('#savedata').on('click', function() {
-                var masa = $('#masa').val();
-                var nama = $('#nama').val();
-                var nim = $('#nim').val();
-                var prodi = $('#prodi').val();
-                var _url = '/osmb/storeosmb';
-                // var _token = $('meta[name="csrf-token"]').attr('content');
+                // Reset validasi tampilan
+                $('.form-control').removeClass('is-invalid border-danger');
+                $('#taskError').text('');
+
+                // Daftar field wajib (keterangan dan link_tuweb opsional)
+                let requiredFields = ['masa', 'nim', 'nama_mhs', 'nama_tutor', 'kode_matkul', 'nama_matkul', 'lokasi', 'hari', 'jam', 'tanggal_mulai', 'tanggal_selesai'];
+                let isValid = true;
+
+                // Loop untuk cek input yang kosong
+                requiredFields.forEach(function(field) {
+                    let input = $('#' + field);
+                    if (!input.val().trim()) {
+                        input.addClass('is-invalid border-danger');
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    $('#taskError').text('Gagal menyimpan. Harap isi semua kolom bertanda merah.');
+                    return; // Hentikan eksekusi
+                }
+
+                var formData = {
+                    masa: $('#masa').val(),
+                    nim: $('#nim').val(),
+                    nama_mhs: $('#nama_mhs').val(),
+                    nama_tutor: $('#nama_tutor').val(),
+                    kode_matkul: $('#kode_matkul').val(),
+                    nama_matkul: $('#nama_matkul').val(),
+                    link_tuweb: $('#link_tuweb').val(),
+                    lokasi: $('#lokasi').val(),
+                    jam: $('#jam').val(),
+                    hari: $('#hari').val(),
+                    tanggal_mulai: $('#tanggal_mulai').val(),
+                    tanggal_selesai: $('#tanggal_selesai').val(),
+                    keterangan: $('#keterangan').val()
+                };
 
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: _url,
+                    url: '/tuweb/storetuweb',
                     type: "POST",
                     dataType: "json",
-                    data: {
-                        masa: masa,
-                        nama: nama,
-                        nim: nim,
-                        prodi: prodi,
-                        // _token: _token
-                    },
+                    data: formData,
                     success: function(data) {
-                        osmb = data
-
-                        table.row.add([
-                            '{{ $no }}',
-                            data.masa,
-                            data.nama,
-                            data.nim,
-                            data.prodi,
-
-                            "o"
-                        ]).draw();
-                        // table.ajax.reload()
-                        // number = 1
-
-                        $('#masa').val('');
-                        $('#nama').val('');
-                        $('#nim').val('');
-                        $('#prodi').val('');
-
                         $('#ajaxModel').modal('hide');
+                        $('#dataForm')[0].reset();
+                        window.location.reload(); // Reload immediately so new rows appear with actions properly
                     },
                     error: function(response) {
-                        $('#taskError').text(response.responseJSON.errors.osmb);
+                        $('#taskError').text('Gagal menyimpan. Pastikan semua kolom penting terisi.');
                     }
                 });
             })

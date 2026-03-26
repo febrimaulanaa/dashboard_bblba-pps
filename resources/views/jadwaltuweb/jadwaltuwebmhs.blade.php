@@ -1,130 +1,380 @@
-@extends('template.master')
+<!DOCTYPE html>
+<html class="light" lang="id">
 
-@section('content')
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>UT Jakarta - Jadwal Tutorial Desktop</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface": "#181c20",
+                        "on-primary-container": "#fcfcff",
+                        "primary-container": "#007bb6",
+                        "tertiary-container": "#5275ac",
+                        "surface-container-low": "#f0f4fa",
+                        "secondary": "#705d00",
+                        "primary": "#006191",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#8fcdff",
+                        "tertiary-fixed-dim": "#a7c8ff",
+                        "on-secondary-container": "#6e5c00",
+                        "surface-container": "#eaeef4",
+                        "on-secondary-fixed-variant": "#544600",
+                        "surface": "#f7f9ff",
+                        "primary-fixed": "#cbe6ff",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#385d92",
+                        "secondary-fixed": "#ffe16d",
+                        "surface-variant": "#dfe3e9",
+                        "secondary-fixed-dim": "#e9c400",
+                        "on-primary": "#ffffff",
+                        "outline": "#6f7881",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d7dae0",
+                        "inverse-on-surface": "#edf1f7",
+                        "on-tertiary-container": "#fefcff",
+                        "on-primary-fixed": "#001e30",
+                        "on-tertiary-fixed": "#001b3c",
+                        "on-secondary-fixed": "#221b00",
+                        "surface-tint": "#006495",
+                        "surface-bright": "#f7f9ff",
+                        "surface-container-highest": "#dfe3e9",
+                        "tertiary-fixed": "#d5e3ff",
+                        "on-background": "#181c20",
+                        "on-secondary": "#ffffff",
+                        "background": "#f7f9ff",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#8fcdff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e5e8ee",
+                        "inverse-surface": "#2c3135",
+                        "secondary-container": "#fcd400",
+                        "on-surface-variant": "#3f4850",
+                        "outline-variant": "#bec7d2",
+                        "on-primary-fixed-variant": "#004b71",
+                        "on-tertiary-fixed-variant": "#1f477b",
+                        "on-error": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
 
-    <body class="presentation-page">
-        <header class="header-2">
-            <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/backut.png')">
-                <div class="container">
-                    <div class="row">
-                        {{-- <div class="col-lg-7 text-center mx-auto">
-                            <h1 class="text-white pt-3 mt-n5">Soft UI Design System</h1>
-                            <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br /> Join
-                                over 1.4 million developers around the world. </p>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="position-absolute w-100 z-index-1 bottom-0">
-                    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
-                        <defs>
-                            <path id="gentle-wave"
-                                d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                        </defs>
-                        <g class="moving-waves">
-                            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
-                            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
-                            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
-                            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
-                            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
-                            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
-                        </g>
-                    </svg>
+        .glass-nav {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #006191 0%, #007bb6 100%);
+        }
+
+        .academic-table th {
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-size: 0.75rem;
+            color: #3f4850;
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_12px_32px_rgba(24,28,32,0.04)]">
+        <div class="flex items-center justify-between px-8 py-4 max-w-[1440px] mx-auto w-full">
+            <div class="text-xl font-extrabold tracking-tighter text-[#006191] dark:text-sky-400 font-headline">
+                UT Jakarta
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="p-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-all active:scale-95">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container ml-2">
+                    <img alt="User Profile Avatar" class="w-full h-full object-cover"
+                        src="{{ asset('assets/img/bruce-mars.jpg') }}"
+                        onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAsSBYsVmu7PGk7ggCE0RqMtlqnypcP9ohtdJ4Jt_aimQiSbGerZEzX3-7i5FT6g0DOLTPVfSkI_y7lNReDw_UwiOMJrmhOK2hO5imaAXnvJOhcEKD82znpzhV40CfaHfVFbTR_il7owqGQmjP8zvZPmEXalxlyrFi6iFBkdFKnyRBCgs41VfNHKoRb-gUQy_QW4sTNX-Z5vN_dqeFX__XdrvnxbCR7-ffTXGb9tE-Nye6ZVOyDHqJLaTQDQujQBcckoI0MZhNfjBUJ'" />
                 </div>
             </div>
-        </header>
+        </div>
+    </nav>
 
-
-        <section class="my-5 py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="row justify-content-center text-center my-sm-5">
-                        <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Cek Jadwal Tutorial Tatap Muka/Tutorial Webinar Mahasiswa
-                            </h2>
-                            <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
-                            {{-- <p class="lead">We have created multiple options for you to put together and customise
-                                into pixel perfect pages. </p> --}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <h4>Nomor Induk Mahasiswa</h4>
-                    <input type="text" id="data-id" class='form-control' name="nim" placeholder="Isikan NIM">
-                    <br>
-                    <button type="button" id="get-data" class="btn btn-primary">Cek Jadwal</button>
-                </div>
-
-                <div class="row justify-content-center">
-                    <div class="col-md-10">
-                        <div id="result" class="mt-4">
-                            <!-- Hasil data akan ditampilkan di sini -->
-                            <p class="text-center text-muted">Data akan muncul di sini setelah pencarian.</p>
-                        </div>
-                    </div>
-                </div>
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative h-[400px] flex items-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img class="w-full h-full object-cover opacity-20 filter grayscale" data-alt="University building"
+                    src="{{ asset('assets/img/backut.png') }}"
+                    onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuC-HePEwAkU7OQuu0DAbyluR9eXALCFc3tQ3z02DQ3I0MCehRMtO6-GrexNx15DOPmAT77_K8Qam80SVhq0HxaHvzBtyrE_dKKWfzyWm_XFIn2LLfDEdeBbKDcdwVLsGTUPEXI0tUeZBBLb6bqedPDrkY76cp_TX8dHjnRvdGTPX16zfQ04zhMVkCo1fGSGYjMAByt-0v4ATZiFTUd-hP28zU_SeX-2Rn7d9JQY9kbKwrX5PfoBhFztXOtEuqifyEeDk0H3Pye4rWv_'" />
+                <div class="absolute inset-0 hero-gradient opacity-90"></div>
+            </div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-8 w-full text-on-primary">
+                <p class="font-label text-sm uppercase tracking-[0.2em] mb-4 text-secondary-fixed font-bold">Portal
+                    Akademik Terintegrasi</p>
+                <h1
+                    class="font-headline text-5xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-2xl leading-[1.1]">
+                    Selamat Datang di Layanan Akademik
+                </h1>
+                <p class="font-body text-lg text-primary-fixed max-w-xl opacity-90 leading-relaxed">
+                    Akses informasi jadwal tutorial
+                </p>
             </div>
         </section>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Search/Form Section -->
+        <section class="max-w-[1440px] mx-auto px-8 -mt-16 relative z-20 mb-16">
+            <div
+                class="bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_rgba(24,28,32,0.04)] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 border border-outline-variant/20">
+                <div class="flex-1 space-y-2">
+                    <h2 class="font-headline text-2xl font-bold text-primary">Cek Jadwal Tutorial</h2>
+                    <p class="text-on-surface-variant text-sm">Masukkan Nomor Induk Mahasiswa (NIM) Anda untuk melihat
+                        jadwal perkuliahan semester ini.</p>
+                </div>
+                <div class="w-full md:w-auto flex flex-col md:flex-row gap-4 flex-grow max-w-2xl">
+                    <div class="relative flex-grow">
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">badge</span>
+                        <input id="data-id"
+                            class="w-full pl-12 pr-4 py-4 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all text-on-surface"
+                            placeholder="Masukkan NIM (e.g. 041234567)" type="text" />
+                    </div>
+                    <button id="get-data"
+                        class="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-xl font-headline font-bold flex items-center justify-center gap-2 hover:brightness-95 active:scale-95 transition-all">
+                        <span class="material-symbols-outlined">search</span>
+                        Cari Jadwal
+                    </button>
+                </div>
+            </div>
 
-        <script>
-            $(document).ready(function() {
-                $('#get-data').on('click', function() {
-                    var id = $('#data-id').val();
+            <div id="loading-indicator" class="hidden text-center text-primary font-semibold mt-4">
+                Sedang mencari jadwal Anda...
+            </div>
+            <div id="error-message" class="hidden text-center text-error font-semibold mt-4"></div>
+        </section>
 
-                    if (id) {
-                        $.ajax({
-                            url: '/data/' + id,
-                            type: 'GET',
-                            success: function(data) {
-                                if (data.length > 0) {
-                                    var tableHtml = `
-                            <div class="table-responsive">
-                                <table class="table table-bordered transparent-table">
-                                    <thead>
-                                        <tr class="table-light">
-                                            <th>ID</th>
-                                            <th>Masa</th>
-                                            <th>NIM</th>
-                                            <th>Nama Mahasiswa</th>
-                                            <th>Nama Tutor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    data.forEach(function(item) {
-                                        tableHtml += `
-                                <tr>
-                                    <td>${item.id}</td>
-                                    <td>${item.masa}</td>
-                                    <td>${item.nim}</td>
-                                    <td>${item.nama_mhs}</td>
-                                    <td>${item.nama_tutor}</td>
-                                </tr>`;
-                                    });
-                                    tableHtml += `</tbody></table></div>`;
-                                    $('#result').html(tableHtml);
-                                } else {
-                                    $('#result').html(
-                                        '<p class="text-danger text-center">Data tidak ditemukan.</p>'
-                                    );
-                                }
-                            },
-                            error: function() {
-                                $('#result').html(
-                                    '<p class="text-danger text-center">Terjadi kesalahan saat mengambil data.</p>'
-                                );
+        <!-- Data Table Section -->
+        <section class="max-w-[1440px] mx-auto px-8 pb-24">
+            <div class="flex items-baseline justify-between mb-8">
+                <h3 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Jadwal Perkuliahan</h3>
+                <span class="font-label text-xs font-bold text-outline-variant uppercase tracking-widest">Pencarian
+                    Real-Time</span>
+            </div>
+
+            <div id="jadwal-table-container"
+                class="hidden bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/10 shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full academic-table text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-surface-container-low border-b border-outline-variant/20">
+                                <th class="px-8 py-5 font-bold">Mahasiswa</th>
+                                <th class="px-8 py-5 font-bold">Mata Kuliah</th>
+                                <th class="px-8 py-5 font-bold">Waktu & Tanggal</th>
+                                <th class="px-8 py-5 font-bold">Lokasi / Link</th>
+                                <th class="px-8 py-5 font-bold">Tutor</th>
+                                <th class="px-8 py-5 font-bold">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-tbody" class="divide-y divide-surface-container">
+                            <!-- Data will be loaded via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="no-data-state"
+                class="hidden bg-surface-container-lowest border border-outline-variant/10 rounded-xl p-12 text-center flex-col items-center shadow-sm">
+                <span class="material-symbols-outlined text-outline text-5xl mb-4">inbox</span>
+                <h5 class="font-headline text-2xl font-bold text-on-surface mb-2">Belum ada data</h5>
+                <p class="text-on-surface-variant max-w-sm mx-auto">Silakan ketikkan NIM Anda pada kotak pencarian di
+                    atas untuk memuat jadwal perkuliahan.</p>
+            </div>
+
+            <!-- Asymmetric Info Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                <div
+                    class="md:col-span-2 bg-primary-container p-8 rounded-xl text-on-primary-container flex flex-col justify-between min-h-[240px]">
+                    <div class="max-w-md">
+                        <h4 class="font-headline text-2xl font-bold mb-4">Butuh Bantuan Akademik?</h4>
+                        <p class="opacity-80 leading-relaxed mb-6">Layanan pendampingan tutorial kini tersedia setiap
+                            hari kerja. Konsultasikan jadwal Anda dengan layanan support UT Jakarta.</p>
+                    </div>
+                    <div>
+                        <a href="https://sl.ut.ac.id/pelayanan_online_utjkt" target="_blank"
+                            class="inline-flex items-center gap-2 bg-white text-primary-container font-headline font-bold px-6 py-3 rounded-full hover:bg-opacity-90 transition-all shadow-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-container">
+                            <span class="material-symbols-outlined text-sm">headset_mic</span>
+                            Pelayanan Online UT Jakarta
+                        </a>
+                    </div>
+                </div>
+                <a href="https://www.ut.ac.id/kalender-akademik/" target="_blank"
+                    class="bg-secondary-container p-8 rounded-xl flex flex-col justify-center gap-6 hover:-translate-y-1 hover:shadow-lg transition-transform transition-shadow duration-300 cursor-pointer group">
+                    <div
+                        class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
+                        <span
+                            class="material-symbols-outlined text-on-secondary-container text-3xl">event_available</span>
+                    </div>
+                    <div>
+                        <h4
+                            class="font-headline text-xl font-bold text-on-secondary-container mb-2 flex items-center justify-between">
+                            Kalender Akademik
+                            <span
+                                class="material-symbols-outlined opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">arrow_forward</span>
+                        </h4>
+                        <p class="text-on-secondary-container/70 text-sm leading-relaxed mb-0">Pastikan Anda tidak
+                            melewatkan tenggat waktu pengumpulan tugas tutorial.</p>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 border-t border-slate-200">
+        <div class="flex justify-between items-center px-12 py-10 w-full max-w-[1440px] mx-auto">
+            <div class="flex flex-col gap-2">
+                <div class="text-lg font-bold text-slate-800 font-headline">UT Jakarta</div>
+                <p class="font-['Inter'] text-sm tracking-normal text-slate-500">© 2024 Universitas Terbuka Jakarta.
+                    Excellence in Open and Distance Learning.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Init state
+            $('#no-data-state').removeClass('hidden').addClass('flex');
+
+            $('#get-data').on('click', function () {
+                var id = $('#data-id').val();
+
+                if (id) {
+                    // UI Preloader
+                    $('#jadwal-table-container').addClass('hidden');
+                    $('#no-data-state').addClass('hidden').removeClass('flex');
+                    $('#error-message').addClass('hidden');
+                    $('#loading-indicator').removeClass('hidden');
+
+                    $.ajax({
+                        url: '/data/' + id,
+                        type: 'GET',
+                        success: function (response) {
+                            $('#loading-indicator').addClass('hidden');
+
+                            var data = response;
+                            if (response.data && Array.isArray(response.data)) {
+                                data = response.data;
                             }
-                        });
-                    } else {
-                        $('#result').html(
-                            '<p class="text-warning text-center">Masukkan ID terlebih dahulu.</p>');
-                    }
-                });
+
+                            if (data && data.length > 0) {
+                                var tableHtml = '';
+                                data.forEach(function (item) {
+                                    tableHtml += `
+                                <tr class="hover:bg-surface-container-low transition-colors group">
+                                    <td class="px-8 py-6">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-1 h-8 bg-secondary rounded-full"></div>
+                                            <div>
+                                                <div class="font-bold text-on-surface">${item.nama_mhs || item.nama || '-'}</div>
+                                                <div class="text-xs text-on-surface-variant">NIM: ${item.nim || '-'} <span class="mx-1">•</span> Masa: ${item.masa || '-'}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-6">
+                                        <div class="font-bold text-primary">${item.kode_matkul || '-'}</div>
+                                        <div class="text-xs text-on-surface-variant">${item.nama_matkul || '-'}</div>
+                                    </td>
+                                    <td class="px-8 py-6">
+                                        <div class="flex items-center gap-2 text-on-surface mb-1">
+                                            <span class="material-symbols-outlined text-sm text-primary">schedule</span>
+                                            <span class="text-sm font-bold text-primary">${item.hari || '-'}, ${item.jam || '-'}</span>
+                                        </div>
+                                        <div class="text-xs text-on-surface-variant mt-2 bg-surface-container-lowest border border-primary/20 rounded-lg p-2.5">
+                                            <div class="flex items-start gap-1.5">
+                                                <span class="material-symbols-outlined text-[14px] text-tertiary mt-0.5">info</span>
+                                                <div class="flex-1">
+                                                    <span class="font-semibold text-on-surface">Periode:</span> ${item.tanggal_mulai || '-'} s.d ${item.tanggal_selesai || '-'}
+                                                    <p class="text-[10px] text-on-surface-variant/80 mt-1 leading-snug italic">Catatan: Tanggal di atas merupakan rentang periode kalender pelaksanaan tutorial secara umum. <span class="font-semibold text-primary/80">Jadwal riil Anda tetap berpatokan pada Hari & Jam di atas.</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-6 min-w-[200px]">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-sm text-tertiary">location_on</span>
+                                                <span class="text-sm font-medium text-on-surface">${item.lokasi || '-'}</span>
+                                            </div>
+                                            ${item.link_tuweb ? `
+                                            <a href="${item.link_tuweb}" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-container transition-colors mt-1">
+                                                <span class="material-symbols-outlined text-xs">link</span> Buka Link Tuweb
+                                            </a>` : `<span class="text-xs text-outline-variant italic">Link belum tersedia</span>`}
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-6">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-primary font-bold text-xs uppercase">
+                                                ${(item.nama_tutor && item.nama_tutor !== '-' ? item.nama_tutor.charAt(0) : '?')}
+                                            </div>
+                                            <div class="text-sm font-semibold text-on-surface">${item.nama_tutor || '-'}</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-6 max-w-[200px]">
+                                        <p class="text-xs text-on-surface-variant line-clamp-2" title="${item.keterangan || '-'}">${item.keterangan || '-'}</p>
+                                    </td>
+                                </tr>`;
+                                });
+                                $('#result-tbody').html(tableHtml);
+                                $('#jadwal-table-container').removeClass('hidden');
+                            } else {
+                                $('#no-data-state').removeClass('hidden').addClass('flex');
+                                $('#no-data-state h5').text('Data tidak ditemukan');
+                                $('#no-data-state p').text('Data kosong. Silakan pastikan NIM yang dicari benar atau jadwal belum keluar.');
+                            }
+                        },
+                        error: function (xhr) {
+                            $('#loading-indicator').addClass('hidden');
+                            $('#error-message').removeClass('hidden');
+
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                $('#error-message').text('Terjadi kesalahan: ' + xhr.responseJSON.message);
+                            } else {
+                                $('#error-message').text('Terjadi kesalahan saat mencari server aplikasi atau jaringan.');
+                            }
+
+                            $('#no-data-state').removeClass('hidden').addClass('flex');
+                            $('#no-data-state h5').text('Gagal memuat jadwal');
+                            $('#no-data-state p').text('Silakan coba kembali dalam beberapa saat lagi.');
+                        }
+                    });
+                } else {
+                    $('#error-message').removeClass('hidden').text('NIM tidak boleh kosong. Mohon ketikkan NIM terlebih dahulu.');
+                }
             });
-        </script>
+        });
+    </script>
+</body>
 
-    </body>
-
-    </html>
-@endsection
+</html>

@@ -392,12 +392,82 @@ class AdminController extends Controller
 
     public function show($id)
     {
+        // Penentuan masa aktif (Format: Tahun.Semester, misal 2024.1 / 2024.2)
+        $now = \Carbon\Carbon::now();
+        $year = $now->year;
+        $month = $now->month;
+        $day = $now->day;
 
-        // Mengambil data berdasarkan NIM
-        $data = JadwalTuweb::where('nim', $id)->get();
+        $isAgustusQ1 = ($month == 8 && $day <= 7);
 
-        // Mengembalikan data dalam format JSON
-        return response()->json($data);
+        $tahunAktif = $year;
+        if ($month < 8 || $isAgustusQ1) {
+            $tahunAktif = $year - 1;
+        }
+
+        $semester = 1; // Default 1 (Gasal)
+        if ($month >= 4 && ($month < 8 || $isAgustusQ1)) {
+            $semester = 2; // Genap
+        }
+
+        $masa = $tahunAktif . '.' . $semester;
+        $apiData = null;
+
+        try {
+            // Cek apakah token masih ada di cache (berlaku 30 menit)
+            $token = \Illuminate\Support\Facades\Cache::get('api_login_token');
+
+            if (!$token) {
+                // Request dengan timeout 5 detik untuk mencegah ERR_EMPTY_RESPONSE
+                $loginResponse = \Illuminate\Support\Facades\Http::timeout(5)
+                    ->post(env('API_LOGIN_URL', 'http://example.com/api/login'), [
+                        'username' => env('API_USERNAME', 'your_username'),
+                        'password' => env('API_PASSWORD', 'your_password'),
+                    ]);
+
+                if ($loginResponse->successful() && $loginResponse->json('status')) {
+                    $token = $loginResponse->json('token');
+                    \Illuminate\Support\Facades\Cache::put('api_login_token', $token, now()->addMinutes(30));
+                }
+            }
+
+            if ($token) {
+                $dataUrl = env('API_DATA_URL', 'http://example.com/api/data');
+                
+                $dataResponse = \Illuminate\Support\Facades\Http::withToken($token)
+                    ->timeout(5)
+                    ->get($dataUrl, [
+                        'nim' => $id,
+                        'masa' => $masa
+                    ]);
+
+                if ($dataResponse->successful()) {
+                    $jsonPayload = $dataResponse->json();
+                    $apiData = isset($jsonPayload['data']) ? $jsonPayload['data'] : $jsonPayload;
+                }
+
+                if ($dataResponse->status() === 401) {
+                    \Illuminate\Support\Facades\Cache::forget('api_login_token');
+                }
+            }
+        } catch (\Exception $e) {
+            // Tangkap timeout (RequestException) agar tidak menyebabkan ERR_EMPTY_RESPONSE
+            \Illuminate\Support\Facades\Log::warning('API UT Timeout/Error: ' . $e->getMessage());
+        }
+
+        // Jika API gagal, timeout, atau datanya kosong, gunakan Database Lokal sebagai Fallback
+        if (empty($apiData)) {
+            $localData = JadwalTuweb::where('nim', $id)->get();
+            return response()->json($localData);
+        }
+
+        return response()->json($apiData);
+    }
+
+    public function storetuweb(\Illuminate\Http\Request $request)
+    {
+        $tuweb = JadwalTuweb::create($request->all());
+        return response()->json($tuweb);
     }
 
     public function export_exceltuweb()
