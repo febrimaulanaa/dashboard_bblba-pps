@@ -411,7 +411,7 @@ class AdminController extends Controller
             $semester = 2; // Genap
         }
 
-        $masa = $tahunAktif . '.' . $semester;
+        $masa = $tahunAktif . $semester;
         $apiData = null;
 
         try {
@@ -425,7 +425,7 @@ class AdminController extends Controller
                     'Content-Type' => 'application/json',
                 ])
                     ->post(env('API_LOGIN_URL', 'http://example.com/api/login'), [
-                    'username' => env('API_USERNAME', 'your_username'),
+                    'email' => env('API_USERNAME', 'your_username'),
                     'password' => env('API_PASSWORD', 'your_password'),
                 ]);
 
