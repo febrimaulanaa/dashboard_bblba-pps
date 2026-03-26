@@ -492,6 +492,7 @@ class AdminController extends Controller
             'tanggal_mulai' => $item['tanggal_mulai'] ?? null,
             'tanggal_selesai' => $item['tanggal_selesai'] ?? null,
             'keterangan' => $item['status_tutorial'] ?? null,
+            'kelas' => $item['id_kelas'] ?? null,
             ];
         }, $apiData);
 

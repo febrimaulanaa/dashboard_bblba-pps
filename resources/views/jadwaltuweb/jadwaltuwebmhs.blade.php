@@ -193,6 +193,7 @@
                                 <th class="px-8 py-5 font-bold">Waktu & Tanggal</th>
                                 <th class="px-8 py-5 font-bold">Lokasi / Link</th>
                                 <th class="px-8 py-5 font-bold">Tutor</th>
+                                <th class="px-8 py-5 font-bold">ID Kelas</th>
                                 <th class="px-8 py-5 font-bold">Keterangan</th>
                             </tr>
                         </thead>
@@ -341,6 +342,9 @@
                                             </div>
                                             <div class="text-sm font-semibold text-on-surface">${item.nama_tutor || '-'}</div>
                                         </div>
+                                    </td>
+                                    <td class="px-8 py-6">
+                                        <div class="text-sm font-semibold text-on-surface">${item.kelas || '-'}</div>
                                     </td>
                                     <td class="px-8 py-6 max-w-[200px]">
                                         <p class="text-xs text-on-surface-variant line-clamp-2" title="${item.keterangan || '-'}">${item.keterangan || '-'}</p>
