@@ -347,7 +347,7 @@
                                         <div class="text-sm font-semibold text-on-surface">${item.kelas || '-'}</div>
                                     </td>
                                     <td class="px-8 py-6 max-w-[200px]">
-                                        <p class="text-xs text-on-surface-variant line-clamp-2" title="${item.keterangan || '-'}">${item.keterangan || '-'}</p>
+                                        <p class="text-xs text-on-surface-variant font-bold uppercase line-clamp-2" title="${item.keterangan || '-'}">${item.keterangan || '-'}</p>
                                     </td>
                                 </tr>`;
                                 });
