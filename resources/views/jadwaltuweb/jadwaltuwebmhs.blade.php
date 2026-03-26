@@ -137,7 +137,7 @@
                     Selamat Datang di Layanan Akademik
                 </h1>
                 <p class="font-body text-lg text-primary-fixed max-w-xl opacity-90 leading-relaxed">
-                    Akses informasi jadwal tutorial
+                    Akses informasi jadwal Tutorial Tatap Muka / Tutorial Webinar (Tuweb)
                 </p>
             </div>
         </section>
@@ -147,7 +147,8 @@
             <div
                 class="bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_rgba(24,28,32,0.04)] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 border border-outline-variant/20">
                 <div class="flex-1 space-y-2">
-                    <h2 class="font-headline text-2xl font-bold text-primary">Cek Jadwal Tutorial</h2>
+                    <h2 class="font-headline text-2xl font-bold text-primary">Cek Jadwal Tutorial Tatap Muka / Tutorial
+                        Webinar (Tuweb) </h2>
                     <p class="text-on-surface-variant text-sm">Masukkan Nomor Induk Mahasiswa (NIM) Anda untuk melihat
                         jadwal perkuliahan semester ini.</p>
                 </div>
