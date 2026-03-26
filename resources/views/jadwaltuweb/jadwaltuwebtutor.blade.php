@@ -176,7 +176,8 @@
         <!-- Data Table Section -->
         <section class="max-w-[1440px] mx-auto px-8 pb-24">
             <div class="flex items-baseline justify-between mb-8">
-                <h3 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Jadwal Tutorial Anda</h3>
+                <h3 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Jadwal Tutorial Anda
+                </h3>
                 <span class="font-label text-xs font-bold text-outline-variant uppercase tracking-widest">Pencarian
                     Real-Time</span>
             </div>
@@ -187,7 +188,7 @@
                     <table class="w-full academic-table text-left border-collapse min-w-[700px]">
                         <thead>
                             <tr class="bg-surface-container-low border-b border-outline-variant/20">
-                                <th class="px-8 py-5 font-bold">Mahasiswa</th>
+                                <th class="px-8 py-5 font-bold">Nama Tutor</th>
                                 <th class="px-8 py-5 font-bold">Mata Kuliah</th>
                                 <th class="px-8 py-5 font-bold">Waktu & Tanggal</th>
                                 <th class="px-8 py-5 font-bold">Lokasi / Link</th>
@@ -206,7 +207,8 @@
                 class="hidden bg-surface-container-lowest border border-outline-variant/10 rounded-xl p-12 text-center flex-col items-center shadow-sm">
                 <span class="material-symbols-outlined text-outline text-5xl mb-4">inbox</span>
                 <h5 class="font-headline text-2xl font-bold text-on-surface mb-2">Belum ada data</h5>
-                <p class="text-on-surface-variant max-w-sm mx-auto">Silakan ketikkan ID Tutor Anda pada kotak pencarian di
+                <p class="text-on-surface-variant max-w-sm mx-auto">Silakan ketikkan ID Tutor Anda pada kotak pencarian
+                    di
                     atas untuk memuat jadwal tutorial yang Anda ampuh.</p>
             </div>
 
@@ -217,7 +219,8 @@
                     <div class="max-w-md">
                         <h4 class="font-headline text-2xl font-bold mb-4">Butuh Bantuan?</h4>
                         <p class="opacity-80 leading-relaxed mb-6">Layanan pendampingan tutorial kini tersedia setiap
-                            hari kerja. Jika terdapat kendala pada jadwal tutorial, hubungi layanan support UT Jakarta.</p>
+                            hari kerja. Jika terdapat kendala pada jadwal tutorial, hubungi layanan support UT Jakarta.
+                        </p>
                     </div>
                     <div>
                         <a href="https://sl.ut.ac.id/pelayanan_online_utjkt" target="_blank"
