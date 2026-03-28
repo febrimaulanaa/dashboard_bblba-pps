@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>@yield('title', 'Dashboard Pembelajaran UT Jakarta')</title>
-  <link rel="icon" type="image/png" href="{{ asset('assets/img/logo-ut-jakarta.png') }}">
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/logo-ut-jakarta.png') }}?v=2">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
@@ -99,7 +99,7 @@
     <div class="flex justify-between items-center h-16 px-6 lg:px-12 max-w-full mx-auto">
       <div class="flex items-center gap-6">
         <div class="flex items-center gap-3">
-          <img src="{{ asset('assets/img/logo-ut-jakarta.png') }}" alt="UT Logo" class="h-10 w-auto">
+          <img src="{{ asset('assets/img/logo-ut-jakarta.png') }}?v=2" alt="UT Logo" class="h-10 w-auto">
           <span class="text-base md:text-lg font-bold tracking-tight text-sky-800 font-headline leading-tight">Dashboard Pembelajaran<br><span class="text-sm md:text-base text-sky-600">UT Jakarta</span></span>
         </div>
         <div class="hidden md:flex gap-6 items-center ml-4 border-l border-sky-100 pl-6 h-8">

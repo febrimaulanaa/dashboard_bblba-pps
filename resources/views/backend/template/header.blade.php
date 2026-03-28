@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard Pembelajaran UT Jakarta</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{ asset('assets/img/logo-ut-jakarta.png') }}" type="image/png" />
+    <link rel="icon" href="{{ asset('assets/img/logo-ut-jakarta.png') }}?v=2" type="image/png" />
 
     <!-- Fonts and icons -->
     <script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -46,7 +46,7 @@
             <div class="logo-header" data-background-color="white">
 
                 <a href="{{ route('hlmadmin') }}" class="logo d-flex align-items-center">
-                    <img src="{{ asset('assets/img/logo-ut-jakarta.png') }}" alt="UT Logo" class="navbar-brand" style="height: 38px; width: auto; margin-right: 12px;">
+                    <img src="{{ asset('assets/img/logo-ut-jakarta.png') }}?v=2" alt="UT Logo" class="navbar-brand" style="height: 38px; width: auto; margin-right: 12px;">
                     <span style="font-size: 13px; font-weight: 700; line-height: 1.2;" class="text-white">Dashboard Pembelajaran<br>UT Jakarta</span>
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
