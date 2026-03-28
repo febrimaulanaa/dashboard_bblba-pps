@@ -1,90 +1,54 @@
-@extends('template.master')
+@extends('template.modern')
+
+@section('title', 'Sertifikat WTKU - Dashboard BBLBA')
 
 @section('content')
+  <main class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col justify-center items-center px-6">
+    <div class="w-full max-w-2xl text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-extrabold font-headline tracking-tight text-emerald-700 mb-2">Form Sertifikat WTKU</h1>
+      <h2 class="text-xl md:text-2xl font-bold text-sky-700">Universitas Terbuka Jakarta</h2>
+      <p class="text-on-surface-variant mt-4 text-sm md:text-base">Masukkan Nomor Induk Mahasiswa Anda untuk mencetak sertifikat Workshop Tugas dan Klinik UAS.</p>
+    </div>
 
-    <body class="presentation-page">
-        <header class="header-2">
-            <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/backut.png')">
-                <div class="container">
-                    <div class="row">
-                        {{-- <div class="col-lg-7 text-center mx-auto">
-                            <h1 class="text-white pt-3 mt-n5">Soft UI Design System</h1>
-                            <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br /> Join
-                                over 1.4 million developers around the world. </p>
-                        </div> --}}
+    <div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-xl border border-outline-variant/10 w-full max-w-xl relative overflow-hidden">
+      <!-- Decorative background -->
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-emerald-100 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+      
+      <div class="relative z-10">
+        <form action="{{ route('cetakwtku') }}" method="post" class="space-y-6">
+            {{ csrf_field() }}
+            <div>
+                <label for="nim" class="block text-sm font-bold text-on-surface mb-2 font-headline">Nomor Induk Mahasiswa</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline">
+                        <span class="material-symbols-outlined text-[20px]">badge</span>
                     </div>
-                </div>
-                <div class="position-absolute w-100 z-index-1 bottom-0">
-                    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
-                        <defs>
-                            <path id="gentle-wave"
-                                d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                        </defs>
-                        <g class="moving-waves">
-                            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
-                            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
-                            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
-                            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
-                            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
-                            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
-                        </g>
-                    </svg>
+                    <input type="text" id="nim" name="nim" placeholder="Masukkan NIM Anda" required
+                        class="block w-full pl-12 pr-4 py-4 bg-surface rounded-xl border-outline-variant/50 focus:border-emerald-600 focus:ring focus:ring-emerald-600/20 transition-all font-body text-on-surface placeholder-outline-variant shadow-inner">
                 </div>
             </div>
-        </header>
+            
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-md active:scale-[0.98] flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                Buat Sertifikat
+            </button>
+        </form>
+      </div>
+    </div>
 
-
-        <section class="my-5 py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="row justify-content-center text-center my-sm-5">
-                        <div class="col-lg-6">
-                            <h2 class="text-dark mb-0">Form Sertifikat Wokrkshop Tugas dan Klinik UAS
-                            </h2>
-                            <h2 class="text-primary text-gradient">Universitas Terbuka Jakarta</h2>
-                            {{-- <p class="lead">We have created multiple options for you to put together and customise
-                                into pixel perfect pages. </p> --}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <form action="{{ route('cetakwtku') }}" method="post">
-                        {{ csrf_field() }}
-                        <h4>Nomor Induk Mahasiswa</h4>
-                        <input type="text" class='form-control' name="nim" placeholder="Isikan NIM">
-                        <br>
-                        <button type="submit" class="btn btn-primary">Buat Sertifikat</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        <section class="pt-3 pb-4" id="count-stats">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9 z-index-2 ">
-                        <div class="row">
-                            <div class="col-md-5 position-relative">
-                                <div class="p-3 text-center">
-                                    @if (count($usersData) > 0)
-                                        <h1 class="text-gradient text-primary"><span id="state1"
-                                                countTo="{{ count($usersData) }}">0</span>
-                                        </h1>
-                                        <h5 class="mt-3">Total Peserta</h5>
-                                        <p class="text-sm">Workshop Tugas dan Klinik UAS</p>
-                                </div>
-                                <hr class="horizontal dark">
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </section>
-
-
-    </body>
-
-    </html>
+    @if (isset($usersData) && count($usersData) > 0)
+    <div class="mt-16 flex justify-center">
+      <div class="bg-emerald-50 border border-emerald-100 px-6 py-4 rounded-full flex items-center gap-4 shadow-sm">
+        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700">
+          <span class="material-symbols-outlined">groups</span>
+        </div>
+        <div>
+          <span class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Total Peserta WTKU</span>
+          <span class="block text-xl font-black text-emerald-700 font-headline">{{ count($usersData) }} <span class="text-sm font-medium text-emerald-700/70">Mahasiswa</span></span>
+        </div>
+      </div>
+    </div>
+    @endif
+  </main>
 @endsection
