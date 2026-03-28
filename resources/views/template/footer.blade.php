@@ -28,7 +28,7 @@
           <div class=" row">
               <div class="col-md-3 mb-4 ms-auto">
                   <div>
-                      <h6 class="text-gradient text-primary font-weight-bolder">Dashboard BBLBA</h6>
+                      <h6 class="text-gradient text-primary font-weight-bolder">Dashboard Pembelajaran UT Jakarta</h6>
                   </div>
                   <!-- <div>
                       <h6 class="mt-3 mb-2 opacity-8">SOSIAL MEDIA</h6>

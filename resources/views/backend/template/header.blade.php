@@ -4,10 +4,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin Dashboard BBLBA & PPS</title>
+    <title>Admin Dashboard Pembelajaran UT Jakarta</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{ asset('atlantis/assets/img/backut.png') }}" width="100%" height="100%"
-        type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/img/logo-ut-jakarta.png') }}" type="image/png" />
 
     <!-- Fonts and icons -->
     <script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -46,9 +45,9 @@
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="white">
 
-                <a href="{{ route('hlmadmin') }}" class="logo">
-                    <img src="{{ asset('atlantis/assets/img/logout.png') }}" width="100%" height="100%"
-                        alt="navbar brand" class="navbar-brand">
+                <a href="{{ route('hlmadmin') }}" class="logo d-flex align-items-center">
+                    <img src="{{ asset('assets/img/logo-ut-jakarta.png') }}" alt="UT Logo" class="navbar-brand" style="height: 38px; width: auto; margin-right: 12px;">
+                    <span style="font-size: 13px; font-weight: 700; line-height: 1.2;" class="text-white">Dashboard Pembelajaran<br>UT Jakarta</span>
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
                     data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">

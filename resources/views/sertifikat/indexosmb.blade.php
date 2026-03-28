@@ -1,6 +1,6 @@
 @extends('template.modern')
 
-@section('title', 'Sertifikat OSMB - Dashboard BBLBA')
+@section('title', 'Sertifikat OSMB - Dashboard Pembelajaran UT Jakarta')
 
 @section('content')
   <main class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col justify-center items-center px-6">

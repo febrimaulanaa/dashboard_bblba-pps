@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>@yield('title', 'Dashboard BBLBA')</title>
-  <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+  <title>@yield('title', 'Dashboard Pembelajaran UT Jakarta')</title>
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/logo-ut-jakarta.png') }}">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
@@ -97,9 +97,12 @@
   <!-- TopNavBar -->
   <nav class="fixed top-0 w-full z-50 glass-nav shadow-sm shadow-sky-900/5">
     <div class="flex justify-between items-center h-16 px-6 lg:px-12 max-w-full mx-auto">
-      <div class="flex items-center gap-8">
-        <span class="text-xl font-bold tracking-tighter text-sky-800 font-headline">UT Jakarta</span>
-        <div class="hidden md:flex gap-6 items-center">
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-3">
+          <img src="{{ asset('assets/img/logo-ut-jakarta.png') }}" alt="UT Logo" class="h-10 w-auto">
+          <span class="text-base md:text-lg font-bold tracking-tight text-sky-800 font-headline leading-tight">Dashboard Pembelajaran<br><span class="text-sm md:text-base text-sky-600">UT Jakarta</span></span>
+        </div>
+        <div class="hidden md:flex gap-6 items-center ml-4 border-l border-sky-100 pl-6 h-8">
           <a class="font-manrope text-sm tracking-tight text-sky-700 font-bold relative after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-yellow-500 after:rounded-full"
             href="{{ route('home') }}">Dashboard</a>
         </div>
@@ -113,7 +116,7 @@
   <footer class="w-full py-12 border-t-0 bg-slate-50">
     <div class="max-w-full lg:px-24 mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
       <div class="flex flex-col gap-4">
-        <span class="font-manrope font-semibold text-slate-900">Dashboard BBLBA</span>
+        <span class="font-manrope font-semibold text-slate-900">Dashboard Pembelajaran UT Jakarta</span>
         <p class="font-inter text-xs tracking-wide uppercase text-slate-500">© 2024 Universitas Terbuka Jakarta.
           Excellence in Open Education.</p>
       </div>
