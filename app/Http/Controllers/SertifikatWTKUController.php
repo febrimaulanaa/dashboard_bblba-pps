@@ -26,11 +26,29 @@ class SertifikatWTKUController extends Controller
             alert()->error('ErrorAlert', 'Anda Tidak Terdaftar Kegiatan Workshop Tugas dan Klinik Ujian');
             return redirect('/sertifikatwtku');
         } else {
-            $outputfile = storage_path() . 'sertifikatwtku.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/sertifikatwtku.pdf', $outputfile, $pdf->nama, $nim);
+            // nama file unik
+            $filename = 'sertifikatwtku_' . $nim . '.pdf';
+            $outputfile = storage_path('app/public/' . $filename);
+            
+            $this->fillPDF(storage_path('template_sertif/sertifikatwtku.pdf'), $outputfile, $pdf->nama, $nim);
 
-            return response()->file($outputfile);
+            $token = sha1($nim . now());
+            session()->put('pdf_' . $token, $filename);
+
+            // redirect ke GET (AMAN)
+            return redirect()->route('cetakwtku.download', $token);
         }
+    }
+
+    public function download($token)
+    {
+        $filename = session()->get('pdf_' . $token);
+        if (!$filename) abort(404);
+
+        $path = storage_path('app/public/' . $filename);
+        if (!file_exists($path)) abort(404);
+
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 
     public function fillPDF($file, $outputfile, $nama, $nim)

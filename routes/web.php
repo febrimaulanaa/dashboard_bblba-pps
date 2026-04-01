@@ -40,10 +40,12 @@ Route::get('/jadwaltuwebtutor', [TuwebController::class, 'indexTutor'])->name('j
 //Sertif PKBJJ
 Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertif');
 Route::post('/cetaksertifikat', [SertifikatController::class, 'process'])->name('buat');
+Route::get('/sertifikat/file/{token}', [SertifikatController::class, 'download'])->name('buat.download');
 
 //Sertif OSMB
 Route::get('/sertifikatosmb', [SertifikatOSMBController::class, 'index'])->name('sertifosmb');
 Route::post('/cetaksertifikatosmb', [SertifikatOSMBController::class, 'process'])->name('cetak');
+Route::get('/sertifikatosmb/file/{token}', [SertifikatOSMBController::class, 'download'])->name('cetak.download');
 
 //Sertif Seminar Akademik
 Route::get('/sertifikatseminar', [SertifikatSeminarController::class, 'index'])->name('sertifseminar');
@@ -52,6 +54,7 @@ Route::post('/generate-seminar', [SertifikatSeminarController::class, 'process']
 //Sertif WTKU
 Route::get('/sertifikatwtku', [SertifikatWTKUController::class, 'index'])->name('sertifwtku');
 Route::post('/cetaksertifikatwtku', [SertifikatWTKUController::class, 'process'])->name('cetakwtku');
+Route::get('/sertifikatwtku/file/{token}', [SertifikatWTKUController::class, 'download'])->name('cetakwtku.download');
 
 //Cek Meja Wisuda
 

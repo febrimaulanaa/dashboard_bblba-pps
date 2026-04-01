@@ -25,11 +25,29 @@ class SertifikatController extends Controller
             alert()->error('ErrorAlert', 'Anda Tidak Terdaftar PKBJJ');
             return redirect('/sertifikat');
         } else {
-            $outputfile = storage_path() . 'sertifikatpkbjj.pdf';
-            $this->fillPDF(storage_path() . '/template_sertif/sertifikatpkbjj.pdf', $outputfile, $pdf->nama, $nim);
+            // nama file unik
+            $filename = 'sertifikatpkbjj_' . $nim . '.pdf';
+            $outputfile = storage_path('app/public/' . $filename);
+            
+            $this->fillPDF(storage_path('template_sertif/sertifikatpkbjj.pdf'), $outputfile, $pdf->nama, $nim);
 
-            return response()->file($outputfile);
+            $token = sha1($nim . now());
+            session()->put('pdf_' . $token, $filename);
+
+            // redirect ke GET (AMAN)
+            return redirect()->route('buat.download', $token);
         }
+    }
+
+    public function download($token)
+    {
+        $filename = session()->get('pdf_' . $token);
+        if (!$filename) abort(404);
+
+        $path = storage_path('app/public/' . $filename);
+        if (!file_exists($path)) abort(404);
+
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 
     public function fillPDF($file, $outputfile, $nama, $nim)
