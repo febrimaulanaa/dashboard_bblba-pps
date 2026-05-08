@@ -124,12 +124,33 @@
                     </a>
                     <ul class="nav nav-collapse">
                         <li
-                            class=" {{ Request::segment(1) == 'admin' && Request::segment(2) == 'tuweb' ? 'active' : '' }}">
+                            class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'tuweb' ? 'active' : '' }}">
                             <a href="{{ route('admintuweb') }}">
                                 <span class="sub-item">Jadwal TTM & Tuweb</span>
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#pegawai">
+                        <i class="fas fa-users"></i>
+                        <p>Pegawai & Absensi</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="pegawai">
+                        <ul class="nav nav-collapse">
+                            <li class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'users' ? 'active' : '' }}">
+                                <a href="{{ route('admin.users') }}">
+                                    <span class="sub-item">Manajemen Pegawai</span>
+                                </a>
+                            </li>
+                            <li class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'absensi' ? 'active' : '' }}">
+                                <a href="{{ route('admin.absensi') }}">
+                                    <span class="sub-item">Data Absensi</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>

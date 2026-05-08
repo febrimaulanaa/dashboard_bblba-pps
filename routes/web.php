@@ -11,6 +11,9 @@ use App\Http\Controllers\SertifikatOSMBController;
 use App\Http\Controllers\SertifikatWTKUController;
 use App\Http\Controllers\SertifikatSeminarController;
 use App\Http\Controllers\WisudaController;
+use App\Http\Controllers\AbsensiPegawaiController;
+use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +24,18 @@ use App\Http\Controllers\WisudaController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Auth Routes (Login Pegawai)
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Absensi Pegawai Monitoring (Harus Login)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/absensi-monitoring', [AbsensiPegawaiController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi-monitoring', [AbsensiPegawaiController::class, 'store'])->name('absensi.store');
+});
+
 //Tampilan Utama
 
 Route::get('/', function () {
@@ -85,6 +100,15 @@ Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb'
 Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
 Route::get('/admin301097/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
 Route::get('/admin301097/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
+
+// Admin Absensi Monitoring
+Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
+Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+
+// Manajemen Pegawai
+Route::get('/admin301097/users', [AdminController::class, 'admin_users'])->name('admin.users');
+Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
+Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
 // Export & Import Excel PKBJJ
 Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');

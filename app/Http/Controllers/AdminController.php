@@ -631,4 +631,36 @@ class AdminController extends Controller
         // alihkan halaman kembali
         return redirect()->back()->with(compact('tuweb'));
     }
+
+    // Manajemen User Pegawai
+    public function admin_users()
+    {
+        $users = \App\Models\User::orderBy('id', 'desc')->get();
+        return view('backend.users.index', compact('users'));
+    }
+
+    public function storeuser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        ]);
+
+        return redirect()->back()->with('success', 'User berhasil ditambahkan.');
+    }
+
+    public function deleteuser($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User berhasil dihapus.');
+    }
 }
