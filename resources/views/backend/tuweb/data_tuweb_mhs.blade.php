@@ -1,13 +1,8 @@
-@extends('backend.template.master')
+@extends('backend.template.modern')
 
 @section('content')
-    <div class="main-panel">
-        <div class="content">
-            <div class="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-[0_12px_32px_rgba(24,28,32,0.04)] border border-outline-variant/10">
+    <div class="card-body">
                                 <div class="card-header">
                                     <h4 class="card-title">Data Tuweb Mahasiswa</h4>
                                 </div>
@@ -177,13 +172,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
 
     <script>
         $(document).ready(function() {

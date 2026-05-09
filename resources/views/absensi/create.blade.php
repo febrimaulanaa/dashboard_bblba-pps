@@ -12,30 +12,29 @@
 @endsection
 
 @section('content')
-    <main class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col items-center px-4 md:px-6 relative overflow-hidden">
+    <main class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col items-center px-4 md:px-6 relative overflow-hidden bg-[#f7f9ff]">
         <!-- Decorative background -->
         <div class="absolute top-10 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-10 left-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl -z-10"></div>
 
-        <div class="w-full max-w-3xl">
+        <div class="w-full max-w-[1100px]">
 
-            <!-- Header -->
-            <div
-                class="bg-surface-container-lowest form-section rounded-2xl shadow-lg border border-outline-variant/10 p-8 mb-8 relative overflow-hidden">
-                <h1 class="text-3xl font-extrabold font-headline text-primary mb-4">Instrumen Pemantauan TTM/TUWEB UT
-                    Jakarta Semester 2025 Genap</h1>
-                <p class="text-on-surface-variant text-sm md:text-base mb-4 leading-relaxed">
-                    Instrumen Pemantauan TTM/TUWEB Semester 2025 Genap ini disusun sebagai media evaluasi dan monitoring
-                    pelaksanaan Tutorial Tatap Muka (TTM) serta Tutorial Webinar (TUWEB) agar kegiatan pembelajaran dapat
-                    berjalan lebih efektif, interaktif, dan sesuai dengan kebutuhan mahasiswa.<br><br>
-                    Mohon isi instrumen dengan jujur, lengkap, dan sesuai kondisi yang dialami selama mengikuti
-                    tutorial.<br>
-                    Terima kasih atas partisipasi dan kontribusinya.
-                </p>
-                <div class="mt-4 pt-4 border-t border-outline-variant/20 flex items-center justify-between">
-                    <p class="text-sm text-on-surface">Akun: <strong>{{ auth()->user()->name }}</strong></p>
+            <!-- Header Banner -->
+            <div class="bg-[#006191] rounded-2xl p-8 md:p-12 mb-8 relative overflow-hidden text-white shadow-lg">
+                <!-- optional background image/pattern -->
+                <div class="absolute right-0 bottom-0 opacity-20 pointer-events-none">
+                    <!-- Placeholder for background image if needed -->
                 </div>
-                <p class="text-xs text-error mt-3">* Menunjukkan pertanyaan yang wajib diisi</p>
+                <div class="relative z-10 max-w-3xl">
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight font-headline">Instrumen Pemantauan<br>TTM/TUWEB UT Jakarta</h1>
+                    <p class="text-blue-100 text-sm md:text-base leading-relaxed max-w-2xl">
+                        Formulir evaluasi dan pelaporan resmi untuk kegiatan Tutorial Tatap Muka (TTM) dan Tutorial Webinar (TUWEB) Universitas Terbuka Jakarta. Semester 2025 Genap.
+                    </p>
+                    <div class="mt-6 inline-flex items-center bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/20">
+                        <span class="material-symbols-outlined text-yellow-400 mr-2">account_circle</span>
+                        <p class="text-sm">Pemantau: <strong>{{ auth()->user()->name }}</strong></p>
+                    </div>
+                </div>
             </div>
 
             @if (session('success'))
@@ -81,310 +80,294 @@
                     </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- Kiri: Col-Span 4 -->
+                    <div class="lg:col-span-4 space-y-6">
+                        
+                        <!-- Card Identitas Pemantau -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-1.5 h-6 bg-yellow-400 rounded-full mr-3"></div>
+                                <h2 class="text-xl font-bold text-[#006191] font-headline">Identitas Pemantau</h2>
+                            </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Silahkan pilih nama Bapak/Ibu
-                            <span class="text-error">*</span></label>
-                        <input type="text" value="{{ auth()->user()->name }}" readonly
-                            class="w-full border-b-2 border-outline-variant/50 bg-surface-container-low py-2 px-3 text-on-surface-variant cursor-not-allowed rounded-t-md">
-                    </div>
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                                    <input type="text" value="{{ auth()->user()->name }}" readonly
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-600 rounded-lg py-3 px-4 cursor-not-allowed">
+                                </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-3 font-headline">Jenis Tutorial <span
-                                class="text-error">*</span></label>
-                        <div class="space-y-3">
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="radio" name="jenis_tutorial" value="TTM" required
-                                    class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                <span class="text-on-surface group-hover:text-primary transition-colors">TTM</span>
-                            </label>
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="radio" name="jenis_tutorial" value="Tuweb" required
-                                    class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                <span class="text-on-surface group-hover:text-primary transition-colors">Tuweb</span>
-                            </label>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Jenis Tutorial <span class="text-red-500">*</span></label>
+                                    <select name="jenis_tutorial" required
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none">
+                                        <option value="">Pilih Jenis</option>
+                                        <option value="TTM">TTM</option>
+                                        <option value="Tuweb">Tuweb</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Jenis Pemantauan Kelompok <span class="text-red-500">*</span></label>
+                                    <select name="jenis_pemantauan" required
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none">
+                                        <option value="">Pilih Jenis Pemantauan</option>
+                                        <option value="NON Praktik/Praktikum">NON Praktik/Praktikum</option>
+                                        <option value="Praktik/Praktikum/Berpraktik">Praktik/Praktikum/Berpraktik</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Jadwal & Mata Kuliah -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-1.5 h-6 bg-yellow-400 rounded-full mr-3"></div>
+                                <h2 class="text-xl font-bold text-[#006191] font-headline">Jadwal & Mata Kuliah</h2>
+                            </div>
+
+                            <div class="space-y-5">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Tanggal <span class="text-red-500">*</span></label>
+                                        <input type="date" name="tanggal" required
+                                            class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Waktu (WIB) <span class="text-red-500">*</span></label>
+                                        <div class="relative">
+                                            <select name="jam_tutorial" required
+                                                class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none pr-10">
+                                                <option value="">--:-- --</option>
+                                                <option value="08.00-10.00 WIB">08.00-10.00 WIB</option>
+                                                <option value="10.15-12.15 WIB">10.15-12.15 WIB</option>
+                                                <option value="13.00-15.00 WIB">13.00-15.00 WIB</option>
+                                                <option value="15.15-17.15 WIB">15.15-17.15 WIB</option>
+                                            </select>
+                                            <span class="material-symbols-outlined absolute right-3 top-3 text-gray-400 pointer-events-none text-xl">schedule</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Pertemuan Ke- <span class="text-red-500">*</span></label>
+                                    <select name="pertemuan_ke" required
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none">
+                                        <option value="">Pilih pertemuan...</option>
+                                        @for ($i = 1; $i <= 8; $i++)
+                                            <option value="{{ $i }}">Pertemuan ke-{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kode / Nama Matkul <span class="text-red-500">*</span></label>
+                                    <input type="text" name="kode_nama_matkul_kelas" required placeholder="Contoh: Pengantar Ilmu Hukum"
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">ID Kelas Tutorial <span class="text-red-500">*</span></label>
+                                    <input type="text" name="id_kelas_tutorial" required placeholder="Contoh: 210002341"
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">ID & Nama Tutor <span class="text-red-500">*</span></label>
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <input type="text" name="id_tutor" required placeholder="ID Tutor (ex: 21501602)"
+                                            class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
+                                        <input type="text" name="nama_tutor" required placeholder="Nama Tutor"
+                                            class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Hari dan Tanggal <span
-                                class="text-error">*</span></label>
-                        <input type="date" name="tanggal" required
-                            class="w-full sm:w-1/2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2 bg-transparent text-on-surface">
-                    </div>
+                    <!-- Kanan: Col-Span 8 -->
+                    <div class="lg:col-span-8 space-y-6">
+                        
+                        <!-- Card Evaluasi Proses KBM -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-1.5 h-6 bg-yellow-400 rounded-full mr-3"></div>
+                                <h2 class="text-xl font-bold text-[#006191] font-headline">Evaluasi Proses KBM</h2>
+                            </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Jam tutorial <span
-                                class="text-error">*</span></label>
-                        <select name="jam_tutorial" required
-                            class="w-full sm:w-1/2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2 bg-transparent text-on-surface">
-                            <option value="">Choose</option>
-                            <option value="08.00-10.00 WIB">08.00-10.00 WIB</option>
-                            <option value="10.15-12.15 WIB">10.15-12.15 WIB</option>
-                            <option value="13.00-15.00 WIB">13.00-15.00 WIB</option>
-                            <option value="15.15-17.15 WIB">15.15-17.15 WIB</option>
-                        </select>
-                    </div>
+                            <!-- Kehadiran & Waktu -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <div class="bg-[#f8fafc] p-5 rounded-xl border border-gray-100">
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Waktu Pemantauan (Ms. Teams) <span class="text-red-500">*</span></label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-1">Jam Mulai</span>
+                                            <input type="text" name="tgl_jam_mulai_pantau" required placeholder="ex: 08.00 WIB"
+                                                class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
+                                        </div>
+                                        <div>
+                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-1">Jam Selesai</span>
+                                            <input type="text" name="jam_akhir_pantau" required placeholder="ex: 10.00 WIB"
+                                                class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-[#f8fafc] p-5 rounded-xl border border-gray-100">
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Kehadiran Mahasiswa <span class="text-red-500">*</span></label>
+                                    <div class="flex items-center gap-3 mt-5">
+                                        <div class="w-full relative">
+                                            <input type="number" name="jml_mhs_hadir" required placeholder="Hadir"
+                                                class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg py-2 pl-3 pr-8 text-sm focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
+                                            <span class="absolute right-3 top-2 text-xs text-gray-400">org</span>
+                                        </div>
+                                        <span class="text-gray-300 font-light text-2xl">/</span>
+                                        <div class="w-full relative">
+                                            <input type="number" name="jml_mhs_seharusnya" required placeholder="Seharusnya"
+                                                class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg py-2 pl-3 pr-8 text-sm focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
+                                            <span class="absolute right-3 top-2 text-xs text-gray-400">org</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Pertemuan ke- <span
-                                class="text-error">*</span></label>
-                        <select name="pertemuan_ke" required
-                            class="w-full sm:w-1/2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2 bg-transparent text-on-surface">
-                            <option value="">Pilih pertemuan...</option>
-                            @for ($i = 1; $i <= 8; $i++)
-                                <option value="{{ $i }}">Pertemuan ke-{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
+                            <!-- KBM Table -->
+                            <div class="mb-8">
+                                <div class="flex items-center justify-between px-4 pb-3 border-b border-gray-200">
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide">Aspek Pengamatan <span class="text-red-500">*</span></label>
+                                    <div class="flex gap-8 pr-4">
+                                        <span class="text-xs font-bold text-gray-500 uppercase w-12 text-center">Ya</span>
+                                        <span class="text-xs font-bold text-gray-500 uppercase w-12 text-center">Tidak</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-2 mt-4">
+                                    @php
+                                        $kbmOptions = [
+                                            'kbm_absensi' => '1. Tutor hadir tepat waktu sesuai jadwal & melakukan absensi',
+                                            'kbm_materi' => '2. Di awal pembelajaran, tutor menyampaikan materi yang akan dibahas',
+                                            'kbm_media' => '3. Tutor menggunakan media pembelajaran (PowerPoint, Word, dll.)',
+                                            'kbm_diskusi' => '4. Mahasiswa aktif dalam diskusi dan tanya jawab dengan tutor',
+                                            'kbm_pengarahan' => '5. Di akhir pembelajaran, tutor memberikan pengarahan sesi mendatang'
+                                        ];
+                                    @endphp
+                                    @foreach($kbmOptions as $name => $label)
+                                    <div class="flex items-center justify-between bg-[#f8fafc] p-4 rounded-xl hover:bg-[#f0f4fa] transition-colors border border-transparent hover:border-gray-100">
+                                        <span class="text-sm text-gray-700 font-medium pr-4 leading-relaxed">{{ $label }}</span>
+                                        <div class="flex gap-8 pr-6">
+                                            <label class="cursor-pointer w-8 text-center flex justify-center group">
+                                                <input type="radio" name="{{ $name }}" value="Ya" required class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                            </label>
+                                            <label class="cursor-pointer w-8 text-center flex justify-center group">
+                                                <input type="radio" name="{{ $name }}" value="Tidak" required class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    <div class="flex items-center justify-between bg-[#f8fafc] p-4 rounded-xl hover:bg-[#f0f4fa] transition-colors border border-transparent hover:border-gray-100">
+                                        <span class="text-sm text-gray-700 font-medium pr-4 leading-relaxed">6. Tutor membahas tugas pertemuan sebelumnya (khusus minggu 4, 6, 8)</span>
+                                        <div class="flex gap-8 pr-6">
+                                            <label class="cursor-pointer w-8 text-center flex justify-center">
+                                                <input type="radio" name="bahas_tugas" value="Ya" class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                            </label>
+                                            <label class="cursor-pointer w-8 text-center flex justify-center">
+                                                <input type="radio" name="bahas_tugas" value="Tidak" class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Kode / Nama Mata Kuliah / Nama
-                            Kelas: <span class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Tuliskan kode mata kuliah, nama mata kuliah, dan nama kelas.
-                            Contoh: EACC4101/Pengantar Akuntansi/EACC4101.210005</p>
-                        <input type="text" name="kode_nama_matkul_kelas" required
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface placeholder-outline-variant">
-                    </div>
+                            <!-- Text Areas -->
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Catatan / Praktik Baik <span class="text-red-500">*</span></label>
+                                    <textarea name="praktik_baik" required rows="2" placeholder="Tuliskan praktik baik dalam tuweb..."
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Temuan Ketidaksesuaian <span class="text-red-500">*</span></label>
+                                    <textarea name="temuan_ketidaksesuaian" required rows="2" placeholder="Tuliskan temuan ketidaksesuaian..."
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kesan Terhadap Pembelajaran <span class="text-red-500">*</span></label>
+                                    <textarea name="kesan_pembelajaran" required rows="2" placeholder="Tuliskan kesan anda..."
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kendala Tutorial <span class="text-red-500">*</span></label>
+                                    <textarea name="kendala_tutorial" required rows="2" placeholder="Tuliskan kendala yang dihadapi..."
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Saran Perbaikan <span class="text-red-500">*</span></label>
+                                    <textarea name="saran_perbaikan" required rows="2" placeholder="Tuliskan saran perbaikan..."
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
+                                </div>
+                            </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">ID Kelas Tutorial: <span
-                                class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Tuliskan ID Kelas Tutorial sesuai data pemantauan (6 digit).
-                            Contoh: 210002341</p>
-                        <input type="text" name="id_kelas_tutorial" required
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface placeholder-outline-variant">
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">ID Tutor: <span
-                                class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Tuliskan ID Tutor sesuai data pemantauan (8 digit). Contoh:
-                            21501602</p>
-                        <input type="text" name="id_tutor" required
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface placeholder-outline-variant">
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Nama Tutor: <span
-                                class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Tuliskan Nama Tutor sesuai daftar penjadwalan & ijin kelas!
-                            Contoh: AHMAD TRY HANDOKO, SE., M.AK.</p>
-                        <input type="text" name="nama_tutor" required
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface placeholder-outline-variant">
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Tanggal dan Jam MULAI Pemantauan
-                            TTM/Tuweb melalui Ms. Teams* <span class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Isikan tanggal, jam, dan menit saat Anda memulai pemantauan
-                            TTM/Tuweb melalui Ms. Teams! Contoh: 11/04/2022 pukul 08.00 WIB</p>
-                        <input type="text" name="tgl_jam_mulai_pantau" required
-                            placeholder="Contoh: 11/04/2022 pukul 08.00 WIB"
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface">
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Jumlah mahasiswa yang seharusnya
-                            hadir di kelas yang dipantau: <span class="text-error">*</span></label>
-                        <input type="number" name="jml_mhs_seharusnya" required
-                            class="w-full sm:w-1/3 border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface">
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Jumlah mahasiswa yang hadir di
-                            kelas yang dipantau: <span class="text-error">*</span></label>
-                        <input type="number" name="jml_mhs_hadir" required
-                            class="w-full sm:w-1/3 border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface">
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-3 font-headline">Jenis Pemantauan untuk Kelompok
-                            Matakuliah: <span class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">
-                            1 = NON Praktik/Praktikum<br>
-                            2 = Praktik/Praktikum/Berpraktik
-                        </p>
-                        <div class="space-y-3">
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="radio" name="jenis_pemantauan" value="NON Praktik/Praktikum" required
-                                    class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                <span class="text-on-surface group-hover:text-primary transition-colors">NON
-                                    Praktik/Praktikum</span>
-                            </label>
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="radio" name="jenis_pemantauan" value="Praktik/Praktikum/Berpraktik" required
-                                    class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                <span
-                                    class="text-on-surface group-hover:text-primary transition-colors">Praktik/Praktikum/Berpraktik</span>
-                            </label>
                         </div>
-                    </div>
 
-                    <!-- Proses KBM -->
-                    <div
-                        class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10 overflow-x-auto">
-                        <label class="block font-bold text-on-surface mb-4 font-headline">Proses Kegiatan Belajar Mengajar
-                            (KBM) <span class="text-error">*</span></label>
-                        <table class="w-full text-left text-sm min-w-[600px]">
-                            <thead>
-                                <tr class="border-b border-outline-variant/30">
-                                    <th class="pb-3 font-semibold text-on-surface-variant w-3/4">Pertanyaan</th>
-                                    <th class="pb-3 text-center font-semibold text-on-surface-variant w-1/8">Ya</th>
-                                    <th class="pb-3 text-center font-semibold text-on-surface-variant w-1/8">Tidak</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant/20">
-                                @php
-                                    $kbmOptions = [
-                                        'kbm_absensi' => '1. Tutor melakukan absensi kepada mahasiswa',
-                                        'kbm_materi' => '2. Di awal pembelajaran, tutor menyampaikan materi yang akan dibahas',
-                                        'kbm_media' => '3. Tutor menggunakan media (PowerPoint, Word, dll.)',
-                                        'kbm_diskusi' => '4. Tutor berdiskusi dengan mahasiswa secara aktif',
-                                        'kbm_pengarahan' => '5. Di akhir pembelajaran, tutor memberikan pengarahan tentang sesi tutorial yang akan datang'
-                                    ];
-                                @endphp
-                                @foreach($kbmOptions as $name => $label)
-                                    <tr class="hover:bg-surface-container-low transition-colors">
-                                        <td class="py-4 pr-4 text-on-surface whitespace-normal">{{ $label }}</td>
-                                        <td class="py-4 text-center">
-                                            <input type="radio" name="{{ $name }}" value="Ya" required
-                                                class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                        </td>
-                                        <td class="py-4 text-center">
-                                            <input type="radio" name="{{ $name }}" value="Tidak" required
-                                                class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        <!-- Card Bukti Dokumentasi -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-1.5 h-6 bg-yellow-400 rounded-full mr-3"></div>
+                                <h2 class="text-xl font-bold text-[#006191] font-headline">Bukti Dokumentasi</h2>
+                            </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Tutor Membahas Tugas Tutorial yang
-                            diberikan pada Pertemuan Sebelumnya</label>
-                        <p class="text-sm text-outline mb-3">(Jika pemantauan dilakukan pada minggu ke 4, 6, atau 8 untuk MK
-                            Non Praktik)</p>
-                        <div class="space-y-3">
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="radio" name="bahas_tugas" value="Ya"
-                                    class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                <span class="text-on-surface group-hover:text-primary transition-colors">Ya</span>
-                            </label>
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="radio" name="bahas_tugas" value="Tidak"
-                                    class="form-radio h-5 w-5 text-primary border-outline focus:ring-primary">
-                                <span class="text-on-surface group-hover:text-primary transition-colors">Tidak</span>
-                            </label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                
+                                <!-- Uploads -->
+                                <div class="space-y-5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Screenshot Pertemuan (Materi) <span class="text-red-500">*</span></label>
+                                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-[#f8fafc] hover:bg-[#f0f4fa] hover:border-[#006191]/50 transition-colors cursor-pointer relative group">
+                                            <span class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-[#006191] mb-2 transition-colors">upload_file</span>
+                                            <p class="text-sm text-gray-600 font-medium text-center file-name">Klik untuk unggah gambar</p>
+                                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">PNG, JPG up to 10MB</p>
+                                            <input type="file" name="file_materi" required accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Screenshot Pertemuan (Peserta) <span class="text-red-500">*</span></label>
+                                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-[#f8fafc] hover:bg-[#f0f4fa] hover:border-[#006191]/50 transition-colors cursor-pointer relative group">
+                                            <span class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-[#006191] mb-2 transition-colors">upload_file</span>
+                                            <p class="text-sm text-gray-600 font-medium text-center file-name">Klik untuk unggah gambar</p>
+                                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">PNG, JPG up to 10MB</p>
+                                            <input type="file" name="file_peserta" required accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Link & Submit -->
+                                <div class="flex flex-col h-full space-y-6">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Link Rekaman (Video) <span class="text-red-500">*</span></label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <span class="material-symbols-outlined text-gray-400 text-[20px]">link</span>
+                                            </div>
+                                            <input type="url" name="link_video" required placeholder="https://youtube.com/..."
+                                                class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 pl-10 pr-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-auto pt-4 flex-grow flex flex-col justify-end">
+                                        <button type="submit" id="submitBtn" disabled
+                                            class="w-full bg-[#006191] hover:bg-[#004b71] disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 group">
+                                            <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">send</span>
+                                            Kirim Laporan Monitoring
+                                        </button>
+                                        <p class="text-[9px] text-gray-400 text-center mt-3 uppercase tracking-wider">Pastikan data yang diisi telah sesuai dengan keadaan lapangan</p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Jam AKHIR Pemantauan TTM/Tuweb
-                            melalui Ms. Teams <span class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Isikan jam dan menit saat Anda mengakhiri pemantauan TTM/Tuweb
-                            melalui Ms. Teams! Contoh: pukul 12.00 WIB</p>
-                        <input type="text" name="jam_akhir_pantau" required
-                            class="w-full sm:w-1/2 border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface">
                     </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">PRAKTIK BAIK: <span
-                                class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Tuliskan dengan rinci praktik baik dalam tuweb atau
-                            praktik/praktikum termasuk hari/tanggal, jam, tutor, mata kuliah yang dipantau sesuai indikator
-                            pelaksanaan pada laporan pemantauan.</p>
-                        <textarea name="praktik_baik" required rows="4"
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface resize-y"></textarea>
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">TEMUAN KETIDAKSESUAIAN: <span
-                                class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Tuliskan dengan rinci temuan ketidaksesuaian dalam tuweb atau
-                            praktik/praktikum termasuk hari/tanggal, jam, tutor, mata kuliah yang dipantau sesuai indikator
-                            pelaksanaan pada laporan pemantauan.</p>
-                        <textarea name="temuan_ketidaksesuaian" required rows="4"
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface resize-y"></textarea>
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Kesan Terhadap Proses Pembelajaran
-                            pada Pertemuan TTM/Tuweb melalui Ms. Teams <span class="text-error">*</span></label>
-                        <textarea name="kesan_pembelajaran" required rows="3"
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface resize-y"></textarea>
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Kendala yang Dihadapi Tutor dan
-                            Mahasiswa Selama Proses Pertemuan TTM/Tuweb melalui Ms. Teams Berlangsung <span
-                                class="text-error">*</span></label>
-                        <textarea name="kendala_tutorial" required rows="3"
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface resize-y"></textarea>
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Saran Perbaikan Pelaksanaan
-                            TTM/Tuweb melalui Ms. Teams <span class="text-error">*</span></label>
-                        <textarea name="saran_perbaikan" required rows="3"
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface resize-y"></textarea>
-                    </div>
-
-                    <!-- File Uploads -->
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-3 font-headline">Screenshot/Foto pada Saat Tutor
-                            Sedang Menyampaikan Materi <span class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">File yang diperbolehkan yaitu gambar dalam format *.JPG,
-                            *.JPEG, *.BMP, *.PNG maksimal 10 MB</p>
-                        <div
-                            class="mt-2 border-2 border-dashed border-outline-variant/60 rounded-xl p-8 flex flex-col items-center justify-center bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer relative">
-                            <span class="material-symbols-outlined text-4xl text-outline mb-3">cloud_upload</span>
-                            <p class="text-sm text-on-surface-variant font-medium mb-1 file-name">Tambahkan file</p>
-                            <input type="file" name="file_materi" required accept="image/*"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        </div>
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-3 font-headline">Screenshot/Foto yang Memuat
-                            Seluruh Peserta/Partisipan dalam Pertemuan TTM/Tuweb melalui Ms. Teams <span
-                                class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">File yang diperbolehkan yaitu gambar dalam format *.JPG,
-                            *.JPEG, *.BMP, *.PNG maksimal 10 MB</p>
-                        <div
-                            class="mt-2 border-2 border-dashed border-outline-variant/60 rounded-xl p-8 flex flex-col items-center justify-center bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer relative">
-                            <span class="material-symbols-outlined text-4xl text-outline mb-3">cloud_upload</span>
-                            <p class="text-sm text-on-surface-variant font-medium mb-1 file-name">Tambahkan file</p>
-                            <input type="file" name="file_peserta" required accept="image/*"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        </div>
-                    </div>
-
-                    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
-                        <label class="block font-bold text-on-surface mb-2 font-headline">Cuplikan Video Rekaman Saat
-                            Pemantauan <span class="text-error">*</span></label>
-                        <p class="text-sm text-outline mb-3">Silahkan upload video pada drive masing-masing kemudian isikan
-                            link pada kolom dibawah (jangan lupa untuk membuka akses untuk semua orang)</p>
-                        <input type="url" name="link_video" required placeholder="https://..."
-                            class="w-full border-b-2 border-outline-variant/50 focus:border-primary focus:outline-none py-2 bg-transparent text-on-surface placeholder-outline-variant">
-                    </div>
-
                 </div>
-
-                <div class="mt-10 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-                    <button type="submit" id="submitBtn" disabled
-                        class="w-full sm:w-auto bg-outline-variant text-white font-bold py-4 px-10 rounded-xl cursor-not-allowed transition-all shadow-md flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-[20px]">send</span>
-                        Kirim
-                    </button>
-                </div>
-
-                <div class="text-center mt-6">
-                    <p class="text-xs text-outline">Jangan pernah mengirimkan sandi melalui Google Formulir.</p>
-                </div>
-
             </form>
         </div>
     </main>
@@ -421,8 +404,7 @@
                         gpsSpinner.style.display = 'none';
 
                         submitBtn.disabled = false;
-                        submitBtn.classList.remove('bg-outline-variant', 'cursor-not-allowed');
-                        submitBtn.classList.add('bg-primary', 'hover:bg-sky-800', 'active:scale-[0.98]');
+                        submitBtn.classList.remove('disabled:bg-gray-300', 'disabled:cursor-not-allowed');
                     },
                     function (error) {
                         gpsStatusCard.classList.remove('bg-yellow-50', 'border-yellow-200');
@@ -456,11 +438,18 @@
                 input.addEventListener('change', function () {
                     if (this.files && this.files[0]) {
                         const parent = this.parentElement;
-                        parent.classList.add('border-primary', 'bg-primary/5');
+                        parent.classList.add('border-[#006191]', 'bg-[#006191]/5');
+                        parent.classList.remove('border-gray-300', 'bg-[#f8fafc]');
                         const textEl = parent.querySelector('p.file-name');
+                        const iconEl = parent.querySelector('.material-symbols-outlined');
                         if (textEl) {
                             textEl.textContent = this.files[0].name;
-                            textEl.classList.add('text-primary');
+                            textEl.classList.add('text-[#006191]');
+                            textEl.classList.remove('text-gray-600');
+                        }
+                        if (iconEl) {
+                            iconEl.classList.add('text-[#006191]');
+                            iconEl.classList.remove('text-gray-400');
                         }
                     }
                 });

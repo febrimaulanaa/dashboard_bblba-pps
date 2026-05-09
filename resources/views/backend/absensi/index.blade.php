@@ -1,42 +1,21 @@
-@extends('backend.template.master')
+@extends('backend.template.modern')
 
 @section('title', 'Data Monitoring Pemantauan TTM/TUWEB')
 
 @section('content')
-<div class="main-panel">
-    <div class="content">
-        <div class="page-inner">
-            <div class="page-header">
-                <h4 class="page-title">Data Monitoring Pemantauan TTM/TUWEB</h4>
-                <ul class="breadcrumbs">
-                    <li class="nav-home">
-                        <a href="{{ route('home') }}">
-                            <i class="flaticon-home"></i>
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Absensi Pegawai</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Daftar Hasil Pemantauan Semester 2025 Genap</h4>
-                            <div>
-                                <a href="{{ route('admin.absensi.export') }}" class="btn btn-success btn-sm btn-round">
-                                    <i class="fas fa-file-excel mr-2"></i> Export Excel
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
+<div class="bg-surface-container-lowest rounded-2xl shadow-[0_12px_32px_rgba(24,28,32,0.04)] border border-outline-variant/10 overflow-hidden">
+    <!-- Clean Header with Export Button -->
+    <div class="p-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-white border-b border-outline-variant/10">
+        <h4 class="text-lg font-bold text-on-surface m-0 font-headline">Daftar Hasil Pemantauan Semester 2025 Genap</h4>
+        <a href="{{ route('admin.absensi.export') }}" class="flex items-center gap-2 px-6 py-2.5 bg-[#006191] text-white rounded-xl text-sm font-bold shadow-md hover:opacity-90 transition-all">
+            <i class="fas fa-file-excel"></i> Export Excel
+        </a>
+    </div>
+    
+    <!-- Table Content Area -->
+    <div class="p-6 bg-white">
+        <div class="table-responsive">
+            <table id="basic-datatables" class="display table">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -131,11 +110,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

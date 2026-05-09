@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PKBJJController;
 use App\Http\Controllers\TuwebController;
@@ -85,58 +86,65 @@ Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
 Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
-//Admin
-Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');
-Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
-Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
-Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
-Route::get('/admin301097/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
-Route::get('/admin301097/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
-Route::get('/admin301097/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
-Route::get('/admin301097/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
-Route::get('/admin301097/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
-Route::get('/admin301097/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
-Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb');
-Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
-Route::get('/admin301097/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
-Route::get('/admin301097/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
+//Admin Login Routes
+Route::get('/admin301097/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin301097/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+Route::post('/admin301097/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-// Admin Absensi Monitoring
-Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
-Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+//Admin Protected Routes
+Route::middleware(['admin.auth'])->group(function () {
+    Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');
+    Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
+    Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
+    Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
+    Route::get('/admin301097/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
+    Route::get('/admin301097/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
+    Route::get('/admin301097/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
+    Route::get('/admin301097/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
+    Route::get('/admin301097/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
+    Route::get('/admin301097/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
+    Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb');
+    Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
+    Route::get('/admin301097/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
+    Route::get('/admin301097/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
 
-// Manajemen Pegawai
-Route::get('/admin301097/users', [AdminController::class, 'admin_users'])->name('admin.users');
-Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
-Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+    // Admin Absensi Monitoring
+    Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
+    Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
-// Export & Import Excel PKBJJ
-Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
-Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
-Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
-Route::post('/pkbjj/import_jadwalexcel', [AdminController::class, 'import_jadwalexcel'])->name('importjadwalpkbjj');
+    // Manajemen Pegawai
+    Route::get('/admin301097/users', [AdminController::class, 'admin_users'])->name('admin.users');
+    Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
+    Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
-// Export & Import Excel OSMB
-Route::post('/osmb/storeosmb', [AdminController::class, 'storeosmb'])->name('storeosmb');
-Route::get('/osmb/export_excelosmb', [AdminController::class, 'export_excelosmb'])->name('exportosmb');
-Route::post('/osmb/import_excelosmb', [AdminController::class, 'import_excelosmb'])->name('importosmb');
+    // Export & Import Excel PKBJJ
+    Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
+    Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
+    Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
+    Route::post('/pkbjj/import_jadwalexcel', [AdminController::class, 'import_jadwalexcel'])->name('importjadwalpkbjj');
 
-// Export & Import Excel Seminar
-Route::post('/seminar/storeseminar', [AdminController::class, 'storeseminar'])->name('storeseminar');
-Route::get('/seminar/export_excelseminar', [AdminController::class, 'export_excelseminar'])->name('exportseminar');
-Route::post('/seminar/import_excelseminar', [AdminController::class, 'import_excelseminar'])->name('importseminar');
+    // Export & Import Excel OSMB
+    Route::post('/osmb/storeosmb', [AdminController::class, 'storeosmb'])->name('storeosmb');
+    Route::get('/osmb/export_excelosmb', [AdminController::class, 'export_excelosmb'])->name('exportosmb');
+    Route::post('/osmb/import_excelosmb', [AdminController::class, 'import_excelosmb'])->name('importosmb');
 
-// Export & Import Excel WTKU
-Route::post('/wtku/storewtku', [AdminController::class, 'storewtku'])->name('storewtku');
-Route::get('/wtku/export_excelwtku', [AdminController::class, 'export_excelwtku'])->name('exportwtku');
-Route::post('/wtku/import_excelwtku', [AdminController::class, 'import_excelwtku'])->name('importwtku');
+    // Export & Import Excel Seminar
+    Route::post('/seminar/storeseminar', [AdminController::class, 'storeseminar'])->name('storeseminar');
+    Route::get('/seminar/export_excelseminar', [AdminController::class, 'export_excelseminar'])->name('exportseminar');
+    Route::post('/seminar/import_excelseminar', [AdminController::class, 'import_excelseminar'])->name('importseminar');
 
-// Export & Import Excel Wisuda
-Route::post('/wisuda/storewisuda', [AdminController::class, 'storewisuda'])->name('storewisuda');
-Route::get('/wisuda/export_excelwisuda', [AdminController::class, 'export_excelwisuda'])->name('exportwisuda');
-Route::post('/wisuda/import_excelwisuda', [AdminController::class, 'import_excelwisuda'])->name('importwisuda');
+    // Export & Import Excel WTKU
+    Route::post('/wtku/storewtku', [AdminController::class, 'storewtku'])->name('storewtku');
+    Route::get('/wtku/export_excelwtku', [AdminController::class, 'export_excelwtku'])->name('exportwtku');
+    Route::post('/wtku/import_excelwtku', [AdminController::class, 'import_excelwtku'])->name('importwtku');
 
-// Export & Import Tuweb
-Route::post('/tuweb/storetuweb', [AdminController::class, 'storetuweb'])->name('storetuweb');
-Route::get('/tuweb/export_exceltuweb', [AdminController::class, 'export_exceltuweb'])->name('exporttuweb');
-Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltuweb'])->name('importtuweb');
+    // Export & Import Excel Wisuda
+    Route::post('/wisuda/storewisuda', [AdminController::class, 'storewisuda'])->name('storewisuda');
+    Route::get('/wisuda/export_excelwisuda', [AdminController::class, 'export_excelwisuda'])->name('exportwisuda');
+    Route::post('/wisuda/import_excelwisuda', [AdminController::class, 'import_excelwisuda'])->name('importwisuda');
+
+    // Export & Import Tuweb
+    Route::post('/tuweb/storetuweb', [AdminController::class, 'storetuweb'])->name('storetuweb');
+    Route::get('/tuweb/export_exceltuweb', [AdminController::class, 'export_exceltuweb'])->name('exporttuweb');
+    Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltuweb'])->name('importtuweb');
+});
