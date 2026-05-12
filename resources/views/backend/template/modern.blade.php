@@ -4,8 +4,10 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>@yield('title', 'Admin Dashboard') | UT Jakarta</title>
-    <!-- Bootstrap CSS for Legacy Components -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
+    <!-- Atlantis CSS -->
+    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
 
 
     <!-- Core JS Files for Legacy Components (Moved to head for inline scripts) -->

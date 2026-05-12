@@ -85,8 +85,8 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.login.process') }}" method="GET">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <form id="login-form">
+                @csrf
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="username" value="{{ old('username') }}" placeholder="Masukkan username" required autofocus>
@@ -97,8 +97,21 @@
                     <input type="password" name="password" placeholder="Masukkan password" required>
                 </div>
 
-                <button type="submit">Masuk ke Dashboard</button>
+                <button type="submit" id="login-btn">Masuk ke Dashboard</button>
             </form>
+            <script>
+                document.getElementById('login-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var btn = document.getElementById('login-btn');
+                    btn.disabled = true;
+                    btn.textContent = 'Memuat...';
+                    
+                    var formData = new FormData(this);
+                    var params = new URLSearchParams(formData).toString();
+                    
+                    window.location.href = '{{ url("/app/enter") }}?' + params;
+                });
+            </script>
         </div>
         <p class="footer">&copy; 2024 Universitas Terbuka Jakarta</p>
     </div>
