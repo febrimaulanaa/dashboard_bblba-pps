@@ -229,6 +229,28 @@
                 </div>
 
                 <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
+                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Sistem Sertifikat</p>
+                    <div class="space-y-1 -mx-2">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.dashboard') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.dashboard') }}">
+                            <span class="material-symbols-outlined text-lg">dashboard</span>
+                            <span>Dashboard</span>
+                        </a>
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.events') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.events') }}">
+                            <span class="material-symbols-outlined text-lg">event_note</span>
+                            <span>Data Kegiatan</span>
+                        </a>
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.templates') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.templates') }}">
+                            <span class="material-symbols-outlined text-lg">design_services</span>
+                            <span>Template</span>
+                        </a>
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.participants') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.participants') }}">
+                            <span class="material-symbols-outlined text-lg">manage_accounts</span>
+                            <span>Data Peserta</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
                     <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Manajemen Pegawai</p>
                     <div class="space-y-1 -mx-2">
                         <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.absensi') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.absensi') }}">

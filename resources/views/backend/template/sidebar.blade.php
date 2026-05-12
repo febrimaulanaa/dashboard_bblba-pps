@@ -132,6 +132,37 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a data-toggle="collapse" href="#sertifikat-sistem">
+                        <i class="fas fa-certificate"></i>
+                        <p>Sistem Sertifikat</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="sertifikat-sistem">
+                        <ul class="nav nav-collapse">
+                            <li class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'sistem-sertifikat' && !Request::segment(3) ? 'active' : '' }}">
+                                <a href="{{ route('admin.sertifikat.dashboard') }}">
+                                    <span class="sub-item">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'events' ? 'active' : '' }}">
+                                <a href="{{ route('admin.sertifikat.events') }}">
+                                    <span class="sub-item">Kegiatan</span>
+                                </a>
+                            </li>
+                            <li class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'templates' ? 'active' : '' }}">
+                                <a href="{{ route('admin.sertifikat.templates') }}">
+                                    <span class="sub-item">Template Sertifikat</span>
+                                </a>
+                            </li>
+                            <li class=" {{ Request::segment(1) == 'admin301097' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'participants' ? 'active' : '' }}">
+                                <a href="{{ route('admin.sertifikat.participants') }}">
+                                    <span class="sub-item">Data Peserta</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#pegawai">
                         <i class="fas fa-users"></i>
                         <p>Pegawai & Absensi</p>

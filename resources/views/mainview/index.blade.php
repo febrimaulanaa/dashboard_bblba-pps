@@ -139,6 +139,29 @@
                 </div>
               </div>
             </a>
+            
+            @if(isset($activeEvents) && $activeEvents->count() > 0)
+                @foreach($activeEvents as $event)
+                    <!-- Dynamic Event Card -->
+                    <a href="{{ route('sertifikat.form', $event->slug) }}" class="block h-full">
+                        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow group border border-outline-variant/10 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                            <span class="material-symbols-outlined">event</span>
+                            </div>
+                            <div class="text-slate-400 group-hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                            </div>
+                        </div>
+                        <h4 class="font-headline font-bold text-on-surface mb-1">{{ $event->name }}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4">{{ \Illuminate\Support\Str::limit($event->description, 50) }}</p>
+                        <div class="h-1 w-full bg-surface-container rounded-full overflow-hidden mt-auto">
+                            <div class="h-full bg-blue-500 w-full"></div>
+                        </div>
+                        </div>
+                    </a>
+                @endforeach
+            @endif
           </div>
         </div>
         <!-- Academic Section (1/3 width) -->
