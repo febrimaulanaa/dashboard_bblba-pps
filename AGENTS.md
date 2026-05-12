@@ -1,16 +1,26 @@
 # AGENTS.md - BBLBA Dashboard
 
 ## Project Overview
-- **Type**: Laravel 8 PHP application (PHP 7.3/8.0)
+- **Type**: Laravel 8 PHP application (PHP ^7.3|^8.0)
 - **Database**: MySQL (`dashboardbblba`)
 - **Frontend**: Laravel Mix (basic asset compilation)
+
+## Setup
+```bash
+composer install              # Install PHP dependencies
+cp .env.example .env          # Copy environment config
+php artisan key:generate      # Generate app key
+php artisan migrate           # Run database migrations
+npm install                   # Install JS dependencies
+```
 
 ## Developer Commands
 
 ```bash
 # PHP/Laravel
-php artisan <command>         # Standard Laravel artisan commands
 php artisan serve             # Start development server
+php artisan migrate           # Run migrations
+php artisan db:seed           # Seed database
 
 # Frontend assets
 npm run dev                   # Compile assets for development
@@ -44,6 +54,7 @@ npm run prod                  # Production build
 - Uses Yajra DataTables for admin interfaces
 
 ## Notes
-- Admin login uses separate auth system (`admin.auth` middleware vs `auth` middleware)
+- **Two auth systems**: `admin.auth` for admin routes (`/admin301097`), `auth` for employee attendance (`/absensi-monitoring`)
 - Multiple certificate systems: legacy (PKBJJ, OSMB, WTKU, Seminar) and new event-based system
 - Google credentials stored in `storage/app/google-credentials.json`
+- **Critical**: `.env` must contain valid credentials for Google Drive, SRS API, and SMTP for full functionality
