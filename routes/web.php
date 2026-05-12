@@ -100,60 +100,60 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
 //Admin Login Routes
-Route::get('/admin301097/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
-Route::get('/admin301097/login/process', [AdminAuthController::class, 'loginGet'])->name('admin.login.process');
-Route::get('/admin301097/login/redirect/{token}', [AdminAuthController::class, 'handleRedirect'])->name('admin.login.redirect');
-Route::get('/admin301097/login/error/{token}', [AdminAuthController::class, 'handleError'])->name('admin.login.error');
-Route::get('/admin301097/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+Route::get('/admin/login/process', [AdminAuthController::class, 'loginGet'])->name('admin.login.process');
+Route::get('/admin/login/redirect/{token}', [AdminAuthController::class, 'handleRedirect'])->name('admin.login.redirect');
+Route::get('/admin/login/error/{token}', [AdminAuthController::class, 'handleError'])->name('admin.login.error');
+Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 //Admin Protected Routes
 Route::middleware(['admin.auth'])->group(function () {
-    Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');
-    Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
-    Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
-    Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
-    Route::get('/admin301097/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
+    Route::get('/admin', [AdminController::class, 'index'])->name('hlmadmin');
+    Route::get('/admin/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
+    Route::get('/admin/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
+    Route::get('/admin/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
+    Route::get('/admin/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
     
     // Admin Sertifikat Baru
-    Route::get('/admin301097/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
+    Route::get('/admin/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
     
     // CRUD Events
-    Route::get('/admin301097/sistem-sertifikat/events', [CertificateAdminController::class, 'events'])->name('admin.sertifikat.events');
-    Route::get('/admin301097/sistem-sertifikat/events/create', [CertificateAdminController::class, 'createEvent'])->name('admin.sertifikat.events.create');
-    Route::post('/admin301097/sistem-sertifikat/events', [CertificateAdminController::class, 'storeEvent'])->name('admin.sertifikat.events.store');
-    Route::get('/admin301097/sistem-sertifikat/events/{id}/edit', [CertificateAdminController::class, 'editEvent'])->name('admin.sertifikat.events.edit');
-    Route::put('/admin301097/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'updateEvent'])->name('admin.sertifikat.events.update');
-    Route::delete('/admin301097/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'destroyEvent'])->name('admin.sertifikat.events.destroy');
+    Route::get('/admin/sistem-sertifikat/events', [CertificateAdminController::class, 'events'])->name('admin.sertifikat.events');
+    Route::get('/admin/sistem-sertifikat/events/create', [CertificateAdminController::class, 'createEvent'])->name('admin.sertifikat.events.create');
+    Route::post('/admin/sistem-sertifikat/events', [CertificateAdminController::class, 'storeEvent'])->name('admin.sertifikat.events.store');
+    Route::get('/admin/sistem-sertifikat/events/{id}/edit', [CertificateAdminController::class, 'editEvent'])->name('admin.sertifikat.events.edit');
+    Route::put('/admin/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'updateEvent'])->name('admin.sertifikat.events.update');
+    Route::delete('/admin/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'destroyEvent'])->name('admin.sertifikat.events.destroy');
 
     // CRUD Templates
-    Route::get('/admin301097/sistem-sertifikat/templates', [CertificateAdminController::class, 'templates'])->name('admin.sertifikat.templates');
-    Route::get('/admin301097/sistem-sertifikat/templates/create', [CertificateAdminController::class, 'createTemplate'])->name('admin.sertifikat.templates.create');
-    Route::post('/admin301097/sistem-sertifikat/templates', [CertificateAdminController::class, 'storeTemplate'])->name('admin.sertifikat.templates.store');
-    Route::get('/admin301097/sistem-sertifikat/templates/{id}/edit', [CertificateAdminController::class, 'editTemplate'])->name('admin.sertifikat.templates.edit');
-    Route::put('/admin301097/sistem-sertifikat/templates/{id}', [CertificateAdminController::class, 'updateTemplate'])->name('admin.sertifikat.templates.update');
-    Route::delete('/admin301097/sistem-sertifikat/templates/{id}', [CertificateAdminController::class, 'destroyTemplate'])->name('admin.sertifikat.templates.destroy');
+    Route::get('/admin/sistem-sertifikat/templates', [CertificateAdminController::class, 'templates'])->name('admin.sertifikat.templates');
+    Route::get('/admin/sistem-sertifikat/templates/create', [CertificateAdminController::class, 'createTemplate'])->name('admin.sertifikat.templates.create');
+    Route::post('/admin/sistem-sertifikat/templates', [CertificateAdminController::class, 'storeTemplate'])->name('admin.sertifikat.templates.store');
+    Route::get('/admin/sistem-sertifikat/templates/{id}/edit', [CertificateAdminController::class, 'editTemplate'])->name('admin.sertifikat.templates.edit');
+    Route::put('/admin/sistem-sertifikat/templates/{id}', [CertificateAdminController::class, 'updateTemplate'])->name('admin.sertifikat.templates.update');
+    Route::delete('/admin/sistem-sertifikat/templates/{id}', [CertificateAdminController::class, 'destroyTemplate'])->name('admin.sertifikat.templates.destroy');
     
-    Route::get('/admin301097/sistem-sertifikat/participants', [CertificateAdminController::class, 'participants'])->name('admin.sertifikat.participants');
-    Route::post('/admin301097/sistem-sertifikat/participants', [CertificateAdminController::class, 'storeParticipant'])->name('admin.sertifikat.participants.store');
-    Route::post('/admin301097/sistem-sertifikat/participants/{id}/resend', [CertificateAdminController::class, 'resendEmail'])->name('admin.sertifikat.participants.resend');
-    Route::get('/admin301097/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
-    Route::get('/admin301097/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
-    Route::get('/admin301097/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
-    Route::get('/admin301097/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
-    Route::get('/admin301097/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
+    Route::get('/admin/sistem-sertifikat/participants', [CertificateAdminController::class, 'participants'])->name('admin.sertifikat.participants');
+    Route::post('/admin/sistem-sertifikat/participants', [CertificateAdminController::class, 'storeParticipant'])->name('admin.sertifikat.participants.store');
+    Route::post('/admin/sistem-sertifikat/participants/{id}/resend', [CertificateAdminController::class, 'resendEmail'])->name('admin.sertifikat.participants.resend');
+    Route::get('/admin/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
+    Route::get('/admin/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
+    Route::get('/admin/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
+    Route::get('/admin/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
+    Route::get('/admin/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
     Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb');
     Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
-    Route::get('/admin301097/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
-    Route::get('/admin301097/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
+    Route::get('/admin/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
+    Route::get('/admin/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
 
     // Admin Absensi Monitoring
-    Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
-    Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+    Route::get('/admin/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
+    Route::get('/admin/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
     // Manajemen Pegawai
-    Route::get('/admin301097/users', [AdminController::class, 'admin_users'])->name('admin.users');
-    Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
-    Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+    Route::get('/admin/users', [AdminController::class, 'admin_users'])->name('admin.users');
+    Route::post('/admin/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
+    Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
     // Export & Import Excel PKBJJ
     Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
