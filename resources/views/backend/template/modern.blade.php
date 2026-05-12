@@ -15,7 +15,14 @@
 
     <script src="{{ asset('atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
-    <!-- Inline CSS for compatibility -->
+    <style>
+        .btn { padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+        .btn-primary { background: #006191; color: white; border: none; }
+        .form-control { padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        .card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+    </style>
     <script>
         (function() {
             var submitted = false;
