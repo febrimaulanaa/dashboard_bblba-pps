@@ -41,11 +41,6 @@
                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             
-            <div class="mb-3">
-                <label for="phone" class="form-label">Nomor WhatsApp</label>
-                <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Contoh: 08123456789">
-            </div>
-            
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="study_program" class="form-label">Program Studi</label>

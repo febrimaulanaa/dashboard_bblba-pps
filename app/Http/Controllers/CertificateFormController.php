@@ -23,7 +23,6 @@ class CertificateFormController extends Controller
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:50',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
             'study_program' => 'nullable|string|max:100',
             'faculty' => 'nullable|string|max:100',
         ]);
