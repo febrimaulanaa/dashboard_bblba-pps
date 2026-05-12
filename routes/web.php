@@ -14,8 +14,6 @@ use App\Http\Controllers\SertifikatSeminarController;
 use App\Http\Controllers\WisudaController;
 use App\Http\Controllers\AbsensiPegawaiController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CertificateAdminController;
-use App\Http\Controllers\CertificateFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,20 +37,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/absensi-monitoring', [AbsensiPegawaiController::class, 'store'])->name('absensi.store');
 });
 
-// Sistem Sertifikat Publik (Baru)
-Route::get('/sertifikat-form/{slug}', [CertificateFormController::class, 'show'])->name('sertifikat.form');
-Route::post('/sertifikat-form/{slug}', [CertificateFormController::class, 'submit'])->name('sertifikat.submit');
-Route::get('/verify/{code}', [CertificateFormController::class, 'verify'])->name('sertifikat.verify');
-
 //Tampilan Utama
 
 Route::get('/', function () {
-    try {
-        $activeEvents = \App\Models\CertificateEvent::where('status', true)->get();
-        return view('mainview.index', compact('activeEvents'));
-    } catch (\Exception $e) {
-        return view('mainview.index', ['activeEvents' => collect([])]);
-    }
+    return view('mainview.index');
 })->name('home');
 
 Route::get('/daftartutor', [DaftarTutorController::class, 'index'])->name('daftartutor');
@@ -78,7 +66,6 @@ Route::get('/sertifikatosmb/file/{token}', [SertifikatOSMBController::class, 'do
 //Sertif Seminar Akademik
 Route::get('/sertifikatseminar', [SertifikatSeminarController::class, 'index'])->name('sertifseminar');
 Route::post('/generate-seminar', [SertifikatSeminarController::class, 'process'])->name('cetakseminar');
-Route::get('/sertifikatseminar/file/{token}', [SertifikatSeminarController::class, 'download'])->name('cetakseminar.download');
 
 //Sertif WTKU
 Route::get('/sertifikatwtku', [SertifikatWTKUController::class, 'index'])->name('sertifwtku');
@@ -101,10 +88,8 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Login Routes
 Route::get('/app/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
-Route::get('/app/login/process', [AdminAuthController::class, 'loginGet'])->name('admin.login.process');
-Route::get('/app/login/redirect/{token}', [AdminAuthController::class, 'handleRedirect'])->name('admin.login.redirect');
-Route::get('/app/login/error/{token}', [AdminAuthController::class, 'handleError'])->name('admin.login.error');
-Route::get('/app/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::post('/app/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+Route::post('/app/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 //Admin Protected Routes
 Route::middleware(['admin.auth'])->group(function () {
@@ -114,28 +99,29 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::get('/app/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
     Route::get('/app/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
     
-// Admin Sertifikat Baru
-    Route::get('/app/cert', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
+    // Admin Sertifikat Baru
+    Route::get('/app/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
     
     // CRUD Events
-    Route::get('/app/cert/event', [CertificateAdminController::class, 'events'])->name('admin.sertifikat.events');
-    Route::get('/app/cert/event/create', [CertificateAdminController::class, 'createEvent'])->name('admin.sertifikat.events.create');
-    Route::post('/app/cert/event', [CertificateAdminController::class, 'storeEvent'])->name('admin.sertifikat.events.store');
-    Route::get('/app/cert/event/{id}/edit', [CertificateAdminController::class, 'editEvent'])->name('admin.sertifikat.events.edit');
-    Route::put('/app/cert/event/{id}', [CertificateAdminController::class, 'updateEvent'])->name('admin.sertifikat.events.update');
-    Route::delete('/app/cert/event/{id}', [CertificateAdminController::class, 'destroyEvent'])->name('admin.sertifikat.events.destroy');
+    Route::get('/app/sistem-sertifikat/events', [CertificateAdminController::class, 'events'])->name('admin.sertifikat.events');
+    Route::get('/app/sistem-sertifikat/events/create', [CertificateAdminController::class, 'createEvent'])->name('admin.sertifikat.events.create');
+    Route::post('/app/sistem-sertifikat/events', [CertificateAdminController::class, 'storeEvent'])->name('admin.sertifikat.events.store');
+    Route::get('/app/sistem-sertifikat/events/{id}/edit', [CertificateAdminController::class, 'editEvent'])->name('admin.sertifikat.events.edit');
+    Route::put('/app/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'updateEvent'])->name('admin.sertifikat.events.update');
+    Route::delete('/app/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'destroyEvent'])->name('admin.sertifikat.events.destroy');
 
     // CRUD Templates
-    Route::get('/app/cert/template', [CertificateAdminController::class, 'templates'])->name('admin.sertifikat.templates');
-    Route::get('/app/cert/template/create', [CertificateAdminController::class, 'createTemplate'])->name('admin.sertifikat.templates.create');
-    Route::post('/app/cert/template', [CertificateAdminController::class, 'storeTemplate'])->name('admin.sertifikat.templates.store');
-    Route::get('/app/cert/template/{id}/edit', [CertificateAdminController::class, 'editTemplate'])->name('admin.sertifikat.templates.edit');
-    Route::put('/app/cert/template/{id}', [CertificateAdminController::class, 'updateTemplate'])->name('admin.sertifikat.templates.update');
-    Route::delete('/app/cert/template/{id}', [CertificateAdminController::class, 'destroyTemplate'])->name('admin.sertifikat.templates.destroy');
+    Route::get('/app/sistem-sertifikat/templates', [CertificateAdminController::class, 'templates'])->name('admin.sertifikat.templates');
+    Route::get('/app/sistem-sertifikat/templates/create', [CertificateAdminController::class, 'createTemplate'])->name('admin.sertifikat.templates.create');
+    Route::post('/app/sistem-sertifikat/templates', [CertificateAdminController::class, 'storeTemplate'])->name('admin.sertifikat.templates.store');
+    Route::get('/app/sistem-sertifikat/templates/{id}/edit', [CertificateAdminController::class, 'editTemplate'])->name('admin.sertifikat.templates.edit');
+    Route::put('/app/sistem-sertifikat/templates/{id}', [CertificateAdminController::class, 'updateTemplate'])->name('admin.sertifikat.templates.update');
+    Route::delete('/app/sistem-sertifikat/templates/{id}', [CertificateAdminController::class, 'destroyTemplate'])->name('admin.sertifikat.templates.destroy');
     
-    Route::get('/app/cert/peserta', [CertificateAdminController::class, 'participants'])->name('admin.sertifikat.participants');
-    Route::post('/app/cert/peserta', [CertificateAdminController::class, 'storeParticipant'])->name('admin.sertifikat.participants.store');
-    Route::post('/app/cert/peserta/{id}/resend', [CertificateAdminController::class, 'resendEmail'])->name('admin.sertifikat.participants.resend');
+    Route::get('/app/sistem-sertifikat/participants', [CertificateAdminController::class, 'participants'])->name('admin.sertifikat.participants');
+    Route::post('/app/sistem-sertifikat/participants', [CertificateAdminController::class, 'storeParticipant'])->name('admin.sertifikat.participants.store');
+    Route::post('/app/sistem-sertifikat/participants/{id}/resend', [CertificateAdminController::class, 'resendEmail'])->name('admin.sertifikat.participants.resend');
+
     Route::get('/app/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
     Route::get('/app/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
     Route::get('/app/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');

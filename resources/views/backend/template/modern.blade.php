@@ -4,10 +4,8 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>@yield('title', 'Admin Dashboard') | UT Jakarta</title>
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS for Legacy Components -->
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-    <!-- Atlantis CSS -->
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
 
 
     <!-- Core JS Files for Legacy Components (Moved to head for inline scripts) -->
@@ -17,53 +15,14 @@
 
     <script src="{{ asset('atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
-    <style>
-        .btn { padding: 8px 16px; border-radius: 4px; cursor: pointer; }
-        .btn-primary { background: #006191; color: white; border: none; }
-        .form-control { padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%; }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        .card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
-    </style>
-    <script>
-        (function() {
-            var submitted = false;
-            document.addEventListener('submit', function(e) {
-                if (submitted || e.target.dataset.ajax === 'false') return;
-                e.preventDefault();
-                submitted = true;
-                var form = e.target;
-                var btn = form.querySelector('button[type="submit"]');
-                var originalText = btn ? btn.textContent : 'Memproses...';
-                if (btn) { btn.disabled = true; btn.textContent = 'Memuat...'; }
-                
-                var data = new FormData(form);
-                var url = form.action + (form.method === 'GET' ? '?' + new URLSearchParams(data) : '');
-                var options = {
-                    method: form.method || 'POST',
-                    credentials: 'same-origin',
-                    redirect: 'manual'
-                };
-                if (form.method !== 'GET') options.body = data;
-                
-                fetch(form.method === 'GET' ? url : form.action, options)
-                .then(function(res) {
-                    if (res.type === 'opaqueredirect' || res.redirected) {
-                        window.location.href = res.url;
-                    } else if (res.ok) {
-                        window.location.reload();
-                    } else {
-                        submitted = false;
-                        if (btn) { btn.disabled = false; btn.textContent = originalText; }
-                    }
-                })
-                .catch(function() {
-                    submitted = false;
-                    if (btn) { btn.disabled = false; btn.textContent = originalText; }
-                });
-            });
-        })();
-    </script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -265,28 +224,6 @@
                         <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminwisuda') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminwisuda') }}">
                             <span class="material-symbols-outlined text-lg">workspace_premium</span>
                             <span>Wisuda Daerah</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
-                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Sistem Sertifikat</p>
-                    <div class="space-y-1 -mx-2">
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.dashboard') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.dashboard') }}">
-                            <span class="material-symbols-outlined text-lg">dashboard</span>
-                            <span>Dashboard</span>
-                        </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.events') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.events') }}">
-                            <span class="material-symbols-outlined text-lg">event_note</span>
-                            <span>Data Kegiatan</span>
-                        </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.templates') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.templates') }}">
-                            <span class="material-symbols-outlined text-lg">design_services</span>
-                            <span>Template</span>
-                        </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.sertifikat.participants') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.sertifikat.participants') }}">
-                            <span class="material-symbols-outlined text-lg">manage_accounts</span>
-                            <span>Data Peserta</span>
                         </a>
                     </div>
                 </div>
