@@ -15,14 +15,46 @@
 
     <script src="{{ asset('atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Inline CSS for compatibility -->
+    <script>
+        (function() {
+            var submitted = false;
+            document.addEventListener('submit', function(e) {
+                if (submitted || e.target.dataset.ajax === 'false') return;
+                e.preventDefault();
+                submitted = true;
+                var form = e.target;
+                var btn = form.querySelector('button[type="submit"]');
+                var originalText = btn ? btn.textContent : 'Memproses...';
+                if (btn) { btn.disabled = true; btn.textContent = 'Memuat...'; }
+                
+                var data = new FormData(form);
+                var url = form.action + (form.method === 'GET' ? '?' + new URLSearchParams(data) : '');
+                var options = {
+                    method: form.method || 'POST',
+                    credentials: 'same-origin',
+                    redirect: 'manual'
+                };
+                if (form.method !== 'GET') options.body = data;
+                
+                fetch(form.method === 'GET' ? url : form.action, options)
+                .then(function(res) {
+                    if (res.type === 'opaqueredirect' || res.redirected) {
+                        window.location.href = res.url;
+                    } else if (res.ok) {
+                        window.location.reload();
+                    } else {
+                        submitted = false;
+                        if (btn) { btn.disabled = false; btn.textContent = originalText; }
+                    }
+                })
+                .catch(function() {
+                    submitted = false;
+                    if (btn) { btn.disabled = false; btn.textContent = originalText; }
+                });
+            });
+        })();
+    </script>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
