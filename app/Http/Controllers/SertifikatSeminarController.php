@@ -30,20 +30,35 @@ class SertifikatSeminarController extends Controller
                 ->with('error', 'Anda Tidak Terdaftar');
         }
 
-        $templatePath = public_path('template_sertif/sertifikatseminar.pdf');
-        $pdf = $this->fillPDF(
-            $templatePath,
+        $filename = 'sertifikatseminar_' . $nim . '.pdf';
+        $outputfile = storage_path('app/public/' . $filename);
+        
+        $this->fillPDF(
+            $templatePath = public_path('template_sertif/sertifikatseminar.pdf'),
+            $outputfile,
             $data->nama,
             $nim,
             $data->prodi
         );
 
-        return response($pdf)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'attachment; filename="sertifikat_' . $nim . '.pdf"');
+        $token = sha1($nim . now());
+        session()->put('pdf_' . $token, $filename);
+
+        return redirect()->route('cetakseminar.download', $token);
     }
 
-    public function fillPDF($file, $nama, $nim, $prodi)
+    public function download($token)
+    {
+        $filename = session()->get('pdf_' . $token);
+        if (!$filename) abort(404);
+
+        $path = storage_path('app/public/' . $filename);
+        if (!file_exists($path)) abort(404);
+
+        return response()->download($path)->deleteFileAfterSend(true);
+    }
+
+    public function fillPDF($file, $outputfile, $nama, $nim, $prodi)
     {
         $pdf = new FPDI();
 
@@ -80,6 +95,6 @@ class SertifikatSeminarController extends Controller
         $pdf->SetXY($centerXProdi, 100);
         $pdf->Write(0, "Program Studi : $prodi");
 
-        return $pdf->Output('', 'S');
+        $pdf->Output('F', $outputfile);
     }
 }

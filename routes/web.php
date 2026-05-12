@@ -74,6 +74,7 @@ Route::get('/sertifikatosmb/file/{token}', [SertifikatOSMBController::class, 'do
 //Sertif Seminar Akademik
 Route::get('/sertifikatseminar', [SertifikatSeminarController::class, 'index'])->name('sertifseminar');
 Route::post('/generate-seminar', [SertifikatSeminarController::class, 'process'])->name('cetakseminar');
+Route::get('/sertifikatseminar/file/{token}', [SertifikatSeminarController::class, 'download'])->name('cetakseminar.download');
 
 //Sertif WTKU
 Route::get('/sertifikatwtku', [SertifikatWTKUController::class, 'index'])->name('sertifwtku');
