@@ -47,8 +47,12 @@ Route::get('/verify/{code}', [CertificateFormController::class, 'verify'])->name
 //Tampilan Utama
 
 Route::get('/', function () {
-    $activeEvents = \App\Models\CertificateEvent::where('status', true)->get();
-    return view('mainview.index', compact('activeEvents'));
+    try {
+        $activeEvents = \App\Models\CertificateEvent::where('status', true)->get();
+        return view('mainview.index', compact('activeEvents'));
+    } catch (\Exception $e) {
+        return view('mainview.index', ['activeEvents' => collect([])]);
+    }
 })->name('home');
 
 Route::get('/daftartutor', [DaftarTutorController::class, 'index'])->name('daftartutor');

@@ -4,11 +4,7 @@
   <main class="mt-16 pb-20">
     <!-- Hero Section: Welcome & Stats -->
     <section class="relative pt-12 pb-24 px-6 lg:px-24 overflow-hidden">
-      <div class="absolute inset-0 z-0 opacity-5">
-        <img class="w-full h-full object-cover"
-          data-alt="wide shot of a modern minimalist university library architecture with clean lines and large windows"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgETw5qOzb8BKB02BkSRC1K66z5CiEVEUZShpqMMzBa_daYuAZjbvlZdYtYmeKJ02sb5Iga8gIoEXy5pR03crr6Gis40i3yf7wBicpcuL8RrL-Dt1kNXB9V6sFb8oly03Hh68z52bliZy1UcQ_uB2xTnYyHweA_9vw0gz3XPYZ0aqpapgatXX7o-Ih7Is5KiyV_Fq2n2IzP8sDaMMq6xWrjoyy3gacnZZUJrogbZ-feQsWwnLh86zW3TCkw7zgJ87jjiPXG8e5uyOD" />
-      </div>
+      <div class="absolute inset-0 z-0 opacity-5" style="background: linear-gradient(135deg, #006191 0%, #007bb6 100%);"></div>
       <div class="relative z-10 max-w-7xl mx-auto">
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
           <div>
