@@ -102,7 +102,9 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 //Admin Login Routes
 Route::get('/admin301097/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin301097/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
-Route::post('/admin301097/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::get('/admin301097/login/redirect/{token}', [AdminAuthController::class, 'handleRedirect'])->name('admin.login.redirect');
+Route::get('/admin301097/login/error/{token}', [AdminAuthController::class, 'handleError'])->name('admin.login.error');
+Route::get('/admin301097/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 //Admin Protected Routes
 Route::middleware(['admin.auth'])->group(function () {

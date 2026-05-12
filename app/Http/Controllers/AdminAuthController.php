@@ -24,17 +24,45 @@ class AdminAuthController extends Controller
 
         if ($request->username === 'febri' && $request->password === 'sisio123') {
             session(['admin_logged_in' => true]);
-            return redirect()->route('hlmadmin');
+            
+            // Redirect via GET to avoid firewall blocking POST response
+            $token = sha1('login_' . time());
+            session()->put('login_redirect_' . $token, 'hlmadmin');
+            return redirect()->route('admin.login.redirect', $token);
         }
 
-        return back()->withErrors([
-            'username' => 'Username atau password salah.',
-        ])->onlyInput('username');
+        // For failed login, redirect via GET
+        $token = sha1('error_' . time());
+        session()->put('login_error_' . $token, 'Username atau password salah.');
+        session()->put('login_old_username_' . $token, $request->username);
+        return redirect()->route('admin.login.error', $token);
     }
 
-    public function logout(Request $request)
+    public function handleRedirect($token)
     {
-        $request->session()->forget('admin_logged_in');
+        $route = session()->get('login_redirect_' . $token);
+        session()->forget('login_redirect_' . $token);
+        if ($route) {
+            return redirect()->route($route);
+        }
+        return redirect()->route('admin.login');
+    }
+
+    public function handleError($token)
+    {
+        $error = session()->get('login_error_' . $token);
+        $username = session()->get('login_old_username_' . $token);
+        session()->forget('login_error_' . $token);
+        session()->forget('login_old_username_' . $token);
+        
+        return redirect()->route('admin.login')
+            ->withErrors(['username' => $error ?? 'Error'])
+            ->withInput(['username' => $username]);
+    }
+
+    public function logout()
+    {
+        session()->forget('admin_logged_in');
         return redirect()->route('admin.login');
     }
 }
