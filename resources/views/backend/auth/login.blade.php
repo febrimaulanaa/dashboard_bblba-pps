@@ -78,15 +78,15 @@
 
         <div class="form-box">
             @if($errors->any())
-                <div class="error-box">
+                <div class="error-box" id="error-box">
                     @foreach($errors->all() as $error)
                         <p>{{ $error }}</p>
                     @endforeach
                 </div>
             @endif
 
-            <form action="{{ route('admin.login.post') }}" method="POST">
-                @csrf
+            <form action="{{ route('admin.login.process') }}" method="GET">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="username" value="{{ old('username') }}" placeholder="Masukkan username" required autofocus>

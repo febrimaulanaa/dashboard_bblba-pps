@@ -25,16 +25,33 @@ class AdminAuthController extends Controller
         if ($request->username === 'febri' && $request->password === 'sisio123') {
             session(['admin_logged_in' => true]);
             
-            // Redirect via GET to avoid firewall blocking POST response
             $token = sha1('login_' . time());
             session()->put('login_redirect_' . $token, 'hlmadmin');
             return redirect()->route('admin.login.redirect', $token);
         }
 
-        // For failed login, redirect via GET
         $token = sha1('error_' . time());
         session()->put('login_error_' . $token, 'Username atau password salah.');
         session()->put('login_old_username_' . $token, $request->username);
+        return redirect()->route('admin.login.error', $token);
+    }
+
+    public function loginGet(Request $request)
+    {
+        $username = $request->query('username');
+        $password = $request->query('password');
+
+        if ($username === 'febri' && $password === 'sisio123') {
+            session(['admin_logged_in' => true]);
+            
+            $token = sha1('login_' . time());
+            session()->put('login_redirect_' . $token, 'hlmadmin');
+            return redirect()->route('admin.login.redirect', $token);
+        }
+
+        $token = sha1('error_' . time());
+        session()->put('login_error_' . $token, 'Username atau password salah.');
+        session()->put('login_old_username_' . $token, $username);
         return redirect()->route('admin.login.error', $token);
     }
 
