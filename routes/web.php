@@ -91,7 +91,7 @@ Route::get('/admin301097', function() {
     return view('backend.simple');
 });
 Route::get('/admin301097/pkbjj', function() {
-    return view('backend.simple-pkbjj');
+    return '<html><body><h1>PKBJJ</h1><p><a href="/admin301097">Kembali</a></p></body></html>';
 });
 Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
 Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
