@@ -664,41 +664,27 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User berhasil dihapus.');
     }
 
-    public function ajaxContent(Request $request)
+    public function ajaxContent($page)
     {
-        $page = $request->page;
+        $views = [
+            'dashboard' => 'backend.ajax.dashboard',
+            'pkbjj' => 'backend.ajax.pkbjj',
+            'osmb' => 'backend.ajax.osmb',
+            'seminar' => 'backend.ajax.seminar',
+            'wtku' => 'backend.ajax.wtku',
+            'wisuda' => 'backend.ajax.wisuda',
+            'tuweb' => 'backend.ajax.tuweb',
+            'users' => 'backend.ajax.users',
+            'absensi' => 'backend.ajax.absensi',
+            'jadwalpkbjj' => 'backend.ajax.jadwalpkbjj',
+            'sistem-sertifikat' => 'backend.ajax.sistem-sertifikat',
+            'sistem-sertifikat-events' => 'backend.ajax.sistem-sertifikat-events',
+            'sistem-sertifikat-templates' => 'backend.ajax.sistem-sertifikat-templates',
+            'sistem-sertifikat-participants' => 'backend.ajax.sistem-sertifikat-participants',
+        ];
         
-        switch ($page) {
-            case 'dashboard':
-                return view('backend.ajax.dashboard');
-            case 'pkbjj':
-                return view('backend.ajax.pkbjj');
-            case 'osmb':
-                return view('backend.ajax.osmb');
-            case 'seminar':
-                return view('backend.ajax.seminar');
-            case 'wtku':
-                return view('backend.ajax.wtku');
-            case 'wisuda':
-                return view('backend.ajax.wisuda');
-            case 'tuweb':
-                return view('backend.ajax.tuweb');
-            case 'users':
-                return view('backend.ajax.users');
-            case 'absensi':
-                return view('backend.ajax.absensi');
-            case 'jadwalpkbjj':
-                return view('backend.ajax.jadwalpkbjj');
-            case 'sistem-sertifikat':
-                return view('backend.ajax.sistem-sertifikat');
-            case 'sistem-sertifikat-events':
-                return view('backend.ajax.sistem-sertifikat-events');
-            case 'sistem-sertifikat-templates':
-                return view('backend.ajax.sistem-sertifikat-templates');
-            case 'sistem-sertifikat-participants':
-                return view('backend.ajax.sistem-sertifikat-participants');
-            default:
-                return view('backend.ajax.dashboard');
-        }
+        $viewName = $views[$page] ?? 'backend.ajax.dashboard';
+        
+        return view($viewName);
     }
 }
