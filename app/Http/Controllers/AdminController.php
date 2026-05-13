@@ -664,7 +664,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User berhasil dihapus.');
     }
 
-    public function ajaxContent($page)
+    public function ajaxContent(Request $request, $page)
     {
         $views = [
             'dashboard' => 'backend.ajax.dashboard',
@@ -685,6 +685,11 @@ class AdminController extends Controller
         
         $viewName = $views[$page] ?? 'backend.ajax.dashboard';
         
-        return view($viewName);
+        try {
+            return view($viewName);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('AJAX Error: ' . $e->getMessage());
+            return 'Error loading ' . $page . ': ' . $e->getMessage();
+        }
     }
 }
