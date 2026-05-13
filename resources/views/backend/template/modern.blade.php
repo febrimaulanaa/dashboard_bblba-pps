@@ -166,13 +166,6 @@
                     <span class="material-symbols-outlined text-on-primary text-sm">person</span>
                 </div>
             </div>
-            
-            <form action="{{ route('admin.logout') }}" method="POST" class="inline">
-                @csrf
-                <button type="submit" class="p-2 text-error hover:bg-error-container rounded-full transition-all flex items-center justify-center" title="Logout">
-                    <span class="material-symbols-outlined text-sm">logout</span>
-                </button>
-            </form>
         </div>
     </header>
 
