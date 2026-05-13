@@ -1,33 +1,86 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
-    <style>
-        body { padding: 20px; font-family: sans-serif; }
-        .card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; }
-    </style>
-</head>
-<body>
-    <h1>Admin Dashboard</h1>
-    <div class="card">
-        <h3>Menu:</h3>
-        <ul>
-            <li><a href="/admin301097/pkbjj">Data PKBJJ</a></li>
-            <li><a href="/admin301097/osmb">Data OSMB</a></li>
-            <li><a href="/admin301097/seminar">Data Seminar</a></li>
-            <li><a href="/admin301097/wtku">Data WTKU</a></li>
-            <li><a href="/admin301097/wisuda">Data Wisuda</a></li>
-            <li><a href="/admin301097/tuweb">Data Tuweb</a></li>
-            <li><a href="/admin301097/users">Manajemen Pegawai</a></li>
-        </ul>
+@extends('backend.layout-admin')
+
+@section('content')
+<div class="page-title">Dashboard Overview</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h2>{{ \App\Models\DataSertifMhs::count() }}</h2>
+        <p>Mahasiswa PKBJJ</p>
     </div>
-    <div class="card">
-        <h3>Statistik:</h3>
-        <p>PKBJJ: {{ \App\Models\DataSertifMhs::count() }}</p>
-        <p>OSMB: {{ \App\Models\DataSertifOSMB::count() }}</p>
-        <p>Wisuda: {{ \App\Models\Wisuda::count() }}</p>
+    <div class="stat-card warning">
+        <h2>{{ \App\Models\DataSertifOSMB::count() }}</h2>
+        <p>Mahasiswa OSMB</p>
     </div>
-</body>
-</html>
+    <div class="stat-card success">
+        <h2>{{ \App\Models\Wisuda::count() }}</h2>
+        <p>Mahasiswa Wisuda</p>
+    </div>
+    <div class="stat-card">
+        <h2>{{ \App\Models\JadwalTuweb::count() }}</h2>
+        <p>Jadwal Tuweb</p>
+    </div>
+</div>
+
+<div class="card">
+    <h4 style="margin-bottom: 15px;">Statistik Lengkap</h4>
+    <table class="table">
+        <tr>
+            <td>Mahasiswa PKBJJ</td>
+            <td><strong>{{ \App\Models\DataSertifMhs::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Mahasiswa OSMB</td>
+            <td><strong>{{ \App\Models\DataSertifOSMB::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Mahasiswa Seminar</td>
+            <td><strong>{{ \App\Models\DataSertifSeminar::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Mahasiswa WTKU</td>
+            <td><strong>{{ \App\Models\DataSertifWTKU::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Wisuda</td>
+            <td><strong>{{ \App\Models\Wisuda::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Jadwal Tuweb</td>
+            <td><strong>{{ \App\Models\JadwalTuweb::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Jadwal PKBJJ</td>
+            <td><strong>{{ \App\Models\JadwalPKBJJ::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Pegawai</td>
+            <td><strong>{{ \App\Models\User::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Events Sertifikat</td>
+            <td><strong>{{ \App\Models\CertificateEvent::count() }}</strong></td>
+        </tr>
+        <tr>
+            <td>Peserta Sertifikat</td>
+            <td><strong>{{ \App\Models\CertificateParticipant::count() }}</strong></td>
+        </tr>
+    </table>
+</div>
+
+<div class="card">
+    <h4 style="margin-bottom: 15px;">Menu Cepat</h4>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <a href="/admin301097/pkbjj" class="btn btn-primary">Data PKBJJ</a>
+        <a href="/admin301097/osmb" class="btn btn-primary">Data OSMB</a>
+        <a href="/admin301097/seminar" class="btn btn-primary">Data Seminar</a>
+        <a href="/admin301097/wtku" class="btn btn-primary">Data WTKU</a>
+        <a href="/admin301097/wisuda" class="btn btn-primary">Data Wisuda</a>
+        <a href="/admin301097/tuweb" class="btn btn-primary">Data Tuweb</a>
+        <a href="/admin301097/jadwalpkbjj" class="btn btn-primary">Jadwal PKBJJ</a>
+        <a href="/admin301097/users" class="btn btn-success">Manajemen Pegawai</a>
+        <a href="/admin301097/absensi" class="btn btn-success">Absensi</a>
+        <a href="/admin301097/sistem-sertifikat" class="btn btn-danger">Sistem Sertifikat</a>
+    </div>
+</div>
+@endsection

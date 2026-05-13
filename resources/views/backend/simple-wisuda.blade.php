@@ -1,35 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Data Wisuda</title>
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
-</head>
-<body style="padding:20px;font-family:sans-serif;">
-    <h1>Data Wisuda</h1>
-    <a href="/admin301097">&laquo; Kembali</a>
-    <table class="table table-bordered mt-3">
+@extends('backend.layout-admin')
+
+@section('content')
+<div class="page-title">Data Wisuda</div>
+
+<div class="card">
+    <div style="margin-bottom: 15px;">
+        <a href="/admin301097" class="btn btn-primary">&laquo; Kembali ke Dashboard</a>
+    </div>
+    
+    <table class="table table-bordered" id="dataTable">
         <thead>
             <tr>
                 <th>No</th>
                 <th>NIM</th>
                 <th>Nama</th>
                 <th>No Meja</th>
+                <th>No Urut Ijazah</th>
                 <th>Prodi</th>
             </tr>
         </thead>
         <tbody>
             @php $no=1; @endphp
-            @foreach(\App\Models\Wisuda::limit(20)->get() as $row)
+            @foreach(\App\Models\Wisuda::all() as $row)
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $row->nim }}</td>
                 <td>{{ $row->nama }}</td>
                 <td>{{ $row->no_meja_ambil_ijazah }}</td>
+                <td>{{ $row->no_urut_ijazah }}</td>
                 <td>{{ $row->prodi }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+    <p><strong>Total:</strong> {{ \App\Models\Wisuda::count() }} data</p>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    $('#dataTable').DataTable();
+});
+</script>
+@endsection

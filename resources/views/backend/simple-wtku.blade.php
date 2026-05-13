@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Data WTKU</title>
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
-</head>
-<body style="padding:20px;font-family:sans-serif;">
-    <h1>Data Workshop Tugas & Klinik Ujian (WTKU)</h1>
-    <a href="/admin301097">&laquo; Kembali</a>
-    <table class="table table-bordered mt-3">
+@extends('backend.layout-admin')
+
+@section('content')
+<div class="page-title">Data Workshop Tugas & Klinik Ujian (WTKU)</div>
+
+<div class="card">
+    <div style="margin-bottom: 15px;">
+        <a href="/admin301097" class="btn btn-primary">&laquo; Kembali ke Dashboard</a>
+    </div>
+    
+    <table class="table table-bordered" id="dataTable">
         <thead>
             <tr>
                 <th>No</th>
@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             @php $no=1; @endphp
-            @foreach(\App\Models\DataSertifWTKU::limit(20)->get() as $row)
+            @foreach(\App\Models\DataSertifWTKU::all() as $row)
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $row->masa }}</td>
@@ -32,5 +32,13 @@
         </tbody>
     </table>
     <p><strong>Total:</strong> {{ \App\Models\DataSertifWTKU::count() }} data</p>
-</body>
-</html>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    $('#dataTable').DataTable();
+});
+</script>
+@endsection
