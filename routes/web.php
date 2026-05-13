@@ -88,22 +88,21 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
 Route::get('/admin301097', function() {
-    return '<html><body style="padding:20px;font-family:sans-serif;"><h1>Dashboard Admin</h1><ul><li><a href="/admin301097/pkbjj">PKBJJ</a></li><li><a href="/admin301097/osmb">OSMB</a></li><li><a href="/admin301097/users">Users</a></li></ul></body></html>';
+    return view('backend.stitch-dashboard');
 });
 Route::get('/admin301097/test', function() {
     return 'Test Page';
 });
-Route::get('/admin301097/pkbjj', function() { return view('backend.simple-pkbjj'); });
-Route::get('/admin301097/osmb', function() { return view('backend.simple-osmb'); });
-Route::get('/admin301097/seminar', function() { return view('backend.simple-seminar'); });
-Route::get('/admin301097/wtku', function() { return view('backend.simple-wtku'); });
-Route::get('/admin301097/osmb/data', function() { return 'data'; });
-Route::get('/admin301097/pkbjj/data', function() { return 'data'; });
-Route::get('/admin301097/jadwalpkbjj', function() { return view('backend.simple-jadwalpkbjj'); });
-Route::get('/admin301097/jadwalpkbjj/data', function() { return 'data'; });
-Route::get('/admin301097/tuweb', function() { return view('backend.simple-tuweb'); });
-Route::get('/admin301097/wisuda', function() { return view('backend.simple-wisuda'); });
-Route::get('/admin301097/wisuda/data', function() { return 'data'; });
+Route::get('/admin301097/pkbjj', function() { return view('backend.stitch-pkbjj'); });
+Route::get('/admin301097/osmb', function() { return view('backend.stitch-osmb'); });
+Route::get('/admin301097/seminar', function() { return view('backend.stitch-seminar'); });
+Route::get('/admin301097/wtku', function() { return view('backend.stitch-wtku'); });
+Route::get('/admin301097/jadwalpkbjj', function() { return view('backend.stitch-jadwalpkbjj'); });
+Route::get('/admin301097/tuweb', function() { return view('backend.stitch-tuweb'); });
+Route::get('/admin301097/wisuda', function() { return view('backend.stitch-wisuda'); });
+Route::get('/admin301097/users', function() { return view('backend.stitch-users'); });
+Route::get('/admin301097/absensi', function() { return view('backend.stitch-absensi'); });
+Route::get('/admin301097/sistem-sertifikat', function() { return view('backend.stitch-sertifikat'); });
 
 // Admin Absensi 
 Route::get('/admin301097/absensi', function() { return view('backend.simple-absensi'); });
