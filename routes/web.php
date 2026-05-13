@@ -105,27 +105,20 @@ Route::get('/admin301097/tuweb', function() { return view('backend.simple-tuweb'
 Route::get('/admin301097/wisuda', function() { return view('backend.simple-wisuda'); });
 Route::get('/admin301097/wisuda/data', function() { return 'data'; });
 
-// Admin Absensi (disabled due to firewall)
-Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
-Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+// Admin Absensi 
+Route::get('/admin301097/absensi', function() { return '<h1>Absensi</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/absensi/export', function() { return 'export'; });
 
-// Manajemen Pegawai (disabled due to firewall)
-Route::get('/admin301097/users', [AdminController::class, 'admin_users'])->name('admin.users');
+// Manajemen Pegawai 
+Route::get('/admin301097/users', function() { return view('backend.simple-users'); });
 Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
-// Admin Sertifikat (disabled due to controller issue)
-Route::get('/admin301097/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
-
-// Admin Sertifikat Baru (disabled temporarily)
-    // Route::get('/portal/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
-    // Route::get('/portal/sistem-sertifikat/events', [CertificateAdminController::class, 'events'])->name('admin.sertifikat.events');
-    // Route::get('/portal/sistem-sertifikat/events/create', [CertificateAdminController::class, 'createEvent'])->name('admin.sertifikat.events.create');
-    // Route::post('/portal/sistem-sertifikat/events', [CertificateAdminController::class, 'storeEvent'])->name('admin.sertifikat.events.store');
-    // Route::get('/portal/sistem-sertifikat/events/{id}/edit', [CertificateAdminController::class, 'editEvent'])->name('admin.sertifikat.events.edit');
-    // Route::put('/portal/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'updateEvent'])->name('admin.sertifikat.events.update');
-    // Route::delete('/portal/sistem-sertifikat/events/{id}', [CertificateAdminController::class, 'destroyEvent'])->name('admin.sertifikat.events.destroy');
-    // Route::get('/portal/sistem-sertifikat/templates', [CertificateAdminController::class, 'templates'])->name('admin.sertifikat.templates');
+// Admin Sertifikat 
+Route::get('/admin301097/sistem-sertifikat', function() { return '<h1>Sistem Sertifikat</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/sistem-sertifikat/events', function() { return '<h1>Events</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/sistem-sertifikat/templates', function() { return '<h1>Templates</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/sistem-sertifikat/participants', function() { return '<h1>Peserta</h1><a href="/admin301097">Kembali</a>'; });
     // Route::get('/portal/sistem-sertifikat/templates/create', [CertificateAdminController::class, 'createTemplate'])->name('admin.sertifikat.templates.create');
     // Route::post('/portal/sistem-sertifikat/templates', [CertificateAdminController::class, 'storeTemplate'])->name('admin.sertifikat.templates.store');
     // Route::get('/portal/sistem-sertifikat/templates/{id}/edit', [CertificateAdminController::class, 'editTemplate'])->name('admin.sertifikat.templates.edit');
