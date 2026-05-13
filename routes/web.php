@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminAuthController;
@@ -30,6 +31,16 @@ use App\Http\Controllers\AuthController;
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Test route - coba akses ini via browser
+Route::get('/test-route', function() {
+    return 'Route OK - ' . date('Y-m-d H:i:s');
+});
+
+// Test POST route
+Route::post('/test-post-route', function(Request $request) {
+    return 'POST OK - ' . $request->input('test', 'no input');
+});
 
 // Absensi Pegawai Monitoring (Harus Login)
 Route::middleware(['auth'])->group(function () {
