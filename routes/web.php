@@ -88,22 +88,22 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
 Route::get('/admin301097', function() {
-    return view('backend.simple');
+    return 'Dashboard';
 });
 Route::get('/admin301097/pkbjj', function() {
-    return view('backend.simple-pkbjj');
+    return 'PKBJJ Page';
 });
 Route::get('/admin301097/osmb', function() {
-    return view('backend.simple-osmb');
+    return 'OSMB Page';
 });
 Route::get('/admin301097/wisuda', function() {
-    return view('backend.simple-wisuda');
+    return 'Wisuda Page';
 });
 Route::get('/admin301097/tuweb', function() {
-    return view('backend.simple-tuweb');
+    return 'Tuweb Page';
 });
 Route::get('/admin301097/users', function() {
-    return view('backend.simple-users');
+    return 'Users Page';
 });
 Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
 Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
