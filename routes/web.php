@@ -88,22 +88,10 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
 Route::get('/admin301097', function() {
-    return 'Dashboard';
+    return '<html><body><h1>Admin Dashboard - Test</h1><p><a href="/admin301097/pkbjj">PKBJJ</a></p></body></html>';
 });
 Route::get('/admin301097/pkbjj', function() {
-    return 'PKBJJ Page';
-});
-Route::get('/admin301097/osmb', function() {
-    return 'OSMB Page';
-});
-Route::get('/admin301097/wisuda', function() {
-    return 'Wisuda Page';
-});
-Route::get('/admin301097/tuweb', function() {
-    return 'Tuweb Page';
-});
-Route::get('/admin301097/users', function() {
-    return 'Users Page';
+    return '<html><body><h1>PKBJJ Page - Test</h1><p><a href="/admin301097">Kembali</a></p></body></html>';
 });
 Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
 Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
