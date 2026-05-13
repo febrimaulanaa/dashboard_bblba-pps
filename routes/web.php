@@ -86,30 +86,31 @@ Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
 Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
-//Admin Routes - using short paths
-Route::get('/d', [AdminController::class, 'index'])->name('hlmadmin');
-Route::get('/d/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
-Route::get('/d/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
-Route::get('/d/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
-Route::get('/d/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
-Route::get('/d/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
-Route::get('/d/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
-Route::get('/d/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
-Route::get('/d/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
-Route::get('/d/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
-Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb');
-Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
-Route::get('/d/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
-Route::get('/d/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
+//Admin Routes (Original /admin301097 - disabled due to firewall)
+Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');
+Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
+Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
+Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
+Route::get('/admin301097/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
+Route::get('/admin301097/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
+Route::get('/admin301097/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
+Route::get('/admin301097/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
+Route::get('/admin301097/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
+Route::get('/admin301097/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
+Route::get('/admin301097/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
+Route::get('/admin301097/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
 
-// Admin Absensi Monitoring
-Route::get('/d/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
-Route::get('/d/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+// Admin Absensi (disabled due to firewall)
+Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
+Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
-// Manajemen Pegawai
-Route::get('/d/users', [AdminController::class, 'admin_users'])->name('admin.users');
-Route::post('/d/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
-Route::delete('/d/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+// Manajemen Pegawai (disabled due to firewall)
+Route::get('/admin301097/users', [AdminController::class, 'admin_users'])->name('admin.users');
+Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
+Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+
+// Admin Sertifikat (disabled due to controller issue)
+Route::get('/admin301097/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
 
 // Admin Sertifikat Baru (disabled temporarily)
     // Route::get('/portal/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
