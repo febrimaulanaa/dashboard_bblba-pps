@@ -90,6 +90,21 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 Route::get('/admin301097', function() {
     return view('backend.simple');
 });
+Route::get('/admin301097/pkbjj', function() {
+    return view('backend.simple-pkbjj');
+});
+Route::get('/admin301097/osmb', function() {
+    return view('backend.simple-osmb');
+});
+Route::get('/admin301097/wisuda', function() {
+    return view('backend.simple-wisuda');
+});
+Route::get('/admin301097/tuweb', function() {
+    return view('backend.simple-tuweb');
+});
+Route::get('/admin301097/users', function() {
+    return view('backend.simple-users');
+});
 Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
 Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
 Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
