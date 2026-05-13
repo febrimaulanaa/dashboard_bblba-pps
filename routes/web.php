@@ -95,18 +95,18 @@ Route::get('/admin301097/test', function() {
 });
 Route::get('/admin301097/pkbjj', function() { return view('backend.simple-pkbjj'); });
 Route::get('/admin301097/osmb', function() { return view('backend.simple-osmb'); });
-Route::get('/admin301097/seminar', function() { return '<h1>Seminar</h1><a href="/admin301097">Kembali</a>'; });
-Route::get('/admin301097/wtku', function() { return '<h1>WTKU</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/seminar', function() { return view('backend.simple-seminar'); });
+Route::get('/admin301097/wtku', function() { return view('backend.simple-wtku'); });
 Route::get('/admin301097/osmb/data', function() { return 'data'; });
 Route::get('/admin301097/pkbjj/data', function() { return 'data'; });
-Route::get('/admin301097/jadwalpkbjj', function() { return '<h1>Jadwal PKBJJ</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/jadwalpkbjj', function() { return view('backend.simple-jadwalpkbjj'); });
 Route::get('/admin301097/jadwalpkbjj/data', function() { return 'data'; });
 Route::get('/admin301097/tuweb', function() { return view('backend.simple-tuweb'); });
 Route::get('/admin301097/wisuda', function() { return view('backend.simple-wisuda'); });
 Route::get('/admin301097/wisuda/data', function() { return 'data'; });
 
 // Admin Absensi 
-Route::get('/admin301097/absensi', function() { return '<h1>Absensi</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/absensi', function() { return view('backend.simple-absensi'); });
 Route::get('/admin301097/absensi/export', function() { return 'export'; });
 
 // Manajemen Pegawai 
@@ -115,10 +115,10 @@ Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
 // Admin Sertifikat 
-Route::get('/admin301097/sistem-sertifikat', function() { return '<h1>Sistem Sertifikat</h1><a href="/admin301097">Kembali</a>'; });
-Route::get('/admin301097/sistem-sertifikat/events', function() { return '<h1>Events</h1><a href="/admin301097">Kembali</a>'; });
-Route::get('/admin301097/sistem-sertifikat/templates', function() { return '<h1>Templates</h1><a href="/admin301097">Kembali</a>'; });
-Route::get('/admin301097/sistem-sertifikat/participants', function() { return '<h1>Peserta</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/sistem-sertifikat', function() { return view('backend.simple-sertifikat'); });
+Route::get('/admin301097/sistem-sertifikat/events', function() { return view('backend.simple-sertifikat-events'); });
+Route::get('/admin301097/sistem-sertifikat/templates', function() { return view('backend.simple-sertifikat-templates'); });
+Route::get('/admin301097/sistem-sertifikat/participants', function() { return view('backend.simple-sertifikat-participants'); });
     // Route::get('/portal/sistem-sertifikat/templates/create', [CertificateAdminController::class, 'createTemplate'])->name('admin.sertifikat.templates.create');
     // Route::post('/portal/sistem-sertifikat/templates', [CertificateAdminController::class, 'storeTemplate'])->name('admin.sertifikat.templates.store');
     // Route::get('/portal/sistem-sertifikat/templates/{id}/edit', [CertificateAdminController::class, 'editTemplate'])->name('admin.sertifikat.templates.edit');
