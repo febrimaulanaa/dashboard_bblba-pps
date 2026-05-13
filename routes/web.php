@@ -86,15 +86,9 @@ Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
 Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
-//Admin Routes (Original /admin301097 - disabled due to firewall)
-Route::get('/admin301097', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/pkbjj', function() { return view('backend.simple-pkbjj'); });
-Route::get('/admin301097/osmb', function() { return view('backend.simple-osmb'); });
-Route::get('/admin301097/seminar', function() { return view('backend.simple-seminar'); });
-Route::get('/admin301097/wtku', function() { return view('backend.simple-wtku'); });
-Route::get('/admin301097/wisuda', function() { return view('backend.simple-wisuda'); });
-Route::get('/admin301097/tuweb', function() { return view('backend.simple-tuweb'); });
-Route::get('/admin301097/users', function() { return view('backend.simple-users'); });
+//Admin Routes (AJAX-powered)
+Route::get('/admin301097', function() { return view('backend.ajax-admin'); });
+Route::get('/admin301097/ajax/{page}', [AdminController::class, 'ajaxContent']);
 Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 

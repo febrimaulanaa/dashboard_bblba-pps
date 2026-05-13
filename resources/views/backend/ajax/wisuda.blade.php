@@ -1,0 +1,46 @@
+<div class="data-card">
+    <div class="data-card-header">
+        <h3>Data Wisuda</h3>
+        <div>
+            <a href="#" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah</a>
+            <a href="{{ route('exportwisuda') }}" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Export</a>
+        </div>
+    </div>
+    <div class="data-card-body">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kelompok</th>
+                    <th>No Urut</th>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>No Meja</th>
+                    <th>Prodi</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $no = 1; @endphp
+                @foreach(\App\Models\Wisuda::paginate(20) as $row)
+                <tr>
+                    <td>{{ $no++ }}</td>
+                    <td>{{ $row->kelompok }}</td>
+                    <td>{{ $row->no_urut_ijazah }}</td>
+                    <td>{{ $row->nim }}</td>
+                    <td>{{ $row->nama }}</td>
+                    <td>{{ $row->no_meja_ambil_ijazah }}</td>
+                    <td>{{ $row->prodi }}</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div style="padding: 15px;">
+            <p>Total: {{ \App\Models\Wisuda::count() }} data</p>
+        </div>
+    </div>
+</div>

@@ -663,4 +663,42 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User berhasil dihapus.');
     }
+
+    public function ajaxContent(Request $request)
+    {
+        $page = $request->page;
+        
+        switch ($page) {
+            case 'dashboard':
+                return view('backend.ajax.dashboard');
+            case 'pkbjj':
+                return view('backend.ajax.pkbjj');
+            case 'osmb':
+                return view('backend.ajax.osmb');
+            case 'seminar':
+                return view('backend.ajax.seminar');
+            case 'wtku':
+                return view('backend.ajax.wtku');
+            case 'wisuda':
+                return view('backend.ajax.wisuda');
+            case 'tuweb':
+                return view('backend.ajax.tuweb');
+            case 'users':
+                return view('backend.ajax.users');
+            case 'absensi':
+                return view('backend.ajax.absensi');
+            case 'jadwalpkbjj':
+                return view('backend.ajax.jadwalpkbjj');
+            case 'sistem-sertifikat':
+                return view('backend.ajax.sistem-sertifikat');
+            case 'sistem-sertifikat-events':
+                return view('backend.ajax.sistem-sertifikat-events');
+            case 'sistem-sertifikat-templates':
+                return view('backend.ajax.sistem-sertifikat-templates');
+            case 'sistem-sertifikat-participants':
+                return view('backend.ajax.sistem-sertifikat-participants');
+            default:
+                return view('backend.ajax.dashboard');
+        }
+    }
 }
