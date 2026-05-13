@@ -87,7 +87,9 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
-Route::get('/admin301097', [AdminController::class, 'index'])->name('hlmadmin');
+Route::get('/admin301097', function() {
+    return 'Admin OK';
+});
 Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
 Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
 Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
