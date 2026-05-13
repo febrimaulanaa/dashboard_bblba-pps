@@ -1,14 +1,12 @@
 @extends('backend.layout-admin')
 
 @section('content')
-<div class="page-title">Data PKBJJ</div>
+<h2 style="margin-bottom: 20px;">Data PKBJJ</h2>
 
 <div class="card">
-    <div style="margin-bottom: 15px;">
-        <a href="/admin301097" class="btn btn-primary">&laquo; Kembali ke Dashboard</a>
-    </div>
+    <a href="/admin301097" class="btn btn-primary" style="margin-bottom: 15px;">&laquo; Kembali</a>
     
-    <table class="table table-bordered" id="dataTable">
+    <table>
         <thead>
             <tr>
                 <th>No</th>
@@ -31,14 +29,6 @@
             @endforeach
         </tbody>
     </table>
-    <p><strong>Total:</strong> {{ \App\Models\DataSertifMhs::count() }} data</p>
+    <p><strong>Total:</strong> {{ \App\Models\DataSertifMhs::count() }}</p>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-$(document).ready(function() {
-    $('#dataTable').DataTable();
-});
-</script>
 @endsection
