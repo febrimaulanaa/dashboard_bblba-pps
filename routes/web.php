@@ -95,15 +95,48 @@ Route::get('/admin301097/wtku', function() { return view('backend.min-list', ['t
 Route::get('/admin301097/wisuda', function() { return view('backend.min-list', ['title' => 'Data Wisuda', 'data' => \App\Models\Wisuda::limit(100)->get(), 'fields' => ['nim','nama','no_meja_ambil_ijazah','prodi']]); });
 Route::get('/admin301097/tuweb', function() { return view('backend.min-list', ['title' => 'Jadwal Tuweb', 'data' => \App\Models\JadwalTuweb::limit(100)->get(), 'fields' => ['kode_mk','nama_mk','tutor','hari']]); });
 Route::get('/admin301097/users', function() { return view('backend.min-list', ['title' => 'Users', 'data' => \App\Models\User::limit(100)->get(), 'fields' => ['name','email']]); });
-
-// Admin Absensi 
-Route::get('/admin301097/absensi', function() { return view('backend.simple-absensi'); });
-Route::get('/admin301097/absensi/export', function() { return 'export'; });
-
-// Manajemen Pegawai 
-Route::get('/admin301097/users', function() { return view('backend.simple-users'); });
 Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+
+// CRUD Routes PKBJJ
+Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
+Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
+Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
+Route::post('/pkbjj/import_jadwalexcel', [AdminController::class, 'import_jadwalexcel'])->name('importjadwalpkbjj');
+
+// CRUD Routes OSMB
+Route::post('/osmb/storeosmb', [AdminController::class, 'storeosmb'])->name('storeosmb');
+Route::get('/osmb/export_excelosmb', [AdminController::class, 'export_excelosmb'])->name('exportosmb');
+Route::post('/osmb/import_excelosmb', [AdminController::class, 'import_excelosmb'])->name('importosmb');
+
+// CRUD Routes Seminar
+Route::post('/seminar/storeseminar', [AdminController::class, 'storeseminar'])->name('storeseminar');
+Route::get('/seminar/export_excelseminar', [AdminController::class, 'export_excelseminar'])->name('exportseminar');
+Route::post('/seminar/import_excelseminar', [AdminController::class, 'import_excelseminar'])->name('importseminar');
+
+// CRUD Routes WTKU
+Route::post('/wtku/storewtku', [AdminController::class, 'storewtku'])->name('storewtku');
+Route::get('/wtku/export_excelwtku', [AdminController::class, 'export_excelwtku'])->name('exportwtku');
+Route::post('/wtku/import_excelwtku', [AdminController::class, 'import_excelwtku'])->name('importwtku');
+
+// CRUD Routes Wisuda
+Route::post('/wisuda/storewisuda', [AdminController::class, 'storewisuda'])->name('storewisuda');
+Route::get('/wisuda/export_excelwisuda', [AdminController::class, 'export_excelwisuda'])->name('exportwisuda');
+Route::post('/wisuda/import_excelwisuda', [AdminController::class, 'import_excelwisuda'])->name('importwisuda');
+
+// CRUD Routes Tuweb
+Route::post('/tuweb/storetuweb', [AdminController::class, 'storetuweb'])->name('storetuweb');
+Route::get('/tuweb/export_exceltuweb', [AdminController::class, 'export_exceltuweb'])->name('exporttuweb');
+Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltuweb'])->name('importtuweb');
+
+// Absensi
+Route::get('/admin301097/absensi', function() { return view('backend.min-list', ['title' => 'Absensi', 'data' => \App\Models\AbsensiPegawai::limit(100)->get(), 'fields' => ['nama','tanggal','jam_masuk','jam_keluar']]); });
+Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+
+// Sistem Sertifikat
+Route::get('/admin301097/sistem-sertifikat', function() { return view('backend.min-list', ['title' => 'Sistem Sertifikat', 'data' => \App\Models\CertificateEvent::limit(100)->get(), 'fields' => ['name','slug','start_date','end_date','status']]); });
+Route::get('/admin301097/sistem-sertifikat/events', function() { return view('backend.min-list', ['title' => 'Events', 'data' => \App\Models\CertificateEvent::limit(100)->get(), 'fields' => ['name','slug','status']]); });
+Route::get('/admin301097/sistem-sertifikat/participants', function() { return view('backend.min-list', ['title' => 'Peserta', 'data' => \App\Models\CertificateParticipant::limit(100)->get(), 'fields' => ['name','email','verification_code','email_sent']]); });
 
 // Admin Sertifikat 
 Route::get('/admin301097/sistem-sertifikat', function() { return view('backend.simple-sertifikat'); });
