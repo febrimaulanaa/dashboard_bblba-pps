@@ -88,7 +88,7 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
 Route::get('/admin301097', function() {
-    return view('backend.simple');
+    return '<html><body style="padding:20px;font-family:sans-serif;"><h1>Dashboard Admin</h1><ul><li><a href="/admin301097/pkbjj">PKBJJ</a></li><li><a href="/admin301097/osmb">OSMB</a></li><li><a href="/admin301097/users">Users</a></li></ul></body></html>';
 });
 Route::get('/admin301097/test', function() {
     return 'Test Page';
