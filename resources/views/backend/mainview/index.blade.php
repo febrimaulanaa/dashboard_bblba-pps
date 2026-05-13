@@ -5,7 +5,7 @@
 @section('content')
     <!-- Hero Header Pattern -->
     <section class="mb-12 relative overflow-hidden rounded-3xl bg-primary h-64 flex flex-col justify-center px-12 text-on-primary">
-        <div class="absolute inset-0 opacity-10 mix-blend-overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATU0BbCgwkjf2f40mxH-8uiIjYi1hrvkncZ0t7UOUbY_6lY0rvWnnK5zASBQKEnk6eRYeqYTPaz5uhDqc5nWN4eqyNsxNcRvnlSN9I4eN0S_JBAxkYsE0IRqNI7Udm3EBTKUPaiMPoNGXSdKdrajZzvVv0Ghq_4VnGb37G8BtyStwD_GtEfrQPUSqSP0Ss9D-qoutNWnSj5yJHrG-VGAJofDGi9nz3_uo6S8SGuJLzZEWCPEamUbxwvcggt5N7r0EYqtx5br9uBs6Z'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 opacity-10" style="background: linear-gradient(135deg, #004466 0%, #006191 100%);">
         </div>
         <div class="relative z-10">
             <span class="inline-block py-1 px-3 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-widest rounded-full mb-4">Dashboard Overview</span>
