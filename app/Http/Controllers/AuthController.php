@@ -22,12 +22,14 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/absensi-monitoring');
+            
+            $redirect = $request->query('redirect', '/absensi-monitoring');
+            return redirect()->to($redirect);
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
-        ]);
+        ])->withInput($request->except('password'));
     }
 
     public function logout(Request $request)

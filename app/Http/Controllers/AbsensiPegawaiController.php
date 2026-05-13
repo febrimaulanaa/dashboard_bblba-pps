@@ -18,7 +18,11 @@ class AbsensiPegawaiController extends Controller
 
     public function create()
     {
-        return view('absensi.create');
+        try {
+            return view('absensi.create');
+        } catch (\Exception $e) {
+            return response()->view('errors.500', ['error' => $e->getMessage()], 500);
+        }
     }
 
     public function store(Request $request)
