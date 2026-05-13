@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <div class="sidebar sidebar-style-2">
-    <div class="sidebar-wrportaler scrollbar scrollbar-inner">
+    <div class="sidebar-wrder scrollbar scrollbar-inner">
         <div class="sidebar-content">
             {{-- <div class="user">
                     <div class="avatar-sm float-left mr-2">
@@ -60,25 +60,25 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li
-                                class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'osmb' ? 'active' : '' }}">
+                                class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'osmb' ? 'active' : '' }}">
                                 <a href="{{ route('adminosmb') }}">
                                     <span class="sub-item">OSMB</span>
                                 </a>
                             </li>
                             <li
-                                class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'pkbjj' ? 'active' : '' }}">
+                                class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'pkbjj' ? 'active' : '' }}">
                                 <a href="{{ route('adminpkbjj') }}">
                                     <span class="sub-item">PKBJJ</span>
                                 </a>
                             </li>
                             <li
-                                class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'wtku' ? 'active' : '' }}">
+                                class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'wtku' ? 'active' : '' }}">
                                 <a href="{{ route('adminwtku') }}">
                                     <span class="sub-item">Workshop Tugas & KU</span>
                                 </a>
                             </li>
                             <li
-                                class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'seminar' ? 'active' : '' }}">
+                                class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'seminar' ? 'active' : '' }}">
                                 <a href="{{ route('adminseminar') }}">
                                     <span class="sub-item">Seminar Akademik</span>
                                 </a>
@@ -94,7 +94,7 @@
                     </a>
                     <ul class="nav nav-collapse">
                         <li
-                            class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'jadwalpkbjj' ? 'active' : '' }}">
+                            class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'jadwalpkbjj' ? 'active' : '' }}">
                             <a href="{{ route('adminjadwalpkbjj') }}">
                                 <span class="sub-item">Jadwal PKBJJ</span>
                             </a>
@@ -109,7 +109,7 @@
                     </a>
                     <ul class="nav nav-collapse">
                         <li
-                            class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'wisuda' ? 'active' : '' }}">
+                            class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'wisuda' ? 'active' : '' }}">
                             <a href="{{ route('adminwisuda') }}">
                                 <span class="sub-item">Nomor Urut Wisuda</span>
                             </a>
@@ -124,7 +124,7 @@
                     </a>
                     <ul class="nav nav-collapse">
                         <li
-                            class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'tuweb' ? 'active' : '' }}">
+                            class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'tuweb' ? 'active' : '' }}">
                             <a href="{{ route('admintuweb') }}">
                                 <span class="sub-item">Jadwal TTM & Tuweb</span>
                             </a>
@@ -139,22 +139,22 @@
                     </a>
                     <div class="collapse" id="sertifikat-sistem">
                         <ul class="nav nav-collapse">
-                            <li class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'sistem-sertifikat' && !Request::segment(3) ? 'active' : '' }}">
+                            <li class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'sistem-sertifikat' && !Request::segment(3) ? 'active' : '' }}">
                                 <a href="{{ route('admin.sertifikat.dashboard') }}">
                                     <span class="sub-item">Dashboard</span>
                                 </a>
                             </li>
-                            <li class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'events' ? 'active' : '' }}">
+                            <li class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'events' ? 'active' : '' }}">
                                 <a href="{{ route('admin.sertifikat.events') }}">
                                     <span class="sub-item">Kegiatan</span>
                                 </a>
                             </li>
-                            <li class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'templates' ? 'active' : '' }}">
+                            <li class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'templates' ? 'active' : '' }}">
                                 <a href="{{ route('admin.sertifikat.templates') }}">
                                     <span class="sub-item">Template Sertifikat</span>
                                 </a>
                             </li>
-                            <li class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'participants' ? 'active' : '' }}">
+                            <li class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'sistem-sertifikat' && Request::segment(3) == 'participants' ? 'active' : '' }}">
                                 <a href="{{ route('admin.sertifikat.participants') }}">
                                     <span class="sub-item">Data Peserta</span>
                                 </a>
@@ -170,12 +170,12 @@
                     </a>
                     <div class="collapse" id="pegawai">
                         <ul class="nav nav-collapse">
-                            <li class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'users' ? 'active' : '' }}">
+                            <li class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'users' ? 'active' : '' }}">
                                 <a href="{{ route('admin.users') }}">
                                     <span class="sub-item">Manajemen Pegawai</span>
                                 </a>
                             </li>
-                            <li class=" {{ Request::segment(1) == 'portal' && Request::segment(2) == 'absensi' ? 'active' : '' }}">
+                            <li class=" {{ Request::segment(1) == 'd' && Request::segment(2) == 'absensi' ? 'active' : '' }}">
                                 <a href="{{ route('admin.absensi') }}">
                                     <span class="sub-item">Data Absensi</span>
                                 </a>

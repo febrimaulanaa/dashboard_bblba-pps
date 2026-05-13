@@ -86,30 +86,30 @@ Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
 Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
-//Admin Routes (No Login Required - for firewall bypass)
-Route::get('/portal', [AdminController::class, 'index'])->name('hlmadmin');
-Route::get('/portal/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
-Route::get('/portal/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
-Route::get('/portal/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
-Route::get('/portal/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
-Route::get('/portal/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
-Route::get('/portal/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
-Route::get('/portal/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
-Route::get('/portal/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
-Route::get('/portal/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
+//Admin Routes - using short paths
+Route::get('/d', [AdminController::class, 'index'])->name('hlmadmin');
+Route::get('/d/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
+Route::get('/d/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
+Route::get('/d/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
+Route::get('/d/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
+Route::get('/d/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
+Route::get('/d/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
+Route::get('/d/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
+Route::get('/d/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
+Route::get('/d/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
 Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb');
 Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
-Route::get('/portal/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
-Route::get('/portal/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
+Route::get('/d/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
+Route::get('/d/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
 
 // Admin Absensi Monitoring
-Route::get('/portal/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
-Route::get('/portal/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
+Route::get('/d/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
+Route::get('/d/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
 // Manajemen Pegawai
-Route::get('/portal/users', [AdminController::class, 'admin_users'])->name('admin.users');
-Route::post('/portal/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
-Route::delete('/portal/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+Route::get('/d/users', [AdminController::class, 'admin_users'])->name('admin.users');
+Route::post('/d/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
+Route::delete('/d/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
 // Admin Sertifikat Baru (disabled temporarily)
     // Route::get('/portal/sistem-sertifikat', [CertificateAdminController::class, 'dashboard'])->name('admin.sertifikat.dashboard');
