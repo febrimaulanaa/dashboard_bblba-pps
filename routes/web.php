@@ -93,17 +93,17 @@ Route::get('/admin301097', function() {
 Route::get('/admin301097/test', function() {
     return 'Test Page';
 });
-Route::get('/admin301097/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('adminpkbjj');
-Route::get('/admin301097/osmb', [AdminController::class, 'admin_osmb'])->name('adminosmb');
-Route::get('/admin301097/seminar', [AdminController::class, 'admin_seminar'])->name('adminseminar');
-Route::get('/admin301097/wtku', [AdminController::class, 'admin_wtku'])->name('adminwtku');
-Route::get('/admin301097/osmb/data', [AdminController::class, 'getdataosmb'])->name('getosmb');
-Route::get('/admin301097/pkbjj/data', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
-Route::get('/admin301097/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('adminjadwalpkbjj');
-Route::get('/admin301097/jadwalpkbjj/data', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
-Route::get('/admin301097/tuweb', [AdminController::class, 'admin_tuweb'])->name('admintuweb');
-Route::get('/admin301097/wisuda', [AdminController::class, 'admin_wisuda'])->name('adminwisuda');
-Route::get('/admin301097/wisuda/data', [AdminController::class, 'getdatawisuda'])->name('getwisuda');
+Route::get('/admin301097/pkbjj', function() { return view('backend.simple-pkbjj'); });
+Route::get('/admin301097/osmb', function() { return view('backend.simple-osmb'); });
+Route::get('/admin301097/seminar', function() { return '<h1>Seminar</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/wtku', function() { return '<h1>WTKU</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/osmb/data', function() { return 'data'; });
+Route::get('/admin301097/pkbjj/data', function() { return 'data'; });
+Route::get('/admin301097/jadwalpkbjj', function() { return '<h1>Jadwal PKBJJ</h1><a href="/admin301097">Kembali</a>'; });
+Route::get('/admin301097/jadwalpkbjj/data', function() { return 'data'; });
+Route::get('/admin301097/tuweb', function() { return view('backend.simple-tuweb'); });
+Route::get('/admin301097/wisuda', function() { return view('backend.simple-wisuda'); });
+Route::get('/admin301097/wisuda/data', function() { return 'data'; });
 
 // Admin Absensi (disabled due to firewall)
 Route::get('/admin301097/absensi', [AbsensiPegawaiController::class, 'index'])->name('admin.absensi');
