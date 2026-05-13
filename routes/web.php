@@ -88,13 +88,13 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
 Route::get('/admin301097', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/pkbjj', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/osmb', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/seminar', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/wtku', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/wisuda', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/tuweb', function() { return view('backend.stitch-new-dashboard'); });
-Route::get('/admin301097/users', function() { return view('backend.stitch-new-dashboard'); });
+Route::get('/admin301097/pkbjj', function() { return view('backend.simple-pkbjj'); });
+Route::get('/admin301097/osmb', function() { return view('backend.simple-osmb'); });
+Route::get('/admin301097/seminar', function() { return view('backend.simple-seminar'); });
+Route::get('/admin301097/wtku', function() { return view('backend.simple-wtku'); });
+Route::get('/admin301097/wisuda', function() { return view('backend.simple-wisuda'); });
+Route::get('/admin301097/tuweb', function() { return view('backend.simple-tuweb'); });
+Route::get('/admin301097/users', function() { return view('backend.simple-users'); });
 Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
@@ -130,13 +130,15 @@ Route::get('/tuweb/export_exceltuweb', [AdminController::class, 'export_exceltuw
 Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltuweb'])->name('importtuweb');
 
 // Absensi
-Route::get('/admin301097/absensi', function() { return view('backend.min-list', ['title' => 'Absensi', 'data' => \App\Models\AbsensiPegawai::limit(100)->get(), 'fields' => ['nama','tanggal','jam_masuk','jam_keluar']]); });
+Route::get('/admin301097/absensi', function() { return view('backend.simple-absensi'); });
+Route::get('/admin301097/jadwalpkbjj', function() { return view('backend.simple-jadwalpkbjj'); });
 Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
 // Sistem Sertifikat
 Route::get('/admin301097/sistem-sertifikat', function() { return view('backend.min-crud', ['title' => 'Sistem Sertifikat', 'data' => \App\Models\CertificateEvent::limit(100)->get(), 'fields' => ['name','slug','start_date','end_date','status'], 'model' => 'certificate']); });
 Route::get('/admin301097/sistem-sertifikat/events', function() { return view('backend.min-crud', ['title' => 'Events', 'data' => \App\Models\CertificateEvent::limit(100)->get(), 'fields' => ['name','slug','status'], 'model' => 'certificate']); });
 Route::get('/admin301097/sistem-sertifikat/participants', function() { return view('backend.min-crud', ['title' => 'Peserta', 'data' => \App\Models\CertificateParticipant::limit(100)->get(), 'fields' => ['name','email','verification_code','email_sent'], 'model' => 'participant']); });
+Route::get('/admin301097/sistem-sertifikat/templates', function() { return view('backend.simple-sertifikat-templates'); });
 
 // Export & Import Excel PKBJJ
 Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
