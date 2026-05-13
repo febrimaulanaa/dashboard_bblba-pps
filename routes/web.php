@@ -87,16 +87,14 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
 //Admin Routes (Original /admin301097 - disabled due to firewall)
-Route::get('/admin301097', function() {
-    return '<html><head><title>Admin</title></head><body style="padding:20px;font-family:sans-serif;"><h1>Dashboard Admin</h1><ul><li><a href="/admin301097/pkbjj">PKBJJ</a></li><li><a href="/admin301097/osmb">OSMB</a></li><li><a href="/admin301097/seminar">Seminar</a></li><li><a href="/admin301097/wtku">WTKU</a></li><li><a href="/admin301097/wisuda">Wisuda</a></li><li><a href="/admin301097/tuweb">Tuweb</a></li><li><a href="/admin301097/users">Users</a></li></ul></body></html>';
-});
-Route::get('/admin301097/pkbjj', function() { return '<html><body style="padding:20px;"><h1>PKBJJ</h1><a href="/admin301097">Kembali</a></body></html>'; });
-Route::get('/admin301097/osmb', function() { return '<html><body style="padding:20px;"><h1>OSMB</h1><a href="/admin301097">Kembali</a></body></html>'; });
-Route::get('/admin301097/seminar', function() { return '<html><body style="padding:20px;"><h1>Seminar</h1><a href="/admin301097">Kembali</a></body></html>'; });
-Route::get('/admin301097/wtku', function() { return '<html><body style="padding:20px;"><h1>WTKU</h1><a href="/admin301097">Kembali</a></body></html>'; });
-Route::get('/admin301097/wisuda', function() { return '<html><body style="padding:20px;"><h1>Wisuda</h1><a href="/admin301097">Kembali</a></body></html>'; });
-Route::get('/admin301097/tuweb', function() { return '<html><body style="padding:20px;"><h1>Tuweb</h1><a href="/admin301097">Kembali</a></body></html>'; });
-Route::get('/admin301097/users', function() { return '<html><body style="padding:20px;"><h1>Users</h1><a href="/admin301097">Kembali</a></body></html>'; });
+Route::get('/admin301097', function() { return view('backend.min-dashboard'); });
+Route::get('/admin301097/pkbjj', function() { return view('backend.min-list', ['title' => 'Data PKBJJ', 'data' => \App\Models\DataSertifMhs::limit(100)->get(), 'fields' => ['masa','nama','nim','prodi']]); });
+Route::get('/admin301097/osmb', function() { return view('backend.min-list', ['title' => 'Data OSMB', 'data' => \App\Models\DataSertifOSMB::limit(100)->get(), 'fields' => ['masa','nama','nim','prodi']]); });
+Route::get('/admin301097/seminar', function() { return view('backend.min-list', ['title' => 'Data Seminar', 'data' => \App\Models\DataSertifSeminar::limit(100)->get(), 'fields' => ['masa','nama','nim','prodi']]); });
+Route::get('/admin301097/wtku', function() { return view('backend.min-list', ['title' => 'Data WTKU', 'data' => \App\Models\DataSertifWTKU::limit(100)->get(), 'fields' => ['masa','nama','nim','prodi']]); });
+Route::get('/admin301097/wisuda', function() { return view('backend.min-list', ['title' => 'Data Wisuda', 'data' => \App\Models\Wisuda::limit(100)->get(), 'fields' => ['nim','nama','no_meja_ambil_ijazah','prodi']]); });
+Route::get('/admin301097/tuweb', function() { return view('backend.min-list', ['title' => 'Jadwal Tuweb', 'data' => \App\Models\JadwalTuweb::limit(100)->get(), 'fields' => ['kode_mk','nama_mk','tutor','hari']]); });
+Route::get('/admin301097/users', function() { return view('backend.min-list', ['title' => 'Users', 'data' => \App\Models\User::limit(100)->get(), 'fields' => ['name','email']]); });
 
 // Admin Absensi 
 Route::get('/admin301097/absensi', function() { return view('backend.simple-absensi'); });
