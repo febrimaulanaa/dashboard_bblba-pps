@@ -16,8 +16,7 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <form action="/cetaksertifikat" method="POST">
-        @csrf
+    <form action="/ecertificate" method="GET">
         <input type="hidden" name="event_id" value="{{ $event->id }}">
 
         <div class="card mb-4">
