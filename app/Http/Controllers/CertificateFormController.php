@@ -9,15 +9,17 @@ use App\Jobs\SendCertificateEmail;
 
 class CertificateFormController extends Controller
 {
-    public function show($slug)
+    public function show(Request $request)
     {
-        $event = CertificateEvent::where('slug', $slug)->where('status', true)->firstOrFail();
+        $id = $request->query('id');
+        $event = CertificateEvent::where('id', $id)->where('status', true)->firstOrFail();
         return view('certificates.forms.show', compact('event'));
     }
 
-    public function submit(Request $request, $slug)
+    public function submit(Request $request)
     {
-        $event = CertificateEvent::where('slug', $slug)->where('status', true)->firstOrFail();
+        $id = $request->input('event_id');
+        $event = CertificateEvent::where('id', $id)->where('status', true)->firstOrFail();
         
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -29,11 +31,11 @@ class CertificateFormController extends Controller
         
         // Check uniqueness for this event
         if (CertificateParticipant::where('event_id', $event->id)->where('nim', $validated['nim'])->exists()) {
-            return redirect('/sertifikat-form/' . $slug)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/ecertificate?id=' . $id)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
         }
         
         if (CertificateParticipant::where('event_id', $event->id)->where('email', $validated['email'])->exists()) {
-            return redirect('/sertifikat-form/' . $slug)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/ecertificate?id=' . $id)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
         }
         
         $participant = new CertificateParticipant($validated);
@@ -54,8 +56,9 @@ class CertificateFormController extends Controller
         return view('certificates.forms.success', compact('event', 'participant'));
     }
 
-    public function verify($code)
+    public function verify(Request $request)
     {
+        $code = $request->query('code');
         $participant = CertificateParticipant::with('event')->where('certificate_number', $code)->firstOrFail();
         return view('certificates.forms.verify', compact('participant'));
     }

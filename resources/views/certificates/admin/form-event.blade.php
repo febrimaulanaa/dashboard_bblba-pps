@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label class="font-weight-bold">Slug (Opsional)</label>
                 <input type="text" name="slug" class="form-control" value="{{ old('slug', $event->slug ?? '') }}" placeholder="Akan otomatis dibuat jika dikosongkan. Contoh: osmb-2026">
-                <small class="form-text text-muted">Slug akan digunakan sebagai URL publik pendaftaran: <code>/sertifikat-form/slug-kegiatan</code></small>
+                <small class="form-text text-muted">ID Kegiatan (otomatis) akan digunakan sebagai URL publik: <code>/ecertificate?id=[ID_KEGIATAN]</code></small>
             </div>
 
             <div class="row">

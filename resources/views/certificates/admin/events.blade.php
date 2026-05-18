@@ -34,9 +34,9 @@
                         <td>{{ $index + 1 }}</td>
                         <td class="font-bold text-on-surface">{{ $event->name }}</td>
                         <td>
-                            <a href="{{ route('sertifikat.form', $event->slug) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
+                            <a href="{{ url('/ecertificate?id=' . $event->id) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
                                 <span class="material-symbols-outlined" style="font-size: 16px">link</span>
-                                /sertifikat-form/{{ $event->slug }}
+                                /ecertificate?id={{ $event->id }}
                             </a>
                         </td>
                         <td>{{ $event->template ? $event->template->name : '-' }}</td>

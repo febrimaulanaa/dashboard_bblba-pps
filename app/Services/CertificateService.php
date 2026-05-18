@@ -11,7 +11,7 @@ class CertificateService
 {
     public function generatePdf(CertificateParticipant $participant)
     {
-        $url = route('sertifikat.verify', $participant->certificate_number);
+        $url = url('/verify?code=' . $participant->certificate_number);
         
         // 2. Generate QR Code image (base64)
         $qrCode = base64_encode(QrCode::format('svg')->size(150)->generate($url));
