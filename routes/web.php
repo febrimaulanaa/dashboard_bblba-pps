@@ -38,6 +38,10 @@ Route::get('/test-route', function () {
     return 'Route OK - ' . date('Y-m-d H:i:s');
 });
 
+Route::get('/abc', function () {
+    return 'ABC OK';
+});
+
 // Test POST route
 Route::post('/test-post-route', function (Request $request) {
     return 'POST OK - ' . $request->input('test', 'no input');
