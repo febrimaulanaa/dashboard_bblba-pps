@@ -16,8 +16,8 @@ class CertificateFormController extends Controller
         // WAF BYPASS: Check if ID is a hex-encoded JSON string
         // This completely bypasses F5 ASM Parameter Whitelisting and SQLi/XSS signatures
         if ($idParam && strlen($idParam) > 10 && ctype_xdigit($idParam)) {
-            try {
-                $jsonStr = hex2bin($idParam);
+            $jsonStr = @hex2bin($idParam);
+            if ($jsonStr) {
                 $data = json_decode($jsonStr, true);
                 
                 if (is_array($data) && isset($data['name']) && isset($data['email'])) {
@@ -25,8 +25,6 @@ class CertificateFormController extends Controller
                     $request->merge($data);
                     return $this->submit($request);
                 }
-            } catch (\Exception $e) {
-                // Ignore, proceed as normal ID
             }
         }
 
