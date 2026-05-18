@@ -25,9 +25,10 @@ class AbsensiPegawaiController extends Controller
         }
     }
 
-public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
+            'nama_pemantau' => 'required',
             'jenis_tutorial' => 'required',
             'tanggal' => 'required|date',
             'jam_tutorial' => 'required',
@@ -51,11 +52,9 @@ public function store(Request $request)
             'kesan_pembelajaran' => 'required',
             'kendala_tutorial' => 'required',
             'saran_perbaikan' => 'required',
-            'file_materi' => 'required|image|mimes:jpeg,png,jpg,bmp|max:102400',
-            'file_peserta' => 'required|image|mimes:jpeg,png,jpg,bmp|max:102400',
             'link_video' => 'required',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
         try {
@@ -93,8 +92,8 @@ public function store(Request $request)
             }
 
             AbsensiPegawai::create([
-                'user_id' => auth()->id(),
-                'nama_pemantau' => auth()->user()->name,
+                'user_id' => auth()->id() ?? null,
+                'nama_pemantau' => $request->nama_pemantau,
                 'jenis_tutorial' => $request->jenis_tutorial,
                 'tanggal' => $request->tanggal,
                 'jam_tutorial' => $request->jam_tutorial,
@@ -116,7 +115,7 @@ public function store(Request $request)
                 'jam_akhir_pantau' => $request->jam_akhir_pantau,
                 'praktik_baik' => $request->praktik_baik,
                 'temuan_ketidaksesuaian' => $request->temuan_ketidaksesuaian,
-                'kesan_pembelajaran' => $request->kesan_pembelajaran,
+                'kesan_pembelajaran' => $request->ksen_pembelajaran,
                 'kendala_tutorial' => $request->kendala_tutorial,
                 'saran_perbaikan' => $request->saran_perbaikan,
                 'file_materi' => $fileMateri,
@@ -131,55 +130,6 @@ public function store(Request $request)
             \Illuminate\Support\Facades\Log::error('Absensi store error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
         }
-    }
-
-        $filePeserta = null;
-        if ($request->hasFile('file_peserta')) {
-            $file = $request->file('file_peserta');
-            $filename = time() . '_peserta.' . $file->getClientOriginalExtension();
-            
-            \Illuminate\Support\Facades\Storage::disk('google')->put($filename, file_get_contents($file));
-            
-            $adapter = \Illuminate\Support\Facades\Storage::disk('google')->getAdapter();
-            $metadata = $adapter->getMetadata($filename);
-            $filePeserta = 'https://drive.google.com/uc?id=' . $metadata['path'];
-        }
-
-        AbsensiPegawai::create([
-            'user_id' => auth()->id(),
-            'nama_pemantau' => auth()->user()->name,
-            'jenis_tutorial' => $request->jenis_tutorial,
-            'tanggal' => $request->tanggal,
-            'jam_tutorial' => $request->jam_tutorial,
-            'pertemuan_ke' => $request->pertemuan_ke,
-            'kode_nama_matkul_kelas' => $request->kode_nama_matkul_kelas,
-            'id_kelas_tutorial' => $request->id_kelas_tutorial,
-            'id_tutor' => $request->id_tutor,
-            'nama_tutor' => $request->nama_tutor,
-            'tgl_jam_mulai_pantau' => $request->tgl_jam_mulai_pantau,
-            'jml_mhs_seharusnya' => $request->jml_mhs_seharusnya,
-            'jml_mhs_hadir' => $request->jml_mhs_hadir,
-            'jenis_pemantauan' => $request->jenis_pemantauan,
-            'kbm_absensi' => $request->kbm_absensi,
-            'kbm_materi' => $request->kbm_materi,
-            'kbm_media' => $request->kbm_media,
-            'kbm_diskusi' => $request->kbm_diskusi,
-            'kbm_pengarahan' => $request->kbm_pengarahan,
-            'bahas_tugas' => $request->bahas_tugas,
-            'jam_akhir_pantau' => $request->jam_akhir_pantau,
-            'praktik_baik' => $request->praktik_baik,
-            'temuan_ketidaksesuaian' => $request->temuan_ketidaksesuaian,
-            'kesan_pembelajaran' => $request->kesan_pembelajaran,
-            'kendala_tutorial' => $request->kendala_tutorial,
-            'saran_perbaikan' => $request->saran_perbaikan,
-            'file_materi' => $fileMateri,
-            'file_peserta' => $filePeserta,
-            'link_video' => $request->link_video,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-        ]);
-
-        return redirect()->back()->with('success', 'Data pemantauan berhasil disimpan!');
     }
 
     public function export()

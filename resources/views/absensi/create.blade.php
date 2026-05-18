@@ -95,8 +95,8 @@
                             <div class="space-y-5">
                                 <div>
                                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                                    <input type="text" value="{{ auth()->user()->name }}" readonly
-                                        class="w-full bg-[#f0f4fa] border-none text-gray-600 rounded-lg py-3 px-4 cursor-not-allowed">
+                                    <input type="text" name="nama_pemantau" required placeholder="Masukkan Nama Lengkap"
+                                        class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
                                 </div>
 
                                 <div>
