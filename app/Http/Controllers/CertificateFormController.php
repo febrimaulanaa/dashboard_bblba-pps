@@ -29,11 +29,11 @@ class CertificateFormController extends Controller
         
         // Check uniqueness for this event
         if (CertificateParticipant::where('event_id', $event->id)->where('nim', $validated['nim'])->exists()) {
-            return back()->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/sertifikat-form/' . $slug)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
         }
         
         if (CertificateParticipant::where('event_id', $event->id)->where('email', $validated['email'])->exists()) {
-            return back()->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/sertifikat-form/' . $slug)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
         }
         
         $participant = new CertificateParticipant($validated);

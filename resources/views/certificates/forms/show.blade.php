@@ -14,7 +14,7 @@
 <div class="alert alert-danger">{{ session('error') }}</div>
 @endif
 
-<form action="{{ route('sertifikat.submit', $event->slug) }}" method="POST">
+<form action="/sertifikat-form/{{ $event->slug }}" method="POST">
     @csrf
     
     <div class="card mb-4">
