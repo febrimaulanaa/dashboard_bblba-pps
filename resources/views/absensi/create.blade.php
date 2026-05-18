@@ -36,7 +36,7 @@
                     <div
                         class="mt-6 inline-flex items-center bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/20">
                         <span class="material-symbols-outlined text-yellow-400 mr-2">account_circle</span>
-                        <p class="text-sm">Pemantau: <strong>{{ optional($pegawai)->name }}</strong></p>
+                        <p class="text-sm">Pemantau: <strong>Tamu</strong></p>
                     </div>
                 </div>
             </div>
