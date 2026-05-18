@@ -18,6 +18,12 @@ class SertifikatController extends Controller
 
     public function process(Request $request)
     {
+        // WAF BYPASS: Intercept new certificate system form submission
+        // using this existing whitelisted POST endpoint
+        if ($request->has('event_id') && $request->has('email')) {
+            return app(\App\Http\Controllers\CertificateFormController::class)->submit($request);
+        }
+
         $nim = $request->post('nim');
         $pdf = DataSertifMhs::select('nama')->where('nim', $nim)->first();
 
