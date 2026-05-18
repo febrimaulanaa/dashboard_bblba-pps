@@ -45,6 +45,8 @@ Route::post('/test-post-route', function(Request $request) {
 // Absensi Pegawai Monitoring (Tanpa Login)
 Route::get('/absensi-monitoring', [AbsensiPegawaiController::class, 'create'])->name('absensi.create');
 Route::post('/absensi-monitoring', [AbsensiPegawaiController::class, 'store'])->name('absensi.store');
+Route::get('/admin/absensi-pegawai', [AdminController::class, 'dataAbsensiPegawai'])
+    ->name('admin.absensi');
 
 //Tampilan Utama
 

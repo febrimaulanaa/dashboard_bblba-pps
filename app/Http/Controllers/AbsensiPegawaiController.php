@@ -16,6 +16,13 @@ class AbsensiPegawaiController extends Controller
         return view('backend.absensi.index', compact('absensis'));
     }
 
+public function dataAbsensiPegawai()
+{
+    $absensis = AbsensiPegawai::latest()->paginate(20);
+
+    return view('admin.absensi.index', compact('absensis'));
+}
+
     public function create()
     {
         try {
