@@ -107,7 +107,8 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
 
 //Admin Routes (AJAX-powered)
 Route::get('/admin301097', function () {
-    return view('backend.ajax-admin'); });
+    return view('backend.ajax-admin');
+});
 Route::get('/admin301097/ajax/{page}', [AdminController::class, 'ajaxContent']);
 Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
@@ -145,9 +146,11 @@ Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltu
 
 // Absensi
 Route::get('/admin301097/absensi', function () {
-    return view('backend.simple-absensi'); });
+    return view('backend.simple-absensi');
+});
 Route::get('/admin301097/jadwalpkbjj', function () {
-    return view('backend.simple-jadwalpkbjj'); });
+    return view('backend.simple-jadwalpkbjj');
+});
 Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
 // Sistem Sertifikat (Modern UI)
