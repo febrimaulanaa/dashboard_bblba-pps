@@ -63,8 +63,24 @@ class CertificateService
 
     public function generateNumber($event)
     {
-        // Example: UT-EVENTSLUG-001
-        $count = CertificateParticipant::where('event_id', $event->id)->count();
+        // Example: UT-EVENTSLUG-2026-0001
+        // Get the latest participant to avoid duplicate number on deletions
+        $lastParticipant = CertificateParticipant::where('event_id', $event->id)
+            ->whereNotNull('certificate_number')
+            ->orderBy('id', 'desc')
+            ->first();
+            
+        $count = 0;
+        if ($lastParticipant && $lastParticipant->certificate_number) {
+            $parts = explode('-', $lastParticipant->certificate_number);
+            $lastNum = (int) end($parts);
+            if ($lastNum > 0) {
+                $count = $lastNum;
+            } else {
+                $count = CertificateParticipant::where('event_id', $event->id)->count();
+            }
+        }
+        
         $number = str_pad($count + 1, 4, '0', STR_PAD_LEFT);
         
         return strtoupper('UT-' . substr($event->slug, 0, 8) . '-' . date('Y') . '-' . $number);

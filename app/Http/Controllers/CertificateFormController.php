@@ -15,31 +15,18 @@ class CertificateFormController extends Controller
 
         // WAF BYPASS: Check if ID is a hex-encoded JSON string
         // This completely bypasses F5 ASM Parameter Whitelisting and SQLi/XSS signatures
-        if ($idParam && strlen($idParam) > 10) {
-            // Check if it looks like a hex string
-            if (ctype_xdigit($idParam)) {
-                try {
-                    $jsonStr = hex2bin($idParam);
-                    $data = json_decode($jsonStr, true);
-                    
-                    if (is_array($data) && isset($data['name']) && isset($data['email'])) {
-                        // Inject data into request for validation
-                        $request->merge($data);
-                        return $this->submit($request);
-                    } else {
-                        // DEBUG: JSON was decoded but missing required fields
-                        return response("DEBUG: JSON decoded but missing name/email. Data: " . print_r($data, true), 400);
-                    }
-                } catch (\Throwable $e) {
-                    // DEBUG: Exception during hex or json decode
-                    return response("DEBUG: Exception: " . $e->getMessage() . " | ID: " . $idParam, 400);
+        if ($idParam && strlen($idParam) > 10 && ctype_xdigit($idParam)) {
+            try {
+                $jsonStr = hex2bin($idParam);
+                $data = json_decode($jsonStr, true);
+                
+                if (is_array($data) && isset($data['name']) && isset($data['email'])) {
+                    // Inject data into request for validation
+                    $request->merge($data);
+                    return $this->submit($request);
                 }
-            } else {
-                // If it's longer than 10 chars but not hex, maybe WAF modified it?
-                // Or maybe the user is just typing garbage. We let it fall through.
-                if (strlen($idParam) > 50) {
-                    return response("DEBUG: Long ID but not valid hex. ID: " . $idParam, 400);
-                }
+            } catch (\Exception $e) {
+                // Ignore, proceed as normal ID
             }
         }
 
