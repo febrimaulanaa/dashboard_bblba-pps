@@ -16,7 +16,7 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <form action="/submit-certificate" method="POST">
+    <form action="/ecertificate" method="POST">
         @csrf
         <input type="hidden" name="event_id" value="{{ $event->id }}">
 

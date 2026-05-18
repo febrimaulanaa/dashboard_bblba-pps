@@ -56,8 +56,8 @@ Route::get('/admin/absensi-pegawai', [AdminController::class, 'dataAbsensiPegawa
 // Sistem Sertifikat Publik
 Route::prefix('ecertificate')->group(function () {
     Route::get('/', [CertificateFormController::class, 'show'])->name('sertifikat.form');
+    Route::post('/', [CertificateFormController::class, 'submit'])->name('sertifikat.submit');
 });
-Route::post('/submit-certificate', [CertificateFormController::class, 'submit'])->name('sertifikat.submit');
 Route::get('/verify', [CertificateFormController::class, 'verify'])->name('sertifikat.verify');
 
 //Tampilan Utama
