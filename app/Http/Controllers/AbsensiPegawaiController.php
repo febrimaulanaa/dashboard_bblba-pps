@@ -55,6 +55,8 @@ class AbsensiPegawaiController extends Controller
             'link_video' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
+            'file_materi' => 'nullable|image|max:10240',
+'file_peserta' => 'nullable|image|max:10240',
         ]);
 
         try {
@@ -92,7 +94,7 @@ class AbsensiPegawaiController extends Controller
             }
 
             AbsensiPegawai::create([
-                'user_id' => auth()->id() ?? null,
+                'user_id' => null,
                 'nama_pemantau' => $request->nama_pemantau,
                 'jenis_tutorial' => $request->jenis_tutorial,
                 'tanggal' => $request->tanggal,
@@ -115,7 +117,7 @@ class AbsensiPegawaiController extends Controller
                 'jam_akhir_pantau' => $request->jam_akhir_pantau,
                 'praktik_baik' => $request->praktik_baik,
                 'temuan_ketidaksesuaian' => $request->temuan_ketidaksesuaian,
-                'kesan_pembelajaran' => $request->ksen_pembelajaran,
+                'kesan_pembelajaran' => $request->kesan_pembelajaran,
                 'kendala_tutorial' => $request->kendala_tutorial,
                 'saran_perbaikan' => $request->saran_perbaikan,
                 'file_materi' => $fileMateri,
