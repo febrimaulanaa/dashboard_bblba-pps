@@ -12,7 +12,8 @@
 @endsection
 
 @section('content')
-    <main class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col items-center px-4 md:px-6 relative overflow-hidden bg-[#f7f9ff]">
+    <main
+        class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col items-center px-4 md:px-6 relative overflow-hidden bg-[#f7f9ff]">
         <!-- Decorative background -->
         <div class="absolute top-10 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-10 left-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl -z-10"></div>
@@ -26,13 +27,16 @@
                     <!-- Placeholder for background image if needed -->
                 </div>
                 <div class="relative z-10 max-w-3xl">
-                    <h1 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight font-headline">Instrumen Pemantauan<br>TTM/TUWEB UT Jakarta</h1>
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight font-headline">Instrumen
+                        Pemantauan<br>TTM/TUWEB UT Jakarta</h1>
                     <p class="text-blue-100 text-sm md:text-base leading-relaxed max-w-2xl">
-                        Formulir evaluasi dan pelaporan resmi untuk kegiatan Tutorial Tatap Muka (TTM) dan Tutorial Webinar (TUWEB) Universitas Terbuka Jakarta. Semester 2025 Genap.
+                        Formulir evaluasi dan pelaporan resmi untuk kegiatan Tutorial Tatap Muka (TTM) dan Tutorial Webinar
+                        (TUWEB) Universitas Terbuka Jakarta. Semester 2025 Genap.
                     </p>
-                    <div class="mt-6 inline-flex items-center bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/20">
+                    <div
+                        class="mt-6 inline-flex items-center bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/20">
                         <span class="material-symbols-outlined text-yellow-400 mr-2">account_circle</span>
-                        <p class="text-sm">Pemantau: <strong>{{ auth()->user()->name }}</strong></p>
+                        <p class="text-sm">Pemantau: <strong>{{ optional($pegawai)->name }}</strong></p>
                     </div>
                 </div>
             </div>
@@ -81,10 +85,10 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                    
+
                     <!-- Kiri: Col-Span 4 -->
                     <div class="lg:col-span-4 space-y-6">
-                        
+
                         <!-- Card Identitas Pemantau -->
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
                             <div class="flex items-center mb-6">
@@ -94,13 +98,15 @@
 
                             <div class="space-y-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nama
+                                        Lengkap <span class="text-red-500">*</span></label>
                                     <input type="text" name="nama_pemantau" required placeholder="Masukkan Nama Lengkap"
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Jenis Tutorial <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Jenis
+                                        Tutorial <span class="text-red-500">*</span></label>
                                     <select name="jenis_tutorial" required
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none">
                                         <option value="">Pilih Jenis</option>
@@ -110,7 +116,8 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Jenis Pemantauan Kelompok <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Jenis
+                                        Pemantauan Kelompok <span class="text-red-500">*</span></label>
                                     <select name="jenis_pemantauan" required
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none">
                                         <option value="">Pilih Jenis Pemantauan</option>
@@ -131,12 +138,16 @@
                             <div class="space-y-5">
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Tanggal <span class="text-red-500">*</span></label>
+                                        <label
+                                            class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Tanggal
+                                            <span class="text-red-500">*</span></label>
                                         <input type="date" name="tanggal" required
                                             class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Waktu (WIB) <span class="text-red-500">*</span></label>
+                                        <label
+                                            class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Waktu
+                                            (WIB) <span class="text-red-500">*</span></label>
                                         <div class="relative">
                                             <select name="jam_tutorial" required
                                                 class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none pr-10">
@@ -146,13 +157,16 @@
                                                 <option value="13.00-15.00 WIB">13.00-15.00 WIB</option>
                                                 <option value="15.15-17.15 WIB">15.15-17.15 WIB</option>
                                             </select>
-                                            <span class="material-symbols-outlined absolute right-3 top-3 text-gray-400 pointer-events-none text-xl">schedule</span>
+                                            <span
+                                                class="material-symbols-outlined absolute right-3 top-3 text-gray-400 pointer-events-none text-xl">schedule</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Pertemuan Ke- <span class="text-red-500">*</span></label>
+                                    <label
+                                        class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Pertemuan
+                                        Ke- <span class="text-red-500">*</span></label>
                                     <select name="pertemuan_ke" required
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 appearance-none">
                                         <option value="">Pilih pertemuan...</option>
@@ -163,19 +177,23 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kode / Nama Matkul <span class="text-red-500">*</span></label>
-                                    <input type="text" name="kode_nama_matkul_kelas" required placeholder="Contoh: Pengantar Ilmu Hukum"
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kode /
+                                        Nama Matkul <span class="text-red-500">*</span></label>
+                                    <input type="text" name="kode_nama_matkul_kelas" required
+                                        placeholder="Contoh: Pengantar Ilmu Hukum"
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">ID Kelas Tutorial <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">ID
+                                        Kelas Tutorial <span class="text-red-500">*</span></label>
                                     <input type="text" name="id_kelas_tutorial" required placeholder="Contoh: 210002341"
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">ID & Nama Tutor <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">ID &
+                                        Nama Tutor <span class="text-red-500">*</span></label>
                                     <div class="grid grid-cols-1 gap-2">
                                         <input type="text" name="id_tutor" required placeholder="ID Tutor (ex: 21501602)"
                                             class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 placeholder-gray-400">
@@ -189,7 +207,7 @@
 
                     <!-- Kanan: Col-Span 8 -->
                     <div class="lg:col-span-8 space-y-6">
-                        
+
                         <!-- Card Evaluasi Proses KBM -->
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
                             <div class="flex items-center mb-6">
@@ -200,22 +218,28 @@
                             <!-- Kehadiran & Waktu -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                 <div class="bg-[#f8fafc] p-5 rounded-xl border border-gray-100">
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Waktu Pemantauan (Ms. Teams) <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Waktu
+                                        Pemantauan (Ms. Teams) <span class="text-red-500">*</span></label>
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
-                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-1">Jam Mulai</span>
-                                            <input type="text" name="tgl_jam_mulai_pantau" required placeholder="ex: 08.00 WIB"
+                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-1">Jam
+                                                Mulai</span>
+                                            <input type="text" name="tgl_jam_mulai_pantau" required
+                                                placeholder="ex: 08.00 WIB"
                                                 class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
                                         </div>
                                         <div>
-                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-1">Jam Selesai</span>
+                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-1">Jam
+                                                Selesai</span>
                                             <input type="text" name="jam_akhir_pantau" required placeholder="ex: 10.00 WIB"
                                                 class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="bg-[#f8fafc] p-5 rounded-xl border border-gray-100">
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Kehadiran Mahasiswa <span class="text-red-500">*</span></label>
+                                    <label
+                                        class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Kehadiran
+                                        Mahasiswa <span class="text-red-500">*</span></label>
                                     <div class="flex items-center gap-3 mt-5">
                                         <div class="w-full relative">
                                             <input type="number" name="jml_mhs_hadir" required placeholder="Hadir"
@@ -235,10 +259,12 @@
                             <!-- KBM Table -->
                             <div class="mb-8">
                                 <div class="flex items-center justify-between px-4 pb-3 border-b border-gray-200">
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide">Aspek Pengamatan <span class="text-red-500">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide">Aspek
+                                        Pengamatan <span class="text-red-500">*</span></label>
                                     <div class="flex gap-8 pr-4">
                                         <span class="text-xs font-bold text-gray-500 uppercase w-12 text-center">Ya</span>
-                                        <span class="text-xs font-bold text-gray-500 uppercase w-12 text-center">Tidak</span>
+                                        <span
+                                            class="text-xs font-bold text-gray-500 uppercase w-12 text-center">Tidak</span>
                                     </div>
                                 </div>
                                 <div class="space-y-2 mt-4">
@@ -252,26 +278,34 @@
                                         ];
                                     @endphp
                                     @foreach($kbmOptions as $name => $label)
-                                    <div class="flex items-center justify-between bg-[#f8fafc] p-4 rounded-xl hover:bg-[#f0f4fa] transition-colors border border-transparent hover:border-gray-100">
-                                        <span class="text-sm text-gray-700 font-medium pr-4 leading-relaxed">{{ $label }}</span>
-                                        <div class="flex gap-8 pr-6">
-                                            <label class="cursor-pointer w-8 text-center flex justify-center group">
-                                                <input type="radio" name="{{ $name }}" value="Ya" required class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
-                                            </label>
-                                            <label class="cursor-pointer w-8 text-center flex justify-center group">
-                                                <input type="radio" name="{{ $name }}" value="Tidak" required class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
-                                            </label>
+                                        <div
+                                            class="flex items-center justify-between bg-[#f8fafc] p-4 rounded-xl hover:bg-[#f0f4fa] transition-colors border border-transparent hover:border-gray-100">
+                                            <span
+                                                class="text-sm text-gray-700 font-medium pr-4 leading-relaxed">{{ $label }}</span>
+                                            <div class="flex gap-8 pr-6">
+                                                <label class="cursor-pointer w-8 text-center flex justify-center group">
+                                                    <input type="radio" name="{{ $name }}" value="Ya" required
+                                                        class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                                </label>
+                                                <label class="cursor-pointer w-8 text-center flex justify-center group">
+                                                    <input type="radio" name="{{ $name }}" value="Tidak" required
+                                                        class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endforeach
-                                    <div class="flex items-center justify-between bg-[#f8fafc] p-4 rounded-xl hover:bg-[#f0f4fa] transition-colors border border-transparent hover:border-gray-100">
-                                        <span class="text-sm text-gray-700 font-medium pr-4 leading-relaxed">6. Tutor membahas tugas pertemuan sebelumnya (khusus minggu 4, 6, 8)</span>
+                                    <div
+                                        class="flex items-center justify-between bg-[#f8fafc] p-4 rounded-xl hover:bg-[#f0f4fa] transition-colors border border-transparent hover:border-gray-100">
+                                        <span class="text-sm text-gray-700 font-medium pr-4 leading-relaxed">6. Tutor
+                                            membahas tugas pertemuan sebelumnya (khusus minggu 4, 6, 8)</span>
                                         <div class="flex gap-8 pr-6">
                                             <label class="cursor-pointer w-8 text-center flex justify-center">
-                                                <input type="radio" name="bahas_tugas" value="Ya" class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                                <input type="radio" name="bahas_tugas" value="Ya"
+                                                    class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
                                             </label>
                                             <label class="cursor-pointer w-8 text-center flex justify-center">
-                                                <input type="radio" name="bahas_tugas" value="Tidak" class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
+                                                <input type="radio" name="bahas_tugas" value="Tidak"
+                                                    class="w-5 h-5 text-[#006191] focus:ring-[#006191] border-gray-300">
                                             </label>
                                         </div>
                                     </div>
@@ -281,28 +315,40 @@
                             <!-- Text Areas -->
                             <div class="space-y-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Catatan / Praktik Baik <span class="text-red-500">*</span></label>
-                                    <textarea name="praktik_baik" required rows="2" placeholder="Tuliskan praktik baik dalam tuweb..."
+                                    <label
+                                        class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Catatan /
+                                        Praktik Baik <span class="text-red-500">*</span></label>
+                                    <textarea name="praktik_baik" required rows="2"
+                                        placeholder="Tuliskan praktik baik dalam tuweb..."
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Temuan Ketidaksesuaian <span class="text-red-500">*</span></label>
-                                    <textarea name="temuan_ketidaksesuaian" required rows="2" placeholder="Tuliskan temuan ketidaksesuaian..."
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Temuan
+                                        Ketidaksesuaian <span class="text-red-500">*</span></label>
+                                    <textarea name="temuan_ketidaksesuaian" required rows="2"
+                                        placeholder="Tuliskan temuan ketidaksesuaian..."
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kesan Terhadap Pembelajaran <span class="text-red-500">*</span></label>
-                                    <textarea name="kesan_pembelajaran" required rows="2" placeholder="Tuliskan kesan anda..."
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kesan
+                                        Terhadap Pembelajaran <span class="text-red-500">*</span></label>
+                                    <textarea name="kesan_pembelajaran" required rows="2"
+                                        placeholder="Tuliskan kesan anda..."
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kendala Tutorial <span class="text-red-500">*</span></label>
-                                    <textarea name="kendala_tutorial" required rows="2" placeholder="Tuliskan kendala yang dihadapi..."
+                                    <label
+                                        class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Kendala
+                                        Tutorial <span class="text-red-500">*</span></label>
+                                    <textarea name="kendala_tutorial" required rows="2"
+                                        placeholder="Tuliskan kendala yang dihadapi..."
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Saran Perbaikan <span class="text-red-500">*</span></label>
-                                    <textarea name="saran_perbaikan" required rows="2" placeholder="Tuliskan saran perbaikan..."
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Saran
+                                        Perbaikan <span class="text-red-500">*</span></label>
+                                    <textarea name="saran_perbaikan" required rows="2"
+                                        placeholder="Tuliskan saran perbaikan..."
                                         class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 px-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow resize-y"></textarea>
                                 </div>
                             </div>
@@ -317,25 +363,39 @@
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                
+
                                 <!-- Uploads -->
                                 <div class="space-y-5">
                                     <div>
-                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Screenshot Pertemuan (Materi) <span class="text-red-500">*</span></label>
-                                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-[#f8fafc] hover:bg-[#f0f4fa] hover:border-[#006191]/50 transition-colors cursor-pointer relative group">
-                                            <span class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-[#006191] mb-2 transition-colors">upload_file</span>
-                                            <p class="text-sm text-gray-600 font-medium text-center file-name">Klik untuk unggah gambar</p>
-                                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">PNG, JPG up to 10MB</p>
-                                            <input type="file" name="file_materi" required accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        <label
+                                            class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Screenshot
+                                            Pertemuan (Materi) <span class="text-red-500">*</span></label>
+                                        <div
+                                            class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-[#f8fafc] hover:bg-[#f0f4fa] hover:border-[#006191]/50 transition-colors cursor-pointer relative group">
+                                            <span
+                                                class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-[#006191] mb-2 transition-colors">upload_file</span>
+                                            <p class="text-sm text-gray-600 font-medium text-center file-name">Klik untuk
+                                                unggah gambar</p>
+                                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">PNG, JPG up
+                                                to 10MB</p>
+                                            <input type="file" name="file_materi" required accept="image/*"
+                                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Screenshot Pertemuan (Peserta) <span class="text-red-500">*</span></label>
-                                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-[#f8fafc] hover:bg-[#f0f4fa] hover:border-[#006191]/50 transition-colors cursor-pointer relative group">
-                                            <span class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-[#006191] mb-2 transition-colors">upload_file</span>
-                                            <p class="text-sm text-gray-600 font-medium text-center file-name">Klik untuk unggah gambar</p>
-                                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">PNG, JPG up to 10MB</p>
-                                            <input type="file" name="file_peserta" required accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        <label
+                                            class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Screenshot
+                                            Pertemuan (Peserta) <span class="text-red-500">*</span></label>
+                                        <div
+                                            class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-[#f8fafc] hover:bg-[#f0f4fa] hover:border-[#006191]/50 transition-colors cursor-pointer relative group">
+                                            <span
+                                                class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-[#006191] mb-2 transition-colors">upload_file</span>
+                                            <p class="text-sm text-gray-600 font-medium text-center file-name">Klik untuk
+                                                unggah gambar</p>
+                                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">PNG, JPG up
+                                                to 10MB</p>
+                                            <input type="file" name="file_peserta" required accept="image/*"
+                                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                                         </div>
                                     </div>
                                 </div>
@@ -343,12 +403,17 @@
                                 <!-- Link & Submit -->
                                 <div class="flex flex-col h-full space-y-6">
                                     <div>
-                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Link Rekaman (Video) <span class="text-red-500">*</span></label>
+                                        <label
+                                            class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Link
+                                            Rekaman (Video) <span class="text-red-500">*</span></label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <span class="material-symbols-outlined text-gray-400 text-[20px]">link</span>
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <span
+                                                    class="material-symbols-outlined text-gray-400 text-[20px]">link</span>
                                             </div>
-                                            <input type="url" name="link_video" required placeholder="https://youtube.com/..."
+                                            <input type="url" name="link_video" required
+                                                placeholder="https://youtube.com/..."
                                                 class="w-full bg-[#f0f4fa] border-none text-gray-800 rounded-lg py-3 pl-10 pr-4 focus:ring-2 focus:ring-[#006191]/20 outline-none transition-shadow">
                                         </div>
                                     </div>
@@ -356,10 +421,12 @@
                                     <div class="mt-auto pt-4 flex-grow flex flex-col justify-end">
                                         <button type="submit" id="submitBtn" disabled
                                             class="w-full bg-[#006191] hover:bg-[#004b71] disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 group">
-                                            <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">send</span>
+                                            <span
+                                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">send</span>
                                             Kirim Laporan Monitoring
                                         </button>
-                                        <p class="text-[9px] text-gray-400 text-center mt-3 uppercase tracking-wider">Pastikan data yang diisi telah sesuai dengan keadaan lapangan</p>
+                                        <p class="text-[9px] text-gray-400 text-center mt-3 uppercase tracking-wider">
+                                            Pastikan data yang diisi telah sesuai dengan keadaan lapangan</p>
                                     </div>
                                 </div>
 
