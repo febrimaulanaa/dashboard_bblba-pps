@@ -34,12 +34,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Test route - coba akses ini via browser
-Route::get('/test-route', function() {
+Route::get('/test-route', function () {
     return 'Route OK - ' . date('Y-m-d H:i:s');
 });
 
 // Test POST route
-Route::post('/test-post-route', function(Request $request) {
+Route::post('/test-post-route', function (Request $request) {
     return 'POST OK - ' . $request->input('test', 'no input');
 });
 
@@ -50,7 +50,7 @@ Route::get('/admin/absensi-pegawai', [AdminController::class, 'dataAbsensiPegawa
     ->name('admin.absensi');
 
 // Sistem Sertifikat Publik
-Route::prefix('sertifikat-form')->group(function () {
+Route::prefix('ecertificate')->group(function () {
     Route::get('/verify/{code}', [CertificateFormController::class, 'verify'])->name('sertifikat.verify');
     Route::get('/{slug}', [CertificateFormController::class, 'show'])->name('sertifikat.form');
     Route::post('/{slug}', [CertificateFormController::class, 'submit'])->name('sertifikat.submit');
@@ -106,7 +106,8 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
 //Admin Routes (AJAX-powered)
-Route::get('/admin301097', function() { return view('backend.ajax-admin'); });
+Route::get('/admin301097', function () {
+    return view('backend.ajax-admin'); });
 Route::get('/admin301097/ajax/{page}', [AdminController::class, 'ajaxContent']);
 Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
 Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
@@ -143,14 +144,16 @@ Route::get('/tuweb/export_exceltuweb', [AdminController::class, 'export_exceltuw
 Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltuweb'])->name('importtuweb');
 
 // Absensi
-Route::get('/admin301097/absensi', function() { return view('backend.simple-absensi'); });
-Route::get('/admin301097/jadwalpkbjj', function() { return view('backend.simple-jadwalpkbjj'); });
+Route::get('/admin301097/absensi', function () {
+    return view('backend.simple-absensi'); });
+Route::get('/admin301097/jadwalpkbjj', function () {
+    return view('backend.simple-jadwalpkbjj'); });
 Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
 // Sistem Sertifikat (Modern UI)
 Route::prefix('admin301097/sertifikat')->name('admin.sertifikat.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\CertificateAdminController::class, 'dashboard'])->name('dashboard');
-    
+
     // Events
     Route::get('/events', [\App\Http\Controllers\CertificateAdminController::class, 'events'])->name('events');
     Route::get('/events/create', [\App\Http\Controllers\CertificateAdminController::class, 'createEvent'])->name('events.create');
@@ -158,7 +161,7 @@ Route::prefix('admin301097/sertifikat')->name('admin.sertifikat.')->group(functi
     Route::get('/events/{id}/edit', [\App\Http\Controllers\CertificateAdminController::class, 'editEvent'])->name('events.edit');
     Route::put('/events/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'updateEvent'])->name('events.update');
     Route::delete('/events/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'destroyEvent'])->name('events.destroy');
-    
+
     // Templates
     Route::get('/templates', [\App\Http\Controllers\CertificateAdminController::class, 'templates'])->name('templates');
     Route::get('/templates/create', [\App\Http\Controllers\CertificateAdminController::class, 'createTemplate'])->name('templates.create');
@@ -166,7 +169,7 @@ Route::prefix('admin301097/sertifikat')->name('admin.sertifikat.')->group(functi
     Route::get('/templates/{id}/edit', [\App\Http\Controllers\CertificateAdminController::class, 'editTemplate'])->name('templates.edit');
     Route::put('/templates/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'updateTemplate'])->name('templates.update');
     Route::delete('/templates/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'destroyTemplate'])->name('templates.destroy');
-    
+
     // Participants
     Route::get('/participants', [\App\Http\Controllers\CertificateAdminController::class, 'participants'])->name('participants');
     Route::post('/participants', [\App\Http\Controllers\CertificateAdminController::class, 'storeParticipant'])->name('participants.store');
