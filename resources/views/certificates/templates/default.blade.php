@@ -69,17 +69,7 @@
     @endif
 
     <div class="content">
-        <div class="number">No: {{ $participant->certificate_number }}</div>
-        
         <div class="name">{{ $participant->name }}</div>
-        
-        <div class="event">{{ $event->name }}</div>
-        
-        @if(!empty($qrCodeBase64))
-        <div class="qrcode">
-            <img src="data:image/svg+xml;base64,{{ $qrCodeBase64 }}" width="100" height="100">
-        </div>
-        @endif
     </div>
 </body>
 </html>

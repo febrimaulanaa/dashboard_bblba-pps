@@ -17,6 +17,7 @@
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -150,7 +151,7 @@
             <span class="text-xl font-headline font-black tracking-tight text-primary">Admin UT Jakarta</span>
         </div>
         <nav class="hidden md:flex items-center gap-8">
-            <a class="text-primary font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-secondary after:rounded-full font-body text-label-md tracking-wider" href="{{ route('hlmadmin') }}">Dashboard</a>
+            <a class="text-primary font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-secondary after:rounded-full font-body text-label-md tracking-wider" href="/admin301097">Dashboard</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body text-label-md tracking-wider" href="{{ route('home') }}" target="_blank">View Site</a>
         </nav>
         <div class="flex items-center gap-4">
@@ -176,7 +177,7 @@
             </div>
             
             <nav class="flex-1 space-y-1">
-                <a class="{{ request()->routeIs('hlmadmin') ? 'bg-surface-container-highest text-primary rounded-r-full font-bold shadow-sm translate-x-1' : 'text-on-surface-variant hover:bg-surface-container-high' }} flex items-center gap-3 px-6 py-3 transition-all font-body text-sm" href="{{ route('hlmadmin') }}">
+                <a class="{{ request()->is('admin301097') ? 'bg-surface-container-highest text-primary rounded-r-full font-bold shadow-sm translate-x-1' : 'text-on-surface-variant hover:bg-surface-container-high' }} flex items-center gap-3 px-6 py-3 transition-all font-body text-sm" href="/admin301097">
                     <span class="material-symbols-outlined">home</span>
                     <span>Dashboard</span>
                 </a>
@@ -184,31 +185,31 @@
                 <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
                     <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Data Mahasiswa</p>
                     <div class="space-y-1 -mx-2">
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminpkbjj') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminpkbjj') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">school</span>
                             <span>Data PKBJJ</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminjadwalpkbjj') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminjadwalpkbjj') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">event</span>
                             <span>Jadwal PKBJJ</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminosmb') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminosmb') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">groups</span>
                             <span>Data OSMB</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminwtku') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminwtku') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">cast_for_education</span>
                             <span>Data WTKU</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminseminar') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminseminar') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">record_voice_over</span>
                             <span>Data Seminar</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admintuweb') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admintuweb') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">video_camera_front</span>
                             <span>Jadwal TUWEB</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('adminwisuda') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('adminwisuda') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">workspace_premium</span>
                             <span>Wisuda Daerah</span>
                         </a>
@@ -218,11 +219,11 @@
                 <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
                     <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Manajemen Pegawai</p>
                     <div class="space-y-1 -mx-2">
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.absensi') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.absensi') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="/admin301097/absensi">
                             <span class="material-symbols-outlined text-lg">assignment_ind</span>
                             <span>Laporan Absensi</span>
                         </a>
-                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm {{ request()->routeIs('admin.users') ? 'bg-surface-container-highest font-bold text-primary' : '' }}" href="{{ route('admin.users') }}">
+                        <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="#">
                             <span class="material-symbols-outlined text-lg">manage_accounts</span>
                             <span>Data Users</span>
                         </a>

@@ -16,8 +16,7 @@
         
         <p>Bersama email ini, kami lampirkan e-sertifikat kegiatan Anda dalam format PDF. Anda dapat mengunduh dan menyimpannya.</p>
         
-        <p>Sertifikat ini dilengkapi dengan QR Code yang dapat di-scan untuk memverifikasi keaslian sertifikat pada sistem kami.</p>
-        
+
         <p>Jika ada pertanyaan atau kendala, silakan hubungi panitia kegiatan.</p>
         
         <br>

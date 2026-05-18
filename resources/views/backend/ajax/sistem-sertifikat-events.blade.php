@@ -2,7 +2,7 @@
     <div class="data-card-header">
         <h3>Kelola Events</h3>
         <div>
-            <a href="#" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Event</a>
+            <a href="{{ route('admin.sertifikat.events.create') }}" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Event</a>
         </div>
     </div>
     <div class="data-card-body">
@@ -28,9 +28,13 @@
                     <td>{{ $row->start_date }}</td>
                     <td>{{ $row->end_date }}</td>
                     <td>{{ $row->status }}</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                    <td style="display: flex; gap: 5px;">
+                        <a href="{{ route('admin.sertifikat.events.edit', $row->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{{ route('admin.sertifikat.events.destroy', $row->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

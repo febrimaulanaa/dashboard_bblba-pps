@@ -2,7 +2,7 @@
     <div class="data-card-header">
         <h3>Data Peserta</h3>
         <div>
-            <a href="#" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Peserta</a>
+            <a href="{{ route('admin.sertifikat.participants') }}" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Peserta</a>
         </div>
     </div>
     <div class="data-card-body">
@@ -26,9 +26,16 @@
                     <td>{{ $row->email }}</td>
                     <td>{{ $row->verification_code }}</td>
                     <td>{{ $row->email_sent ? 'Ya' : 'Belum' }}</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary">Kirim Ulang</a>
-                        <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                    <td style="display: flex; gap: 5px;">
+                        <form action="{{ route('admin.sertifikat.participants.resend', $row->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-primary">Kirim Ulang</button>
+                        </form>
+                        <form action="{{ route('admin.sertifikat.participants.destroy', $row->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus peserta ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

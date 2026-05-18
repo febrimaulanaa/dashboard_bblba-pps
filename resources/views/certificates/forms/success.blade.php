@@ -13,11 +13,6 @@
         <h2 class="h3 mb-3">Pendaftaran Berhasil!</h2>
         <p class="text-muted mb-4">Terima kasih <strong>{{ $participant->name }}</strong> telah mengisi formulir kegiatan <strong>{{ $event->name }}</strong>.</p>
         
-        <div class="alert alert-info d-inline-block text-start mb-4">
-            <h5 class="alert-heading text-center mb-2">Nomor Sertifikat Anda:</h5>
-            <p class="mb-0 text-center fw-bold fs-4">{{ $participant->certificate_number }}</p>
-        </div>
-        
         <p class="text-muted">Sistem kami sedang membuat sertifikat Anda dan akan mengirimkannya secara otomatis ke email <strong>{{ $participant->email }}</strong> dalam beberapa menit.</p>
         <p class="text-muted small">Jika Anda belum menerimanya dalam waktu 1 jam, mohon periksa folder SPAM atau hubungi admin.</p>
         

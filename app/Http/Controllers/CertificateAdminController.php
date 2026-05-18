@@ -50,7 +50,8 @@ class CertificateAdminController extends Controller
         $event->name = $request->name;
         $event->slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
         $event->description = $request->description;
-        $event->date = $request->date;
+        $event->start_date = $request->date;
+        $event->end_date = $request->date;
         $event->template_id = $request->template_id;
         $event->status = $request->has('status');
         $event->save();
@@ -81,7 +82,8 @@ class CertificateAdminController extends Controller
         $event->name = $request->name;
         $event->slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
         $event->description = $request->description;
-        $event->date = $request->date;
+        $event->start_date = $request->date;
+        $event->end_date = $request->date;
         $event->template_id = $request->template_id;
         $event->status = $request->has('status');
         $event->save();
@@ -275,5 +277,15 @@ class CertificateAdminController extends Controller
         \App\Jobs\SendCertificateEmail::dispatch($participant);
 
         return redirect()->back()->with('success', 'Email sertifikat sedang dikirim ulang ke ' . $participant->email);
+    }
+
+    public function destroyParticipant($id)
+    {
+        $participant = CertificateParticipant::findOrFail($id);
+        if ($participant->certificate_path && Storage::disk('public')->exists($participant->certificate_path)) {
+            Storage::disk('public')->delete($participant->certificate_path);
+        }
+        $participant->delete();
+        return redirect()->back()->with('success', 'Peserta berhasil dihapus');
     }
 }

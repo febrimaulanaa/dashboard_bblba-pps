@@ -71,34 +71,51 @@ public function dataAbsensiPegawai()
             $filePeserta = null;
 
             if ($request->hasFile('file_materi')) {
-                try {
-                    $file = $request->file('file_materi');
-                    $filename = time() . '_materi.' . $file->getClientOriginalExtension();
-                    
-                    if (\Illuminate\Support\Facades\Storage::disk('google')->put($filename, file_get_contents($file))) {
-                        $adapter = \Illuminate\Support\Facades\Storage::disk('google')->getAdapter();
-                        $metadata = $adapter->getMetadata($filename);
-                        $fileMateri = 'https://drive.google.com/uc?id=' . $metadata['path'];
-                    }
-                } catch (\Exception $e) {
-                    \Illuminate\Support\Facades\Log::error('Upload file materi error: ' . $e->getMessage());
-                }
-            }
+
+    try {
+
+        $file = $request->file('file_materi');
+
+        $filename = time() . '_materi.' . $file->getClientOriginalExtension();
+
+        $upload = \Illuminate\Support\Facades\Storage::disk('google')
+            ->put($filename, file_get_contents($file));
+
+        \Log::info('UPLOAD MATERI: ' . json_encode($upload));
+
+        // simpan nama file saja dulu
+        $fileMateri = $filename;
+
+    } catch (\Exception $e) {
+
+        \Illuminate\Support\Facades\Log::error(
+            'Upload file materi error: ' . $e->getMessage()
+        );
+    }
+}
 
             if ($request->hasFile('file_peserta')) {
-                try {
-                    $file = $request->file('file_peserta');
-                    $filename = time() . '_peserta.' . $file->getClientOriginalExtension();
-                    
-                    if (\Illuminate\Support\Facades\Storage::disk('google')->put($filename, file_get_contents($file))) {
-                        $adapter = \Illuminate\Support\Facades\Storage::disk('google')->getAdapter();
-                        $metadata = $adapter->getMetadata($filename);
-                        $filePeserta = 'https://drive.google.com/uc?id=' . $metadata['path'];
-                    }
-                } catch (\Exception $e) {
-                    \Illuminate\Support\Facades\Log::error('Upload file peserta error: ' . $e->getMessage());
-                }
-            }
+
+    try {
+
+        $file = $request->file('file_peserta');
+
+        $filename = time() . '_peserta.' . $file->getClientOriginalExtension();
+
+        $upload = \Illuminate\Support\Facades\Storage::disk('google')
+            ->put($filename, file_get_contents($file));
+
+        \Log::info('UPLOAD PESERTA: ' . json_encode($upload));
+
+        $filePeserta = $filename;
+
+    } catch (\Exception $e) {
+
+        \Illuminate\Support\Facades\Log::error(
+            'Upload file peserta error: ' . $e->getMessage()
+        );
+    }
+}
 
             AbsensiPegawai::create([
                 'user_id' => null,

@@ -15,6 +15,7 @@ use App\Http\Controllers\SertifikatSeminarController;
 use App\Http\Controllers\WisudaController;
 use App\Http\Controllers\AbsensiPegawaiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,13 @@ Route::get('/absensi-monitoring', [AbsensiPegawaiController::class, 'create'])->
 Route::post('/absensi-monitoring', [AbsensiPegawaiController::class, 'store'])->name('absensi.store');
 Route::get('/admin/absensi-pegawai', [AdminController::class, 'dataAbsensiPegawai'])
     ->name('admin.absensi');
+
+// Sistem Sertifikat Publik
+Route::prefix('sertifikat-form')->group(function () {
+    Route::get('/verify/{code}', [CertificateFormController::class, 'verify'])->name('sertifikat.verify');
+    Route::get('/{slug}', [CertificateFormController::class, 'show'])->name('sertifikat.form');
+    Route::post('/{slug}', [CertificateFormController::class, 'submit'])->name('sertifikat.submit');
+});
 
 //Tampilan Utama
 
@@ -139,11 +147,32 @@ Route::get('/admin301097/absensi', function() { return view('backend.simple-abse
 Route::get('/admin301097/jadwalpkbjj', function() { return view('backend.simple-jadwalpkbjj'); });
 Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
-// Sistem Sertifikat
-Route::get('/admin301097/sistem-sertifikat', function() { return view('backend.min-crud', ['title' => 'Sistem Sertifikat', 'data' => \App\Models\CertificateEvent::limit(100)->get(), 'fields' => ['name','slug','start_date','end_date','status'], 'model' => 'certificate']); });
-Route::get('/admin301097/sistem-sertifikat/events', function() { return view('backend.min-crud', ['title' => 'Events', 'data' => \App\Models\CertificateEvent::limit(100)->get(), 'fields' => ['name','slug','status'], 'model' => 'certificate']); });
-Route::get('/admin301097/sistem-sertifikat/participants', function() { return view('backend.min-crud', ['title' => 'Peserta', 'data' => \App\Models\CertificateParticipant::limit(100)->get(), 'fields' => ['name','email','verification_code','email_sent'], 'model' => 'participant']); });
-Route::get('/admin301097/sistem-sertifikat/templates', function() { return view('backend.simple-sertifikat-templates'); });
+// Sistem Sertifikat (Modern UI)
+Route::prefix('admin301097/sertifikat')->name('admin.sertifikat.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\CertificateAdminController::class, 'dashboard'])->name('dashboard');
+    
+    // Events
+    Route::get('/events', [\App\Http\Controllers\CertificateAdminController::class, 'events'])->name('events');
+    Route::get('/events/create', [\App\Http\Controllers\CertificateAdminController::class, 'createEvent'])->name('events.create');
+    Route::post('/events', [\App\Http\Controllers\CertificateAdminController::class, 'storeEvent'])->name('events.store');
+    Route::get('/events/{id}/edit', [\App\Http\Controllers\CertificateAdminController::class, 'editEvent'])->name('events.edit');
+    Route::put('/events/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'updateEvent'])->name('events.update');
+    Route::delete('/events/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'destroyEvent'])->name('events.destroy');
+    
+    // Templates
+    Route::get('/templates', [\App\Http\Controllers\CertificateAdminController::class, 'templates'])->name('templates');
+    Route::get('/templates/create', [\App\Http\Controllers\CertificateAdminController::class, 'createTemplate'])->name('templates.create');
+    Route::post('/templates', [\App\Http\Controllers\CertificateAdminController::class, 'storeTemplate'])->name('templates.store');
+    Route::get('/templates/{id}/edit', [\App\Http\Controllers\CertificateAdminController::class, 'editTemplate'])->name('templates.edit');
+    Route::put('/templates/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'updateTemplate'])->name('templates.update');
+    Route::delete('/templates/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'destroyTemplate'])->name('templates.destroy');
+    
+    // Participants
+    Route::get('/participants', [\App\Http\Controllers\CertificateAdminController::class, 'participants'])->name('participants');
+    Route::post('/participants', [\App\Http\Controllers\CertificateAdminController::class, 'storeParticipant'])->name('participants.store');
+    Route::post('/participants/{id}/resend', [\App\Http\Controllers\CertificateAdminController::class, 'resendEmail'])->name('participants.resend');
+    Route::delete('/participants/{id}', [\App\Http\Controllers\CertificateAdminController::class, 'destroyParticipant'])->name('participants.destroy');
+});
 
 // Export & Import Excel PKBJJ
 Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
