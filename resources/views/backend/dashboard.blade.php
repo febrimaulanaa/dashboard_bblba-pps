@@ -15,7 +15,7 @@
                     <div class="col-7 col-stats">
                         <div class="numbers">
                             <p class="card-category">Mahasiswa PKBJJ</p>
-                            <h4 class="card-title">{{ \App\Models\DataSertifMhs::count() }}</h4>
+                            <h4 class="card-title">0</h4>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                     <div class="col-7 col-stats">
                         <div class="numbers">
                             <p class="card-category">Mahasiswa OSMB</p>
-                            <h4 class="card-title">{{ \App\Models\DataSertifOSMB::count() }}</h4>
+                            <h4 class="card-title">0</h4>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="col-7 col-stats">
                         <div class="numbers">
                             <p class="card-category">Wisuda</p>
-                            <h4 class="card-title">{{ \App\Models\Wisuda::count() }}</h4>
+                            <h4 class="card-title">0</h4>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     <div class="col-7 col-stats">
                         <div class="numbers">
                             <p class="card-category">Jadwal Tuweb</p>
-                            <h4 class="card-title">{{ \App\Models\JadwalTuweb::count() }}</h4>
+                            <h4 class="card-title">0</h4>
                         </div>
                     </div>
                 </div>
@@ -96,14 +96,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>1</td><td>Mahasiswa PKBJJ</td><td><strong>{{ \App\Models\DataSertifMhs::count() }}</strong></td></tr>
-                    <tr><td>2</td><td>Mahasiswa OSMB</td><td><strong>{{ \App\Models\DataSertifOSMB::count() }}</strong></td></tr>
-                    <tr><td>3</td><td>Mahasiswa Seminar</td><td><strong>{{ \App\Models\DataSertifSeminar::count() }}</strong></td></tr>
-                    <tr><td>4</td><td>Mahasiswa WTKU</td><td><strong>{{ \App\Models\DataSertifWTKU::count() }}</strong></td></tr>
-                    <tr><td>5</td><td>Mahasiswa Wisuda</td><td><strong>{{ \App\Models\Wisuda::count() }}</strong></td></tr>
-                    <tr><td>6</td><td>Jadwal Tuweb</td><td><strong>{{ \App\Models\JadwalTuweb::count() }}</strong></td></tr>
-                    <tr><td>7</td><td>Jadwal PKBJJ</td><td><strong>{{ \App\Models\JadwalPKBJJ::count() }}</strong></td></tr>
-                    <tr><td>8</td><td>Data Pegawai</td><td><strong>{{ \App\Models\User::count() }}</strong></td></tr>
+                    <tr><td>1</td><td>Mahasiswa PKBJJ</td><td><strong>0</strong></td></tr>
+                    <tr><td>2</td><td>Mahasiswa OSMB</td><td><strong>0</strong></td></tr>
+                    <tr><td>3</td><td>Mahasiswa Seminar</td><td><strong>0</strong></td></tr>
+                    <tr><td>4</td><td>Mahasiswa WTKU</td><td><strong>0</strong></td></tr>
+                    <tr><td>5</td><td>Mahasiswa Wisuda</td><td><strong>0</strong></td></tr>
+                    <tr><td>6</td><td>Jadwal Tuweb</td><td><strong>0</strong></td></tr>
+                    <tr><td>7</td><td>Jadwal PKBJJ</td><td><strong>0</strong></td></tr>
+                    <tr><td>8</td><td>Data Pegawai</td><td><strong>0</strong></td></tr>
                 </tbody>
             </table>
         </div>
