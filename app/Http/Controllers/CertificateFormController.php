@@ -44,14 +44,22 @@ class CertificateFormController extends Controller
         $certService = app(\App\Services\CertificateService::class);
         $participant->certificate_number = $certService->generateNumber($event);
         
-        // Generate PDF directly instead of using Job if we want immediate download (but user asked for queue)
-        $participant->save();
-        
-        // Use PdfService to generate PDF and then Mail
-        // Note: For now we can dispatch it to queue
-        SendCertificateEmail::dispatch($participant);
-        
-        return view('certificates.forms.success', compact('event', 'participant'));
+        try {
+            // Generate PDF directly instead of using Job if we want immediate download (but user asked for queue)
+            $participant->save();
+            
+            // Use PdfService to generate PDF and then Mail
+            // Note: For now we can dispatch it to queue
+            SendCertificateEmail::dispatch($participant);
+            
+            return view('certificates.forms.success', compact('event', 'participant'));
+        } catch (\Exception $e) {
+            // Tangkap semua error agar tidak jadi 500 (yang memicu WAF)
+            // Error akan dikembalikan ke halaman form dengan pesan error yang jelas
+            return redirect('/ecertificate/' . $id)
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage() . ' di file ' . $e->getFile() . ' baris ' . $e->getLine());
+        }
     }
 
     public function verify(Request $request)
