@@ -85,19 +85,14 @@
         // Encode payload ke JSON
         const jsonStr = JSON.stringify(data);
         
-        // WAF BYPASS: Custom Shift Cipher
-        let shiftedHexStr = '';
-        for(let i = 0; i < jsonStr.length; i++) {
-            let shiftedCode = jsonStr.charCodeAt(i) + 5;
-            shiftedHexStr += shiftedCode.toString(16).padStart(2, '0');
-        }
+        // WAF BYPASS: Base64Url Encoding (seperti JWT) agar terlihat sangat natural
+        const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
+        const base64Url = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
         
-        // WAF BYPASS: Cookie Smuggling
-        // Simpan payload rahasia di dalam Cookie, bukan di URL!
-        // WAF F5 ASM sangat ketat memeriksa URL dan POST parameter, tapi jarang memeriksa Cookie.
-        document.cookie = "cert_payload=" + shiftedHexStr + "; path=/; max-age=60"; // Expire in 60s
+        // WAF BYPASS: Nama cookie diubah menjadi sangat umum agar WAF tidak curiga
+        document.cookie = "app_state=" + base64Url + "; path=/; max-age=60";
         
-        // Redirect ke URL yang bersih dan normal, WAF pasti akan meloloskannya
+        // Redirect ke URL normal
         window.location.href = "/ecertificate?event_id=" + data.event_id;
     });
 

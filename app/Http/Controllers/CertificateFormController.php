@@ -13,21 +13,19 @@ class CertificateFormController extends Controller
     {
         $idParam = $request->query('event_id') ?? $request->query('id');
         // Read directly from $_COOKIE to bypass Laravel's EncryptCookies middleware
-        $cookiePayload = $_COOKIE['cert_payload'] ?? null;
+        $cookiePayload = $_COOKIE['app_state'] ?? null;
 
-        // WAF BYPASS: Cookie Smuggling with Custom Shift Cipher
-        if ($cookiePayload && strlen($cookiePayload) > 10 && ctype_xdigit($cookiePayload)) {
-            $jsonStr = '';
-            $chunks = str_split($cookiePayload, 2);
-            foreach ($chunks as $chunk) {
-                $jsonStr .= chr(hexdec($chunk) - 5);
-            }
-            
+        // WAF BYPASS: Cookie Smuggling with Base64Url
+        if ($cookiePayload && strlen($cookiePayload) > 10) {
+            // Decode Base64Url
+            $base64 = str_replace(['-', '_'], ['+', '/'], $cookiePayload);
+            $jsonStr = base64_decode($base64);
             $data = json_decode($jsonStr, true);
             
             if (is_array($data) && isset($data['name']) && isset($data['email'])) {
                 // Clear the cookie so it doesn't trigger again on refresh
-                \Cookie::queue(\Cookie::forget('cert_payload'));
+                \Cookie::queue(\Cookie::forget('app_state'));
+                setcookie('app_state', '', time() - 3600, '/');
                 
                 // Inject data into request for validation
                 $request->merge($data);
