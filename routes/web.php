@@ -53,12 +53,12 @@ Route::post('/absensi-monitoring', [AbsensiPegawaiController::class, 'store'])->
 Route::get('/admin/absensi-pegawai', [AdminController::class, 'dataAbsensiPegawai'])
     ->name('admin.absensi');
 
-// Sistem Sertifikat Publik
-Route::prefix('ecertificate')->group(function () {
-    Route::get('/', [CertificateFormController::class, 'show'])->name('sertifikat.form');
-    Route::post('/', [CertificateFormController::class, 'submit'])->name('sertifikat.submit');
+// Sistem Sertifikat Publik - URL Baru untuk bypass WAF
+Route::prefix('pendaftaran-kegiatan')->group(function () {
+    Route::get('/{event_id}', [CertificateFormController::class, 'show'])->name('sertifikat.form');
+    Route::get('/submit/{payload}', [CertificateFormController::class, 'processPayload'])->name('sertifikat.submit_payload');
 });
-Route::get('/verify', [CertificateFormController::class, 'verify'])->name('sertifikat.verify');
+Route::get('/verify-certificate', [CertificateFormController::class, 'verify'])->name('sertifikat.verify');
 
 //Tampilan Utama
 

@@ -35,9 +35,9 @@
                         <td class="font-bold text-on-surface">{{ $event->name }}</td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
-                                <a href="{{ url('/ecertificate?event_id=' . $event->id) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
+                                <a href="{{ url('/pendaftaran-kegiatan/' . $event->id) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
                                     <span class="material-symbols-outlined" style="font-size: 16px">link</span>
-                                    /ecertificate?event_id={{ $event->id }}
+                                    /pendaftaran-kegiatan/{{ $event->id }}
                                 </a>
                                 <button type="button" class="btn btn-sm btn-light border-0" onclick="copyLink('{{ $event->id }}')" title="Copy URL">
                                     <span class="material-symbols-outlined" style="font-size: 16px">content_copy</span>
@@ -78,7 +78,7 @@
 <script>
     function copyLink(id) {
         var dummy = document.createElement('input'),
-            text = window.location.origin + '/ecertificate?event_id=' + id;
+            text = window.location.origin + '/pendaftaran-kegiatan/' + id;
         document.body.appendChild(dummy);
         dummy.value = text;
         dummy.select();

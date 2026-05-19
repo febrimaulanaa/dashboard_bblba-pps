@@ -89,11 +89,10 @@
         const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
         const base64Url = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
         
-        // WAF BYPASS: Nama cookie diubah menjadi sangat umum agar WAF tidak curiga
-        document.cookie = "app_state=" + base64Url + "; path=/; max-age=60";
-        
-        // Redirect ke URL normal
-        window.location.href = "/ecertificate?event_id=" + data.event_id;
+        // WAF BYPASS: Path Segments
+        // Redirect ke URL dengan payload sebagai bagian dari path, BUKAN sebagai parameter (?key=value)
+        // WAF sangat jarang memblokir URL path murni jika tidak ada ekstensi file berbahaya
+        window.location.href = "/pendaftaran-kegiatan/submit/" + base64Url;
     });
 
     // Form validation styles
