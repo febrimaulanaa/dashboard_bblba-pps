@@ -16,8 +16,8 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <form id="certificateForm" action="/ecertificate" method="GET">
-        <input type="hidden" name="event_id" value="{{ $event->id }}">
+    <form id="certificateForm" action="{{ route('sertifikat.submit', $event->id) }}" method="POST">
+        @csrf
 
         <div class="card mb-4">
             <div class="card-body p-4">
@@ -70,33 +70,11 @@
     </form>
     <script>
     document.getElementById('certificateForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
         // Tampilkan loading state
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim...';
         submitBtn.disabled = true;
-
-        // Ambil data form
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Encode payload ke JSON
-        const jsonStr = JSON.stringify(data);
-        
-        // WAF BYPASS: Base64Url Encoding (seperti JWT) agar terlihat sangat natural
-        const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
-        const base64Url = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-        
-        // WAF BYPASS: Path Segments
-        // Redirect ke URL dengan payload sebagai bagian dari path, BUKAN sebagai parameter (?key=value)
-        // WAF sangat jarang memblokir URL path murni jika tidak ada ekstensi file berbahaya
-        window.location.href = "/pendaftaran-kegiatan/submit/" + base64Url;
     });
-
-    // Form validation styles
-    (function () {
-    })();
     </script>
 @endsection

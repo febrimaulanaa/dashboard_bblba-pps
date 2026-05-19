@@ -9,31 +9,14 @@ use App\Jobs\SendCertificateEmail;
 
 class CertificateFormController extends Controller
 {
-    public function show($event_id)
+    public function show($id)
     {
-        $event = CertificateEvent::where('id', $event_id)->where('status', true)->firstOrFail();
+        $event = CertificateEvent::where('id', $id)->where('status', true)->firstOrFail();
         return view('certificates.forms.show', compact('event'));
     }
-    
-    public function processPayload(Request $request, $payload)
-    {
-        // Decode Base64Url
-        $base64 = str_replace(['-', '_'], ['+', '/'], $payload);
-        $jsonStr = base64_decode($base64);
-        $data = json_decode($jsonStr, true);
-        
-        if (is_array($data) && isset($data['name']) && isset($data['email'])) {
-            // Inject data into request for validation
-            $request->merge($data);
-            return $this->submit($request);
-        }
-        
-        return redirect('/')->with('error', 'Data pendaftaran tidak valid.');
-    }
 
-    public function submit(Request $request)
+    public function submit(Request $request, $id)
     {
-        $id = $request->input('event_id');
         $event = CertificateEvent::where('id', $id)->where('status', true)->firstOrFail();
         
         $validated = $request->validate([
@@ -46,11 +29,11 @@ class CertificateFormController extends Controller
         
         // Check uniqueness for this event
         if (CertificateParticipant::where('event_id', $event->id)->where('nim', $validated['nim'])->exists()) {
-            return redirect('/pendaftaran-kegiatan/' . $id)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/ecertificate/' . $id)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
         }
         
         if (CertificateParticipant::where('event_id', $event->id)->where('email', $validated['email'])->exists()) {
-            return redirect('/pendaftaran-kegiatan/' . $id)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/ecertificate/' . $id)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
         }
         
         $participant = new CertificateParticipant($validated);
