@@ -217,6 +217,24 @@
                 </div>
 
                 <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
+                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Sertifikat Kegiatan</p>
+                    <div class="space-y-1 -mx-2">
+                        <a class="{{ request()->routeIs('admin.sertifikat.events*') ? 'bg-surface-container-highest text-primary font-bold' : 'text-on-surface-variant hover:bg-surface-container-high' }} flex items-center gap-3 px-2 py-2 rounded-lg text-sm transition-all" href="{{ route('admin.sertifikat.events') }}">
+                            <span class="material-symbols-outlined text-lg">event_available</span>
+                            <span>Kelola Event</span>
+                        </a>
+                        <a class="{{ request()->routeIs('admin.sertifikat.templates*') ? 'bg-surface-container-highest text-primary font-bold' : 'text-on-surface-variant hover:bg-surface-container-high' }} flex items-center gap-3 px-2 py-2 rounded-lg text-sm transition-all" href="{{ route('admin.sertifikat.templates') }}">
+                            <span class="material-symbols-outlined text-lg">style</span>
+                            <span>Template Sertifikat</span>
+                        </a>
+                        <a class="{{ request()->routeIs('admin.sertifikat.participants*') ? 'bg-surface-container-highest text-primary font-bold' : 'text-on-surface-variant hover:bg-surface-container-high' }} flex items-center gap-3 px-2 py-2 rounded-lg text-sm transition-all" href="{{ route('admin.sertifikat.participants') }}">
+                            <span class="material-symbols-outlined text-lg">recent_actors</span>
+                            <span>Data Peserta</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pt-4 mt-4 border-t border-outline-variant/20 px-6">
                     <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Manajemen Pegawai</p>
                     <div class="space-y-1 -mx-2">
                         <a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high px-2 py-2 rounded-lg text-sm" href="/admin301097/absensi">
