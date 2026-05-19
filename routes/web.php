@@ -115,13 +115,7 @@ Route::prefix('admin301097')->name('admin.')->group(function () {
     // For now, let's make it show the Sertifikat Dashboard as the main one, or create a generic one.
     // We will create a simple generic dashboard later if needed, but let's use the ajax-admin one converted to standard?
     Route::get('/', function () {
-        try {
-            return view('backend.dashboard')->render();
-        } catch (\Throwable $e) {
-            return '<h1>TERDETEKSI ERROR DI DALAM TEMPLATE/DATABASE:</h1>' .
-                   '<p><strong>Pesan:</strong> ' . $e->getMessage() . '</p>' .
-                   '<p><strong>Lokasi:</strong> ' . $e->getFile() . ' baris ' . $e->getLine() . '</p>';
-        }
+        return view('backend.dashboard');
     })->name('dashboard');
 
     // Legacy Routes
@@ -176,12 +170,12 @@ Route::get('/tuweb/export_exceltuweb', [AdminController::class, 'export_exceltuw
 Route::post('/tuweb/import_exceltuweb', [AdminController::class, 'import_exceltuweb'])->name('importtuweb');
 
 // Absensi
-Route::get('/admin301097/absensi', function () {
-    return view('backend.simple-absensi');
-});
-Route::get('/admin301097/jadwalpkbjj', function () {
-    return view('backend.simple-jadwalpkbjj');
-});
+// Route::get('/admin301097/absensi', function () {
+//     return view('backend.simple-absensi');
+// });
+// Route::get('/admin301097/jadwalpkbjj', function () {
+//     return view('backend.simple-jadwalpkbjj');
+// });
 Route::get('/admin301097/absensi/export', [AbsensiPegawaiController::class, 'export'])->name('admin.absensi.export');
 
 // Sistem Sertifikat (Modern UI)
