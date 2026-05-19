@@ -114,9 +114,8 @@ Route::prefix('admin301097')->name('admin.')->group(function () {
     // Redirect dashboard to Sertifikat Dashboard or a new dashboard view
     // For now, let's make it show the Sertifikat Dashboard as the main one, or create a generic one.
     // We will create a simple generic dashboard later if needed, but let's use the ajax-admin one converted to standard?
-    // Actually, let's just make the main route return view('backend.dashboard') which we will create.
     Route::get('/', function () {
-        return view('backend.dashboard');
+        return '<h1>HELLO ADMIN DASHBOARD - TESTING URL</h1><p>Jika Anda bisa melihat tulisan ini, berarti WAF tidak memblokir URL-nya, melainkan ada error di dalam template atau database yang sedang loading terlalu lama.</p>';
     })->name('dashboard');
 
     // Legacy Routes
