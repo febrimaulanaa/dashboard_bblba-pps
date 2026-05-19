@@ -10,7 +10,7 @@ class AdminAuthController extends Controller
     {
         // Redirect to dashboard if already logged in
         if (session('admin_logged_in')) {
-            return redirect()->route('hlmadmin');
+            return redirect()->route('admin.dashboard');
         }
         return view('backend.auth.login');
     }
@@ -26,7 +26,7 @@ class AdminAuthController extends Controller
             session(['admin_logged_in' => true]);
             
             $token = sha1('login_' . time());
-            session()->put('login_redirect_' . $token, 'hlmadmin');
+            session()->put('login_redirect_' . $token, 'admin.dashboard');
             return redirect()->route('admin.login.redirect', $token);
         }
 
@@ -45,7 +45,7 @@ class AdminAuthController extends Controller
             session(['admin_logged_in' => true]);
             
             $token = sha1('login_' . time());
-            session()->put('login_redirect_' . $token, 'hlmadmin');
+            session()->put('login_redirect_' . $token, 'admin.dashboard');
             return redirect()->route('admin.login.redirect', $token);
         }
 

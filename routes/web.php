@@ -109,6 +109,14 @@ Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
 Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
+// Admin Auth Routes
+Route::get('/admin301097/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin301097/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+Route::get('/admin301097/login-get', [AdminAuthController::class, 'loginGet'])->name('admin.login.get');
+Route::get('/admin301097/login-redirect/{token}', [AdminAuthController::class, 'handleRedirect'])->name('admin.login.redirect');
+Route::get('/admin301097/login-error/{token}', [AdminAuthController::class, 'handleError'])->name('admin.login.error');
+Route::post('/admin301097/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
 // Admin Routes (Standard Routing)
 Route::prefix('admin301097')->name('admin.')->middleware('admin.auth')->group(function () {
     // Redirect dashboard to Sertifikat Dashboard or a new dashboard view
