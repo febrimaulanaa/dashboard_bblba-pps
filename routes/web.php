@@ -110,7 +110,7 @@ Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
 // Admin Routes (Standard Routing)
-Route::prefix('admin301097')->name('admin.')->group(function () {
+Route::prefix('admin301097')->name('admin.')->middleware('admin.auth')->group(function () {
     // Redirect dashboard to Sertifikat Dashboard or a new dashboard view
     // For now, let's make it show the Sertifikat Dashboard as the main one, or create a generic one.
     // We will create a simple generic dashboard later if needed, but let's use the ajax-admin one converted to standard?
