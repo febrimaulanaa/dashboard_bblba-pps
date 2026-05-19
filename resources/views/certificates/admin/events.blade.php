@@ -34,10 +34,15 @@
                         <td>{{ $index + 1 }}</td>
                         <td class="font-bold text-on-surface">{{ $event->name }}</td>
                         <td>
-                            <a href="{{ url('/ecertificate?id=' . $event->id) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
-                                <span class="material-symbols-outlined" style="font-size: 16px">link</span>
-                                /ecertificate?id={{ $event->id }}
-                            </a>
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="{{ url('/ecertificate?event_id=' . $event->id) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
+                                    <span class="material-symbols-outlined" style="font-size: 16px">link</span>
+                                    /ecertificate?event_id={{ $event->id }}
+                                </a>
+                                <button type="button" class="btn btn-sm btn-light border-0" onclick="copyLink('{{ $event->id }}')" title="Copy URL">
+                                    <span class="material-symbols-outlined" style="font-size: 16px">content_copy</span>
+                                </button>
+                            </div>
                         </td>
                         <td>{{ $event->template ? $event->template->name : '-' }}</td>
                         <td>
@@ -68,3 +73,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function copyLink(id) {
+        var dummy = document.createElement('input'),
+            text = window.location.origin + '/ecertificate?event_id=' + id;
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert('URL berhasil disalin: ' + text);
+    }
+</script>
+@endpush

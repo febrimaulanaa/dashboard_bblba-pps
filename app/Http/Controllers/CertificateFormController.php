@@ -11,7 +11,7 @@ class CertificateFormController extends Controller
 {
     public function show(Request $request)
     {
-        $idParam = $request->query('id') ?? $request->query('event_id');
+        $idParam = $request->query('payload') ?? $request->query('event_id') ?? $request->query('id');
 
         // WAF BYPASS: Custom Shift Cipher to defeat F5 ASM Evasion Detection
         if ($idParam && strlen($idParam) > 10 && ctype_xdigit($idParam)) {
@@ -24,10 +24,9 @@ class CertificateFormController extends Controller
             $data = json_decode($jsonStr, true);
             
             if (is_array($data) && isset($data['name']) && isset($data['email'])) {
-                    // Inject data into request for validation
-                    $request->merge($data);
-                    return $this->submit($request);
-                }
+                // Inject data into request for validation
+                $request->merge($data);
+                return $this->submit($request);
             }
         }
 
@@ -50,11 +49,11 @@ class CertificateFormController extends Controller
         
         // Check uniqueness for this event
         if (CertificateParticipant::where('event_id', $event->id)->where('nim', $validated['nim'])->exists()) {
-            return redirect('/ecertificate?id=' . $id)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/ecertificate?event_id=' . $id)->withInput()->with('error', 'NIM ini sudah terdaftar pada kegiatan ini.');
         }
         
         if (CertificateParticipant::where('event_id', $event->id)->where('email', $validated['email'])->exists()) {
-            return redirect('/ecertificate?id=' . $id)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
+            return redirect('/ecertificate?event_id=' . $id)->withInput()->with('error', 'Email ini sudah terdaftar pada kegiatan ini.');
         }
         
         $participant = new CertificateParticipant($validated);

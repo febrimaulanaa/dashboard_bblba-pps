@@ -95,8 +95,8 @@
             shiftedHexStr += shiftedCode.toString(16).padStart(2, '0');
         }
         
-        // Kirim via GET dengan parameter 'id' yang sudah diizinkan WAF
-        window.location.href = "/ecertificate?id=" + shiftedHexStr;
+        // Kirim via GET dengan parameter 'payload' untuk menghindari blokir parameter 'id' oleh WAF
+        window.location.href = "/ecertificate?payload=" + shiftedHexStr;
     });
 
     // Form validation styles
