@@ -65,11 +65,54 @@
             <div class="sidebar-menu">
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Main Menu</div>
-                    <a href="/admin301097" class="sidebar-link">
+                    <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-home"></i></span> Dashboard Utama
                     </a>
                 </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Data Akademik</div>
+                    <a href="{{ route('admin.pkbjj') }}" class="sidebar-link {{ request()->routeIs('admin.pkbjj') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data PKBJJ
+                    </a>
+                    <a href="{{ route('admin.osmb') }}" class="sidebar-link {{ request()->routeIs('admin.osmb') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data OSMB
+                    </a>
+                    <a href="{{ route('admin.seminar') }}" class="sidebar-link {{ request()->routeIs('admin.seminar') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data Seminar
+                    </a>
+                    <a href="{{ route('admin.wtku') }}" class="sidebar-link {{ request()->routeIs('admin.wtku') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data WTKU
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Jadwal</div>
+                    <a href="{{ route('admin.jadwalpkbjj') }}" class="sidebar-link {{ request()->routeIs('admin.jadwalpkbjj') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-calendar"></i></span> Jadwal PKBJJ
+                    </a>
+                    <a href="{{ route('admin.tuweb') }}" class="sidebar-link {{ request()->routeIs('admin.tuweb') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-calendar"></i></span> Jadwal Tuweb
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Kepegawaian</div>
+                    <a href="{{ route('admin.users') }}" class="sidebar-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-users"></i></span> Pegawai
+                    </a>
+                    <a href="{{ route('admin.absensi') }}" class="sidebar-link {{ request()->routeIs('admin.absensi') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-clock"></i></span> Absensi
+                    </a>
+                </div>
                 
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Lainnya</div>
+                    <a href="{{ route('admin.wisuda') }}" class="sidebar-link {{ request()->routeIs('admin.wisuda') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-graduation-cap"></i></span> Wisuda
+                    </a>
+                </div>
+
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Sertifikat Kegiatan</div>
                     <a href="{{ route('admin.sertifikat.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.sertifikat.dashboard') ? 'active' : '' }}">

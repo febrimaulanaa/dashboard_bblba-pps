@@ -1,18 +1,16 @@
-@extends('backend.template.modern')
+@extends('backend.layout-admin')
 
 @section('title', 'Data Absensi Pegawai')
 
 @section('content')
 
-<div class="container mx-auto px-4 py-10 mt-20">
-
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-
-        <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+<div class="card shadow-sm mt-4">
+    <div class="card-header bg-white border-bottom">
+        <div class="d-flex align-items-center justify-content-between">
             <div>
-                <h1 class="text-2xl font-bold text-[#006191]">
+                <h4 class="card-title mb-0 text-primary font-weight-bold">
                     Data Monitoring Pegawai
-                </h1>
+                </h4>
 
                 <p class="text-sm text-gray-500 mt-1">
                     Total Data: {{ $absensis->total() }}
@@ -177,7 +175,6 @@
         </div>
 
     </div>
-
 </div>
 
 @endsection

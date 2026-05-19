@@ -50,7 +50,7 @@ Route::post('/test-post-route', function (Request $request) {
 // Absensi Pegawai Monitoring (Tanpa Login)
 Route::get('/absensi-monitoring', [AbsensiPegawaiController::class, 'create'])->name('absensi.create');
 Route::post('/absensi-monitoring', [AbsensiPegawaiController::class, 'store'])->name('absensi.store');
-Route::get('/admin/absensi-pegawai', [AdminController::class, 'dataAbsensiPegawai'])
+Route::get('/admin/absensi-pegawai', [AbsensiPegawaiController::class, 'index'])
     ->name('admin.absensi');
 
 // Sistem Sertifikat Publik
@@ -109,13 +109,35 @@ Route::post('/mejaijazah/verify', [WisudaController::class, 'verify'])
 Route::get('/mejaijazah/file/{token}', [WisudaController::class, 'download'])
     ->name('mejaijazah.download');
 
-//Admin Routes (AJAX-powered)
-Route::get('/admin301097', function () {
-    return view('backend.ajax-admin');
+// Admin Routes (Standard Routing)
+Route::prefix('admin301097')->name('admin.')->group(function () {
+    // Redirect dashboard to Sertifikat Dashboard or a new dashboard view
+    // For now, let's make it show the Sertifikat Dashboard as the main one, or create a generic one.
+    // We will create a simple generic dashboard later if needed, but let's use the ajax-admin one converted to standard?
+    // Actually, let's just make the main route return view('backend.dashboard') which we will create.
+    Route::get('/', function () {
+        return view('backend.dashboard');
+    })->name('dashboard');
+
+    // Legacy Routes
+    Route::get('/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('pkbjj');
+    Route::get('/osmb', [AdminController::class, 'admin_osmb'])->name('osmb');
+    Route::get('/seminar', [AdminController::class, 'admin_seminar'])->name('seminar');
+    Route::get('/wtku', [AdminController::class, 'admin_wtku'])->name('wtku');
+    Route::get('/wisuda', [AdminController::class, 'admin_wisuda'])->name('wisuda');
+    Route::get('/tuweb', [AdminController::class, 'admin_tuweb'])->name('tuweb');
+    Route::get('/users', [AdminController::class, 'admin_users'])->name('users');
+    Route::get('/jadwalpkbjj', [AdminController::class, 'admin_jadwalpkbjj'])->name('jadwalpkbjj');
+
+    // API Routes for DataTables
+    Route::get('/pkbjj/getdata', [AdminController::class, 'getdatapkbjj'])->name('getpkbjj');
+    Route::get('/osmb/getdata', [AdminController::class, 'getdataosmb'])->name('getosmb');
+    Route::get('/jadwalpkbjj/getdata', [AdminController::class, 'getdatajadwalpkbjj'])->name('getjadwalpkbjj');
+
+    // Users Store & Delete
+    Route::post('/users/store', [AdminController::class, 'storeuser'])->name('users.store');
+    Route::delete('/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('users.delete');
 });
-Route::get('/admin301097/ajax/{page}', [AdminController::class, 'ajaxContent']);
-Route::post('/admin301097/users/store', [AdminController::class, 'storeuser'])->name('admin.users.store');
-Route::delete('/admin301097/users/delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
 
 // CRUD Routes PKBJJ
 Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
