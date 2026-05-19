@@ -1,71 +1,77 @@
-@extends('backend.template.modern')
+@extends('backend.layout-admin')
 @section('title', 'Template Sertifikat')
 
 @section('content')
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
+<div class="page-inner">
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="font-headline font-bold text-2xl text-on-surface">Template Sertifikat</h2>
-            <p class="text-outline">Kelola gambar background dan pengaturan posisi teks (X/Y) sertifikat.</p>
+            <h4 class="page-title mb-1">Template Sertifikat</h4>
+            <span class="text-muted">Kelola gambar background dan pengaturan posisi teks (X/Y) sertifikat.</span>
         </div>
-        <a href="{{ route('admin.sertifikat.templates.create') }}" class="btn btn-primary d-flex align-items-center gap-2 rounded-xl px-4">
-            <span class="material-symbols-outlined">add</span> Tambah Template
+        <a href="{{ route('admin.sertifikat.templates.create') }}" class="btn btn-primary btn-round">
+            <i class="fas fa-plus mr-2"></i> Tambah Template
         </a>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card bg-surface-container-lowest border-0 shadow-sm rounded-2xl p-4">
-            <table class="stitch-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Template</th>
-                        <th>Background</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($templates as $index => $template)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td class="font-bold text-on-surface">{{ $template->name }}</td>
-                        <td>
-                            @if($template->background)
-                                <span class="badge bg-success rounded-pill px-3 py-2">Terunggah</span>
-                            @else
-                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">Kosong</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if($template->status)
-                                <span class="badge bg-success rounded-pill px-3 py-2">Aktif</span>
-                            @else
-                                <span class="badge bg-danger rounded-pill px-3 py-2">Nonaktif</span>
-                            @endif
-                        </td>
-                        <td class="d-flex gap-2">
-                            <a href="{{ route('admin.sertifikat.templates.edit', $template->id) }}" class="btn btn-sm btn-outline-primary rounded-lg d-flex align-items-center gap-1">
-                                <span class="material-symbols-outlined" style="font-size: 16px;">edit</span> Edit
-                            </a>
-                            <form action="{{ route('admin.sertifikat.templates.destroy', $template->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus template ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-lg d-flex align-items-center gap-1">
-                                    <span class="material-symbols-outlined" style="font-size: 16px;">delete</span> Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" class="text-center py-4 text-outline">Belum ada template.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Template</th>
+                                    <th scope="col">Background</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($templates as $index => $template)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td><strong>{{ $template->name }}</strong></td>
+                                    <td>
+                                        @if($template->background)
+                                            <span class="badge badge-success">Terunggah</span>
+                                        @else
+                                            <span class="badge badge-warning text-dark">Kosong</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($template->status)
+                                            <span class="badge badge-success">Aktif</span>
+                                        @else
+                                            <span class="badge badge-danger">Nonaktif</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.sertifikat.templates.edit', $template->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="{{ route('admin.sertifikat.templates.destroy', $template->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus template ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i> Hapus
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">Belum ada template.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -66,13 +66,23 @@
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Main Menu</div>
                     <a href="/admin301097" class="sidebar-link">
-                        <span class="icon"><i class="fas fa-home"></i></span> Kembali ke Dashboard
+                        <span class="icon"><i class="fas fa-home"></i></span> Dashboard Utama
                     </a>
                 </div>
+                
                 <div class="sidebar-section">
-                    <div class="sidebar-section-title">Lainnya</div>
-                    <a href="/admin301097" class="sidebar-link active">
-                        <span class="icon"><i class="fas fa-certificate"></i></span> Sistem Sertifikat
+                    <div class="sidebar-section-title">Sertifikat Kegiatan</div>
+                    <a href="{{ route('admin.sertifikat.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.sertifikat.dashboard') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-chart-pie"></i></span> Overview
+                    </a>
+                    <a href="{{ route('admin.sertifikat.events') }}" class="sidebar-link {{ request()->routeIs('admin.sertifikat.events*') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-calendar-alt"></i></span> Kelola Kegiatan
+                    </a>
+                    <a href="{{ route('admin.sertifikat.templates') }}" class="sidebar-link {{ request()->routeIs('admin.sertifikat.templates*') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-paint-brush"></i></span> Template Sertifikat
+                    </a>
+                    <a href="{{ route('admin.sertifikat.participants') }}" class="sidebar-link {{ request()->routeIs('admin.sertifikat.participants*') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-users"></i></span> Data Peserta
                     </a>
                 </div>
             </div>

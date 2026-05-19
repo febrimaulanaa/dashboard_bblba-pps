@@ -1,74 +1,85 @@
-@extends('backend.template.modern')
+@extends('backend.layout-admin')
 @section('title', 'Data Kegiatan Sertifikat')
 
 @section('content')
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
+<div class="page-inner">
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="font-headline font-bold text-2xl text-on-surface">Data Kegiatan</h2>
-            <p class="text-outline">Daftar kegiatan untuk pendaftaran dan sertifikat</p>
+            <h4 class="page-title mb-1">Data Kegiatan</h4>
+            <span class="text-muted">Daftar kegiatan untuk pendaftaran dan sertifikat</span>
         </div>
-        <a href="{{ route('admin.sertifikat.events.create') }}" class="btn btn-primary d-flex align-items-center gap-2 rounded-xl px-4">
-            <span class="material-symbols-outlined">add</span> Tambah Kegiatan
+        <a href="{{ route('admin.sertifikat.events.create') }}" class="btn btn-primary btn-round">
+            <i class="fas fa-plus mr-2"></i> Tambah Kegiatan
         </a>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card bg-surface-container-lowest border-0 shadow-sm rounded-2xl p-4">
-            <table class="stitch-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Kegiatan</th>
-                        <th>URL Pendaftaran</th>
-                        <th>Template</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($events as $index => $event)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td class="font-bold text-on-surface">{{ $event->name }}</td>
-                        <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <a href="{{ url('/ecertificate/' . $event->id) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-1">
-                                    <span class="material-symbols-outlined" style="font-size: 16px">link</span>
-                                    /ecertificate/{{ $event->id }}
-                                </a>
-                                <button type="button" class="btn btn-sm btn-light border-0" onclick="copyLink('{{ $event->id }}')" title="Copy URL">
-                                    <span class="material-symbols-outlined" style="font-size: 16px">content_copy</span>
-                                </button>
-                            </div>
-                        </td>
-                        <td>{{ $event->template ? $event->template->name : '-' }}</td>
-                        <td>
-                            @if($event->status)
-                                <span class="badge bg-success rounded-pill px-3 py-2">Aktif</span>
-                            @else
-                                <span class="badge bg-danger rounded-pill px-3 py-2">Nonaktif</span>
-                            @endif
-                        </td>
-                        <td class="d-flex gap-2">
-                            <a href="{{ route('admin.sertifikat.participants', ['event_id' => $event->id]) }}" class="btn btn-sm btn-outline-info rounded-lg d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size: 16px;">group</span> Peserta</a>
-                            <a href="{{ route('admin.sertifikat.events.edit', $event->id) }}" class="btn btn-sm btn-outline-primary rounded-lg d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size: 16px;">edit</span> Edit</a>
-                            <form action="{{ route('admin.sertifikat.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Menghapus kegiatan juga akan menghapus seluruh data peserta di dalamnya. Yakin?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-lg d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size: 16px;">delete</span></button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="text-center py-4 text-outline">Belum ada data kegiatan.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Kegiatan</th>
+                                    <th scope="col">URL Pendaftaran</th>
+                                    <th scope="col">Template</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($events as $index => $event)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td><strong>{{ $event->name }}</strong></td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="{{ url('/ecertificate/' . $event->id) }}" target="_blank" class="text-primary mr-2">
+                                                <i class="fas fa-link mr-1"></i> /ecertificate/{{ $event->id }}
+                                            </a>
+                                            <button type="button" class="btn btn-icon btn-round btn-sm btn-light border" onclick="copyLink('{{ $event->id }}')" title="Copy URL">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>{{ $event->template ? $event->template->name : '-' }}</td>
+                                    <td>
+                                        @if($event->status)
+                                            <span class="badge badge-success">Aktif</span>
+                                        @else
+                                            <span class="badge badge-danger">Nonaktif</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.sertifikat.participants', ['event_id' => $event->id]) }}" class="btn btn-sm btn-info">
+                                                <i class="fas fa-users"></i> Peserta
+                                            </a>
+                                            <a href="{{ route('admin.sertifikat.events.edit', $event->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="{{ route('admin.sertifikat.events.destroy', $event->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Menghapus kegiatan juga akan menghapus seluruh data peserta di dalamnya. Yakin?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i> Hapus
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="text-center py-4 text-muted">Belum ada data kegiatan.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -84,7 +95,8 @@
         dummy.select();
         document.execCommand('copy');
         document.body.removeChild(dummy);
-        alert('URL berhasil disalin: ' + text);
+        
+        swal("Berhasil!", "URL berhasil disalin: " + text, "success");
     }
 </script>
 @endpush

@@ -1,132 +1,131 @@
-@extends('backend.template.modern')
+@extends('backend.layout-admin')
 @section('title', 'Dashboard Sertifikat')
 
 @section('content')
-<div class="row mb-4">
-    <div class="col-12">
-        <h2 class="font-headline font-bold text-2xl text-on-surface">Sistem Manajemen Sertifikat</h2>
-        <p class="text-outline">Kelola kegiatan, template, dan peserta sertifikat secara otomatis.</p>
+<div class="page-inner">
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="page-title mb-1">Sistem Manajemen Sertifikat</h4>
+            <span class="text-muted">Kelola kegiatan, template, dan peserta sertifikat secara otomatis.</span>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-sm-6 col-md-3 mb-4">
-        <div class="card card-stats card-round bg-surface-container-lowest border-0 shadow-sm rounded-2xl h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-icon">
-                        <div class="icon-big text-center bubble-shadow-small bg-primary-container text-primary rounded-xl d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                            <span class="material-symbols-outlined" style="font-size: 30px;">event</span>
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body ">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Total Kegiatan</p>
+                                <h4 class="card-title">{{ $stats['total_events'] }}</h4>
+                            </div>
                         </div>
                     </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                            <p class="card-category text-outline font-semibold mb-0">Total Kegiatan</p>
-                            <h4 class="card-title text-on-surface font-headline font-bold mb-0" style="font-size: 24px;">{{ $stats['total_events'] }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Kegiatan Aktif</p>
+                                <h4 class="card-title">{{ $stats['active_events'] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-info bubble-shadow-small">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Total Peserta</p>
+                                <h4 class="card-title">{{ $stats['total_participants'] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-warning bubble-shadow-small">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Sertifikat Terkirim</p>
+                                <h4 class="card-title">{{ $stats['sent_emails'] }}</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-md-3 mb-4">
-        <div class="card card-stats card-round bg-surface-container-lowest border-0 shadow-sm rounded-2xl h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-icon">
-                        <div class="icon-big text-center bubble-shadow-small bg-success text-white rounded-xl d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                            <span class="material-symbols-outlined" style="font-size: 30px;">event_available</span>
-                        </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                            <p class="card-category text-outline font-semibold mb-0">Kegiatan Aktif</p>
-                            <h4 class="card-title text-on-surface font-headline font-bold mb-0" style="font-size: 24px;">{{ $stats['active_events'] }}</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-md-3 mb-4">
-        <div class="card card-stats card-round bg-surface-container-lowest border-0 shadow-sm rounded-2xl h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-icon">
-                        <div class="icon-big text-center bubble-shadow-small bg-info text-white rounded-xl d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                            <span class="material-symbols-outlined" style="font-size: 30px;">groups</span>
-                        </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                            <p class="card-category text-outline font-semibold mb-0">Total Peserta</p>
-                            <h4 class="card-title text-on-surface font-headline font-bold mb-0" style="font-size: 24px;">{{ $stats['total_participants'] }}</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-md-3 mb-4">
-        <div class="card card-stats card-round bg-surface-container-lowest border-0 shadow-sm rounded-2xl h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-icon">
-                        <div class="icon-big text-center bubble-shadow-small bg-warning text-white rounded-xl d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                            <span class="material-symbols-outlined" style="font-size: 30px;">mail</span>
-                        </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                            <p class="card-category text-outline font-semibold mb-0">Sertifikat Terkirim</p>
-                            <h4 class="card-title text-on-surface font-headline font-bold mb-0" style="font-size: 24px;">{{ $stats['sent_emails'] }}</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <a href="{{ route('admin.sertifikat.events') }}" class="text-decoration-none">
-            <div class="card bg-surface-container-lowest border-0 shadow-sm rounded-2xl p-4 d-flex flex-row align-items-center hover:bg-surface-container transition-all">
-                <div class="bg-primary-container text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
-                    <span class="material-symbols-outlined">event_note</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-on-surface mb-1">Kegiatan</h4>
-                    <p class="text-outline text-sm mb-0">Buat kegiatan untuk generate form pendaftaran & sertifikat</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a href="{{ route('admin.sertifikat.templates') }}" class="text-decoration-none">
-            <div class="card bg-surface-container-lowest border-0 shadow-sm rounded-2xl p-4 d-flex flex-row align-items-center hover:bg-surface-container transition-all">
-                <div class="bg-primary-container text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
-                    <span class="material-symbols-outlined">design_services</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-on-surface mb-1">Template Sertifikat</h4>
-                    <p class="text-outline text-sm mb-0">Kelola background & posisi teks sertifikat</p>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card card-profile">
+                <div class="card-body text-center p-4">
+                    <div class="avatar avatar-xxl mt-2 mb-3">
+                        <span class="avatar-title rounded-circle border border-white bg-primary"><i class="fas fa-calendar-alt fa-2x"></i></span>
+                    </div>
+                    <h3 class="mb-1 font-weight-bold">Kegiatan</h3>
+                    <p class="text-muted mb-4">Buat kegiatan untuk generate form pendaftaran & sertifikat</p>
+                    <a href="{{ route('admin.sertifikat.events') }}" class="btn btn-primary btn-round btn-sm px-4">Kelola</a>
                 </div>
             </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a href="{{ route('admin.sertifikat.participants') }}" class="text-decoration-none">
-            <div class="card bg-surface-container-lowest border-0 shadow-sm rounded-2xl p-4 d-flex flex-row align-items-center hover:bg-surface-container transition-all">
-                <div class="bg-primary-container text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
-                    <span class="material-symbols-outlined">manage_accounts</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-on-surface mb-1">Data Peserta</h4>
-                    <p class="text-outline text-sm mb-0">Lihat data peserta, download PDF, atau kirim ulang email</p>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-profile">
+                <div class="card-body text-center p-4">
+                    <div class="avatar avatar-xxl mt-2 mb-3">
+                        <span class="avatar-title rounded-circle border border-white bg-secondary"><i class="fas fa-paint-brush fa-2x"></i></span>
+                    </div>
+                    <h3 class="mb-1 font-weight-bold">Template Sertifikat</h3>
+                    <p class="text-muted mb-4">Kelola background & posisi teks (X/Y) sertifikat</p>
+                    <a href="{{ route('admin.sertifikat.templates') }}" class="btn btn-secondary btn-round btn-sm px-4">Kelola</a>
                 </div>
             </div>
-        </a>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-profile">
+                <div class="card-body text-center p-4">
+                    <div class="avatar avatar-xxl mt-2 mb-3">
+                        <span class="avatar-title rounded-circle border border-white bg-info"><i class="fas fa-users fa-2x"></i></span>
+                    </div>
+                    <h3 class="mb-1 font-weight-bold">Data Peserta</h3>
+                    <p class="text-muted mb-4">Lihat data peserta, download PDF, atau kirim ulang email</p>
+                    <a href="{{ route('admin.sertifikat.participants') }}" class="btn btn-info btn-round btn-sm px-4">Kelola</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

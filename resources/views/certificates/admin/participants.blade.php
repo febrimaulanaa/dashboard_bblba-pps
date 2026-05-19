@@ -1,146 +1,155 @@
-@extends('backend.template.modern')
+@extends('backend.layout-admin')
 @section('title', 'Data Peserta Sertifikat')
 
 @section('content')
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
+<div class="page-inner">
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="font-headline font-bold text-2xl text-on-surface">Data Peserta Sertifikat</h2>
-            <p class="text-outline">Daftar peserta yang telah mendaftar dan mendapatkan sertifikat.</p>
+            <h4 class="page-title mb-1">Data Peserta Sertifikat</h4>
+            <span class="text-muted">Daftar peserta yang telah mendaftar dan mendapatkan sertifikat.</span>
         </div>
-        <div>
-            <button class="btn btn-primary rounded-xl font-bold shadow-sm d-flex align-items-center gap-2" data-toggle="modal" data-target="#addParticipantModal">
-                <span class="material-symbols-outlined" style="font-size: 20px;">add</span> Tambah Peserta
-            </button>
+        <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#addParticipantModal">
+            <i class="fas fa-plus mr-2"></i> Tambah Peserta
+        </button>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <form method="GET" action="{{ route('admin.sertifikat.participants') }}" class="form-inline">
+                <div class="form-group mb-2 mr-2">
+                    <select name="event_id" class="form-control" onchange="this.form.submit()">
+                        <option value="">-- Semua Kegiatan --</option>
+                        @foreach($events as $event)
+                            <option value="{{ $event->id }}" {{ request('event_id') == $event->id ? 'selected' : '' }}>
+                                {{ $event->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="button" class="btn btn-outline-primary mb-2" onclick="alert('Fitur Export Excel belum diimplementasikan di tutorial ini')">
+                    <i class="fas fa-file-excel mr-1"></i> Export Excel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nomor Sertifikat</th>
+                                    <th scope="col">Nama Peserta</th>
+                                    <th scope="col">NIM / Email</th>
+                                    <th scope="col">Kegiatan</th>
+                                    <th scope="col">Status Email</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($participants as $index => $participant)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td><small><strong>{{ $participant->certificate_number ?? '-' }}</strong></small></td>
+                                    <td><strong>{{ $participant->name }}</strong></td>
+                                    <td>
+                                        <div>{{ $participant->nim }}</div>
+                                        <div class="text-muted"><small>{{ $participant->email }}</small></div>
+                                    </td>
+                                    <td>{{ $participant->event->name }}</td>
+                                    <td>
+                                        @if($participant->email_sent)
+                                            <span class="badge badge-success">Terkirim</span>
+                                        @else
+                                            <span class="badge badge-warning text-dark">Belum/Gagal</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <form action="{{ route('admin.sertifikat.participants.resend', $participant->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary" title="Resend Email" onclick="return confirm('Apakah Anda yakin ingin mengirim ulang sertifikat ke {{ $participant->email }}?')">
+                                                    <i class="fas fa-paper-plane"></i>
+                                                </button>
+                                            </form>
+                                            @if($participant->certificate_path)
+                                            <a href="{{ Storage::url($participant->certificate_path) }}" target="_blank" class="btn btn-sm btn-secondary" title="Download PDF">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="7" class="text-center py-4 text-muted">Belum ada data peserta.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <form method="GET" action="{{ route('admin.sertifikat.participants') }}" class="d-flex gap-2 align-items-center">
-            <select name="event_id" class="form-select rounded-lg border-outline-variant/40" onchange="this.form.submit()" style="max-width: 300px;">
-                <option value="">-- Semua Kegiatan --</option>
-                @foreach($events as $event)
-                    <option value="{{ $event->id }}" {{ request('event_id') == $event->id ? 'selected' : '' }}>
-                        {{ $event->name }}
-                    </option>
-                @endforeach
-            </select>
-            <button type="button" class="btn btn-outline-primary rounded-lg d-flex align-items-center gap-1" onclick="alert('Fitur Export Excel belum diimplementasikan di tutorial ini')">
-                <span class="material-symbols-outlined" style="font-size: 18px;">download</span> Export Excel
-            </button>
-        </form>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card bg-surface-container-lowest border-0 shadow-sm rounded-2xl p-4">
-            <table class="stitch-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nomor Sertifikat</th>
-                        <th>Nama Peserta</th>
-                        <th>NIM / Email</th>
-                        <th>Kegiatan</th>
-                        <th>Status Email</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($participants as $index => $participant)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td class="font-bold text-on-surface" style="font-size: 12px;">{{ $participant->certificate_number ?? '-' }}</td>
-                        <td class="font-bold text-on-surface">{{ $participant->name }}</td>
-                        <td>
-                            <div>{{ $participant->nim }}</div>
-                            <div class="text-outline" style="font-size: 12px;">{{ $participant->email }}</div>
-                        </td>
-                        <td>{{ $participant->event->name }}</td>
-                        <td>
-                            @if($participant->email_sent)
-                                <span class="badge bg-success rounded-pill px-3 py-2">Terkirim</span>
-                            @else
-                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">Belum/Gagal</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="d-flex gap-1">
-                                <form action="{{ route('admin.sertifikat.participants.resend', $participant->id) }}" method="POST" class="d-inline m-0 p-0">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-primary rounded-lg d-flex align-items-center justify-content-center" title="Resend Email" onclick="return confirm('Apakah Anda yakin ingin mengirim ulang sertifikat ke {{ $participant->email }}?')">
-                                        <span class="material-symbols-outlined" style="font-size: 16px;">send</span>
-                                    </button>
-                                </form>
-                                @if($participant->certificate_path)
-                                <a href="{{ Storage::url($participant->certificate_path) }}" target="_blank" class="btn btn-sm btn-outline-secondary rounded-lg d-flex align-items-center justify-content-center" title="Download PDF">
-                                    <span class="material-symbols-outlined" style="font-size: 16px;">picture_as_pdf</span>
-                                </a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center py-4 text-outline">Belum ada data peserta.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 <!-- Modal Tambah Peserta -->
 <div class="modal fade" id="addParticipantModal" tabindex="-1" role="dialog" aria-labelledby="addParticipantModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow-sm rounded-2xl">
+        <div class="modal-content">
             <form action="{{ route('admin.sertifikat.participants.store') }}" method="POST">
                 @csrf
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-bold text-on-surface" id="addParticipantModalLabel">Tambah Peserta Baru</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: transparent; border: none; font-size: 1.5rem;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addParticipantModalLabel">Tambah Peserta Baru</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body pt-3">
-                    <div class="form-group mb-3">
-                        <label class="form-label font-bold text-on-surface">Kegiatan <span class="text-danger">*</span></label>
-                        <select name="event_id" class="form-control rounded-lg" required>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Kegiatan <span class="text-danger">*</span></label>
+                        <select name="event_id" class="form-control" required>
                             <option value="">-- Pilih Kegiatan --</option>
                             @foreach($events as $event)
                                 <option value="{{ $event->id }}" {{ request('event_id') == $event->id ? 'selected' : '' }}>{{ $event->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label font-bold text-on-surface">Nama Lengkap <span class="text-danger">*</span></label>
-                        <input type="text" name="name" class="form-control rounded-lg" required placeholder="Contoh: Budi Santoso">
+                    <div class="form-group">
+                        <label>Nama Lengkap <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" required placeholder="Contoh: Budi Santoso">
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label font-bold text-on-surface">Email <span class="text-danger">*</span></label>
-                        <input type="email" name="email" class="form-control rounded-lg" required placeholder="Email untuk pengiriman sertifikat">
+                    <div class="form-group">
+                        <label>Email <span class="text-danger">*</span></label>
+                        <input type="email" name="email" class="form-control" required placeholder="Email untuk pengiriman sertifikat">
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label font-bold text-on-surface">NIM (Opsional)</label>
-                        <input type="text" name="nim" class="form-control rounded-lg" placeholder="Nomor Induk Mahasiswa">
+                    <div class="form-group">
+                        <label>NIM (Opsional)</label>
+                        <input type="text" name="nim" class="form-control" placeholder="Nomor Induk Mahasiswa">
                     </div>
                     <div class="row">
-                        <div class="col-md-6 form-group mb-3">
-                            <label class="form-label font-bold text-on-surface">Prodi (Opsional)</label>
-                            <input type="text" name="prodi" class="form-control rounded-lg" placeholder="Program Studi">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Prodi (Opsional)</label>
+                                <input type="text" name="prodi" class="form-control" placeholder="Program Studi">
+                            </div>
                         </div>
-                        <div class="col-md-6 form-group mb-3">
-                            <label class="form-label font-bold text-on-surface">Fakultas (Opsional)</label>
-                            <input type="text" name="fakultas" class="form-control rounded-lg" placeholder="Fakultas">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fakultas (Opsional)</label>
+                                <input type="text" name="fakultas" class="form-control" placeholder="Fakultas">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-outline-secondary rounded-lg" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary rounded-lg font-bold">Simpan & Proses PDF</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan & Proses PDF</button>
                 </div>
             </form>
         </div>
