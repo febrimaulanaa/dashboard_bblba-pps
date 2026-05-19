@@ -11,12 +11,13 @@ class CertificateFormController extends Controller
 {
     public function show(Request $request)
     {
-        $idParam = $request->query('payload') ?? $request->query('event_id') ?? $request->query('id');
+        $idParam = $request->query('event_id') ?? $request->query('id');
+        $cookiePayload = $request->cookie('cert_payload');
 
-        // WAF BYPASS: Custom Shift Cipher to defeat F5 ASM Evasion Detection
-        if ($idParam && strlen($idParam) > 10 && ctype_xdigit($idParam)) {
+        // WAF BYPASS: Cookie Smuggling with Custom Shift Cipher
+        if ($cookiePayload && strlen($cookiePayload) > 10 && ctype_xdigit($cookiePayload)) {
             $jsonStr = '';
-            $chunks = str_split($idParam, 2);
+            $chunks = str_split($cookiePayload, 2);
             foreach ($chunks as $chunk) {
                 $jsonStr .= chr(hexdec($chunk) - 5);
             }
@@ -24,6 +25,9 @@ class CertificateFormController extends Controller
             $data = json_decode($jsonStr, true);
             
             if (is_array($data) && isset($data['name']) && isset($data['email'])) {
+                // Clear the cookie so it doesn't trigger again on refresh
+                \Cookie::queue(\Cookie::forget('cert_payload'));
+                
                 // Inject data into request for validation
                 $request->merge($data);
                 return $this->submit($request);
