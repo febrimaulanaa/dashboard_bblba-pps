@@ -115,7 +115,13 @@ Route::prefix('admin301097')->name('admin.')->group(function () {
     // For now, let's make it show the Sertifikat Dashboard as the main one, or create a generic one.
     // We will create a simple generic dashboard later if needed, but let's use the ajax-admin one converted to standard?
     Route::get('/', function () {
-        return '<h1>HELLO ADMIN DASHBOARD - TESTING URL</h1><p>Jika Anda bisa melihat tulisan ini, berarti WAF tidak memblokir URL-nya, melainkan ada error di dalam template atau database yang sedang loading terlalu lama.</p>';
+        try {
+            return view('backend.dashboard')->render();
+        } catch (\Throwable $e) {
+            return '<h1>TERDETEKSI ERROR DI DALAM TEMPLATE/DATABASE:</h1>' .
+                   '<p><strong>Pesan:</strong> ' . $e->getMessage() . '</p>' .
+                   '<p><strong>Lokasi:</strong> ' . $e->getFile() . ' baris ' . $e->getLine() . '</p>';
+        }
     })->name('dashboard');
 
     // Legacy Routes
