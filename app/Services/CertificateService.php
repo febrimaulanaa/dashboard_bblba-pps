@@ -83,6 +83,10 @@ class CertificateService
         
         $number = str_pad($count + 1, 4, '0', STR_PAD_LEFT);
         
-        return strtoupper('UT-' . substr($event->slug, 0, 8) . '-' . date('Y') . '-' . $number);
+        // Clean the slug to keep only alphanumeric characters and append event ID
+        $cleanSlug = preg_replace('/[^a-zA-Z0-9]/', '', $event->slug);
+        $slugPrefix = substr($cleanSlug, 0, 6) . $event->id;
+        
+        return strtoupper('UT-' . $slugPrefix . '-' . date('Y') . '-' . $number);
     }
 }
