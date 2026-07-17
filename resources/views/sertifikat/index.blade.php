@@ -5,9 +5,9 @@
 @section('content')
   <main class="mt-24 pb-20 min-h-[calc(100vh-200px)] flex flex-col justify-center items-center px-6">
     <div class="w-full max-w-2xl text-center mb-12">
-      <h1 class="text-3xl md:text-4xl font-extrabold font-headline tracking-tight text-secondary mb-2">Form Sertifikat PKBJJ</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold font-headline tracking-tight text-secondary mb-2">Form Sertifikat LPKBJJ</h1>
       <h2 class="text-xl md:text-2xl font-bold text-sky-700">Universitas Terbuka Jakarta</h2>
-      <p class="text-on-surface-variant mt-4 text-sm md:text-base">Masukkan Nomor Induk Mahasiswa Anda untuk mencetak sertifikat Pelatihan Keterampilan Belajar Jarak Jauh (PKBJJ).</p>
+      <p class="text-on-surface-variant mt-4 text-sm md:text-base">Masukkan Nomor Induk Mahasiswa Anda untuk mencetak sertifikat Layanan Pendukung Kesuksesan Belajar Jarak Jauh (LPKBJJ).</p>
     </div>
 
     <div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-xl border border-outline-variant/10 w-full max-w-xl relative overflow-hidden">

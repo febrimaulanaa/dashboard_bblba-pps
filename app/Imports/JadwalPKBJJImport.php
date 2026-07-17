@@ -14,12 +14,19 @@ class JadwalPKBJJImport implements ToCollection
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
+            // Skip empty rows (if NIM is empty)
+            if (empty($row[1])) {
+                continue;
+            }
             $jdpkbjj = JadwalPKBJJ::create([
-                'nim' => $row[1],
-                'nama' => $row[2],
-                'tanggal' => $row[3],
-                'skema' => $row[4],
-                'link_lok' => $row[5],
+                'nim' => $row[1] ?? null,
+                'nama' => $row[2] ?? null,
+                'tanggal' => $row[3] ?? null,
+                'waktu' => $row[4] ?? null,
+                'skema' => $row[5] ?? null,
+                'nomor_meja' => $row[6] ?? null,
+                'no_urut' => $row[7] ?? null,
+                'link_lok' => $row[8] ?? null,
             ]);
         }
     }

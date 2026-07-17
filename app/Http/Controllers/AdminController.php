@@ -140,6 +140,44 @@ class AdminController extends Controller
         return redirect()->back()->with(compact('jdpkbjj'));
     }
 
+    public function storejadwalpkbjj(Request $request)
+    {
+        $jadwal = JadwalPKBJJ::create([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'tanggal' => $request->tanggal,
+            'waktu' => $request->waktu,
+            'skema' => $request->skema,
+            'nomor_meja' => $request->nomor_meja,
+            'no_urut' => $request->no_urut,
+            'link_lok' => $request->link_lok
+        ]);
+        return response()->json($jadwal);
+    }
+
+    public function updatejadwalpkbjj(Request $request, $id)
+    {
+        $jadwal = JadwalPKBJJ::findOrFail($id);
+        $jadwal->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'tanggal' => $request->tanggal,
+            'waktu' => $request->waktu,
+            'skema' => $request->skema,
+            'nomor_meja' => $request->nomor_meja,
+            'no_urut' => $request->no_urut,
+            'link_lok' => $request->link_lok
+        ]);
+        return response()->json($jadwal);
+    }
+
+    public function deletejadwalpkbjj($id)
+    {
+        $jadwal = JadwalPKBJJ::findOrFail($id);
+        $jadwal->delete();
+        return response()->json(['success' => 'Data berhasil dihapus']);
+    }
+
     public function getdatajadwalpkbjj(Request $request)
     {
         $data = $request->all();

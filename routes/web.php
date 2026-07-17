@@ -143,6 +143,9 @@ Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('
 Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
 Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
 Route::post('/pkbjj/import_jadwalexcel', [AdminController::class, 'import_jadwalexcel'])->name('importjadwalpkbjj');
+Route::post('/pkbjj/storejadwalpkbjj', [AdminController::class, 'storejadwalpkbjj'])->name('storejadwalpkbjj');
+Route::put('/pkbjj/updatejadwalpkbjj/{id}', [AdminController::class, 'updatejadwalpkbjj'])->name('updatejadwalpkbjj');
+Route::delete('/pkbjj/deletejadwalpkbjj/{id}', [AdminController::class, 'deletejadwalpkbjj'])->name('deletejadwalpkbjj');
 
 // CRUD Routes OSMB
 Route::post('/osmb/storeosmb', [AdminController::class, 'storeosmb'])->name('storeosmb');

@@ -13,7 +13,10 @@ class JadwalPKBJJ extends Model
         'nim',
         'nama',
         'tanggal',
+        'waktu',
         'skema',
+        'nomor_meja',
+        'no_urut',
         'link_lok',
     ];
     protected $table = 'jadwalpkbjj';

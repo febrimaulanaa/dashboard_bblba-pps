@@ -90,8 +90,8 @@
                     <span class="material-symbols-outlined">arrow_forward</span>
                   </div>
                 </div>
-                <h4 class="font-headline font-bold text-on-surface mb-1">Sertifikat PKBJJ</h4>
-                <p class="text-on-surface-variant text-sm mb-4">Pelatihan Keterampilan Belajar</p>
+                <h4 class="font-headline font-bold text-on-surface mb-1">Sertifikat LPKBJJ</h4>
+                <p class="text-on-surface-variant text-sm mb-4">Layanan Pendukung Kesuksesan Belajar Jarak Jauh</p>
                 <div class="h-1 w-full bg-surface-container rounded-full overflow-hidden mt-auto">
                   <div class="h-full bg-secondary w-full"></div>
                 </div>
@@ -164,23 +164,28 @@
         <div class="space-y-6">
           <h3 class="text-xl font-headline font-bold text-on-surface">Informasi Akademik</h3>
           <div class="space-y-4">
-            <!-- Jadwal Tutorial Card -->
+            <!-- Jadwal Tutorial & LPKBJJ Card -->
             <div class="bg-white border-2 border-primary/5 p-6 rounded-xl shadow-sm">
               <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
                 <span class="material-symbols-outlined">calendar_month</span>
               </div>
-              <h4 class="font-headline font-bold text-on-surface mb-1">Jadwal Tutorial</h4>
-              <p class="text-on-surface-variant text-xs mb-6">Pengecekan jadwal TTM / Tuweb untuk Mahasiswa dan Tutor.</p>
+              <h4 class="font-headline font-bold text-on-surface mb-1">Jadwal Akademik</h4>
+              <p class="text-on-surface-variant text-xs mb-6">Pengecekan jadwal TTM / Tuweb dan LPKBJJ.</p>
               <div class="flex flex-col gap-2">
                 <a class="block w-full text-center py-2.5 bg-surface-container text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2"
                   href="{{ route('jadwaltuwebmhs') }}">
                   <span class="material-symbols-outlined text-[16px]">school</span>
-                  Jadwal Mahasiswa
+                  Jadwal Tutorial Mahasiswa
                 </a>
                 <a class="block w-full text-center py-2.5 bg-surface-container text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2"
                   href="{{ route('jadwaltuwebtutor') }}">
                   <span class="material-symbols-outlined text-[16px]">co_present</span>
-                  Jadwal Tutor
+                  Jadwal Tutorial Tutor
+                </a>
+                <a class="block w-full text-center py-2.5 bg-surface-container text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2"
+                  href="{{ route('jadwalpkbjj') }}">
+                  <span class="material-symbols-outlined text-[16px]">menu_book</span>
+                  Jadwal LPKBJJ
                 </a>
               </div>
             </div>

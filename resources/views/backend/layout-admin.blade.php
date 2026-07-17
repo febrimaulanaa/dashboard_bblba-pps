@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Dashboard') - UT Jakarta</title>
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
@@ -73,7 +74,7 @@
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Data Akademik</div>
                     <a href="{{ route('admin.pkbjj') }}" class="sidebar-link {{ request()->routeIs('admin.pkbjj') ? 'active' : '' }}">
-                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data PKBJJ
+                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data LPKBJJ
                     </a>
                     <a href="{{ route('admin.osmb') }}" class="sidebar-link {{ request()->routeIs('admin.osmb') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-file-alt"></i></span> Data OSMB
@@ -89,7 +90,7 @@
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Jadwal</div>
                     <a href="{{ route('admin.jadwalpkbjj') }}" class="sidebar-link {{ request()->routeIs('admin.jadwalpkbjj') ? 'active' : '' }}">
-                        <span class="icon"><i class="fas fa-calendar"></i></span> Jadwal PKBJJ
+                        <span class="icon"><i class="fas fa-calendar"></i></span> Jadwal LPKBJJ
                     </a>
                     <a href="{{ route('admin.tuweb') }}" class="sidebar-link {{ request()->routeIs('admin.tuweb') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-calendar"></i></span> Jadwal Tuweb
@@ -149,7 +150,12 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Core JS Files -->
+    <script src="{{ asset('atlantis/assets/js/core/jquery.3.2.1.min.js') }}"></script>
+    <script src="{{ asset('atlantis/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('atlantis/assets/js/core/bootstrap.min.js') }}"></script>
+    <!-- Datatables -->
+    <script src="{{ asset('atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
     <script>
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('show');

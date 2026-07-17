@@ -328,7 +328,9 @@
                                         <div class="flex flex-col gap-1">
                                             <div class="flex items-center gap-2">
                                                 <span class="material-symbols-outlined text-sm text-tertiary">location_on</span>
-                                                <span class="text-sm font-medium text-on-surface">${item.lokasi || '-'}</span>
+                                                <a href="${item.lokasi && item.lokasi.startsWith('http') ? item.lokasi : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.lokasi || '')}" target="_blank" class="text-sm font-medium text-tertiary hover:underline transition-colors">
+                                                    ${item.lokasi || '-'}
+                                                </a>
                                             </div>
                                             ${item.link_tuweb ? `
                                             <a href="${item.link_tuweb}" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-tertiary hover:text-tertiary-container transition-colors mt-1">
