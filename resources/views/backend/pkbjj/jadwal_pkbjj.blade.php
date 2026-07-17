@@ -8,10 +8,19 @@
     </div>
     <div class="card-body">
         <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-success my-3" id="btn-add-new" data-toggle="modal" data-target="#ajaxModel">ADD DATA</button>
-            <button type="button" class="btn btn-primary mr-5 my-3" data-toggle="modal" data-target="#importExcel">
-                IMPORT EXCEL
-            </button>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary mr-2" id="btn-add-new" data-toggle="modal" data-target="#ajaxModel">
+                        Tambah Data
+                    </button>
+                    <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#importExcel">
+                        Import Excel
+                    </button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pasteExcelModal">
+                        Paste dari Excel
+                    </button>
+                </div>
+            </div>
 
             {{-- Modal Form --}}
             <div class="modal fade" id="ajaxModel" aria-hidden="true">
@@ -85,6 +94,32 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+            <!-- Bulk Paste Excel -->
+            <div class="modal fade" id="pasteExcelModal" tabindex="-1" role="dialog" aria-labelledby="pasteExcelModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pasteExcelModalLabel">Paste Data dari Excel</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-info">
+                                <strong>Cara penggunaan:</strong><br>
+                                1. Buka file Excel Anda.<br>
+                                2. Blok baris data Anda mulai dari NIM hingga Lokasi (<strong>Jangan blok nomor urut baris di sebelah kiri, dan jangan blok judul kolom di atas</strong>).<br>
+                                3. Tekan Copy (Ctrl+C), lalu klik di dalam kotak di bawah ini dan tekan Paste (Ctrl+V).
+                            </div>
+                            <div class="form-group">
+                                <label>Tempel (Paste) data di sini:</label>
+                                <textarea id="pasteExcelData" class="form-control" rows="10" placeholder="Paste data excel di sini..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="button" id="btn-process-paste" class="btn btn-primary">Simpan Data</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -210,6 +245,63 @@
                     }
                 });
             }
+        });
+
+        $('#btn-process-paste').click(function() {
+            var rawData = $('#pasteExcelData').val();
+            if (!rawData.trim()) {
+                alert('Teks masih kosong, silakan paste data dari Excel terlebih dahulu!');
+                return;
+            }
+
+            var rows = rawData.trim().split('\n');
+            var parsedData = [];
+            
+            for (var i = 0; i < rows.length; i++) {
+                var columns = rows[i].split('\t');
+                
+                // Pastikan setidaknya ada data NIM di kolom index 0 (karena kita tidak pakai 'No')
+                // Jika user mencopy beserta 'No', maka kolom akan tergeser.
+                // Kita asumsikan urutan: NIM, Nama, Tanggal, Waktu, Skema, No Meja, No Urut, Lokasi
+                if (columns.length >= 2 && columns[0].trim() !== '') {
+                    // Jika kolom[0] tampaknya sebuah Nomor urut (hanya angka pendek dan bukan NIM), kita skip index 0
+                    var startIndex = (columns[0].length < 5) ? 1 : 0;
+                    
+                    parsedData.push({
+                        nim: columns[startIndex] ? columns[startIndex].trim() : '',
+                        nama: columns[startIndex+1] ? columns[startIndex+1].trim() : '',
+                        tanggal: columns[startIndex+2] ? columns[startIndex+2].trim() : '',
+                        waktu: columns[startIndex+3] ? columns[startIndex+3].trim() : '',
+                        skema: columns[startIndex+4] ? columns[startIndex+4].trim() : '',
+                        nomor_meja: columns[startIndex+5] ? columns[startIndex+5].trim() : '',
+                        no_urut: columns[startIndex+6] ? columns[startIndex+6].trim() : '',
+                        link_lok: columns[startIndex+7] ? columns[startIndex+7].trim() : ''
+                    });
+                }
+            }
+
+            if (parsedData.length === 0) {
+                alert('Tidak ada data valid yang bisa dibaca. Pastikan format copy-paste sesuai.');
+                return;
+            }
+
+            $(this).prop('disabled', true).text('Menyimpan...');
+
+            $.ajax({
+                url: '{{ route("bulkstorejadwalpkbjj") }}',
+                type: 'POST',
+                data: JSON.stringify({ jadwals: parsedData }),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('Sebanyak ' + parsedData.length + ' data berhasil disimpan!');
+                    location.reload();
+                },
+                error: function (response) {
+                    $('#btn-process-paste').prop('disabled', false).text('Simpan Data');
+                    alert('Terjadi kesalahan saat menyimpan data. Cek format paste Anda.');
+                    console.log(response);
+                }
+            });
         });
     });
 </script>

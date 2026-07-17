@@ -155,6 +155,30 @@ class AdminController extends Controller
         return response()->json($jadwal);
     }
 
+    public function bulkstorejadwalpkbjj(Request $request)
+    {
+        $data = $request->validate([
+            'jadwals' => 'required|array',
+            'jadwals.*.nim' => 'required',
+            'jadwals.*.nama' => 'required',
+        ]);
+        
+        foreach($data['jadwals'] as $row) {
+            JadwalPKBJJ::create([
+                'nim' => $row['nim'] ?? null,
+                'nama' => $row['nama'] ?? null,
+                'tanggal' => $row['tanggal'] ?? null,
+                'waktu' => $row['waktu'] ?? null,
+                'skema' => $row['skema'] ?? null,
+                'nomor_meja' => $row['nomor_meja'] ?? null,
+                'no_urut' => $row['no_urut'] ?? null,
+                'link_lok' => $row['link_lok'] ?? null
+            ]);
+        }
+        
+        return response()->json(['status' => 'success']);
+    }
+
     public function updatejadwalpkbjj(Request $request, $id)
     {
         $jadwal = JadwalPKBJJ::findOrFail($id);
