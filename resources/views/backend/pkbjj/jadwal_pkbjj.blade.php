@@ -16,8 +16,11 @@
                     <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#importExcel">
                         Import Excel
                     </button>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pasteExcelModal">
+                    <button type="button" class="btn btn-info mr-2" data-toggle="modal" data-target="#pasteExcelModal">
                         Paste dari Excel
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btn-set-default-namakegiatan">
+                        Set Nama Kegiatan Default
                     </button>
                 </div>
             </div>
@@ -39,6 +42,10 @@
                                 <div class="form-group">
                                     Nama: <br>
                                     <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" required>
+                                </div>
+                                <div class="form-group">
+                                    Nama Kegiatan: <br>
+                                    <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan" placeholder="Misal: LPKBJJ Tahap 1" required>
                                 </div>
                                 <div class="form-group">
                                     Tanggal Pelaksanaan: <br>
@@ -130,6 +137,7 @@
                         <th>No</th>
                         <th>NIM</th>
                         <th>Nama</th>
+                        <th>Nama Kegiatan</th>
                         <th>Tanggal Pelaksanaan</th>
                         <th>Waktu</th>
                         <th>Skema</th>
@@ -146,6 +154,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $p->nim }}</td>
                             <td>{{ $p->nama }}</td>
+                            <td>{{ $p->nama_kegiatan }}</td>
                             <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->waktu }}</td>
                             <td>{{ $p->skema }}</td>
@@ -156,6 +165,7 @@
                                 <button data-id="{{ $p->id }}"
                                         data-nim="{{ $p->nim }}"
                                         data-nama="{{ $p->nama }}"
+                                        data-nama_kegiatan="{{ $p->nama_kegiatan }}"
                                         data-tanggal="{{ $p->tanggal }}"
                                         data-waktu="{{ $p->waktu }}"
                                         data-skema="{{ $p->skema }}"
@@ -196,6 +206,7 @@
             $('#jadwal_id').val(id);
             $('#nim').val($(this).data('nim'));
             $('#nama').val($(this).data('nama'));
+            $('#nama_kegiatan').val($(this).data('nama_kegiatan'));
             $('#tanggal').val($(this).data('tanggal'));
             $('#waktu').val($(this).data('waktu'));
             $('#skema').val($(this).data('skema'));
@@ -262,7 +273,7 @@
                 
                 // Pastikan setidaknya ada data NIM di kolom index 0 (karena kita tidak pakai 'No')
                 // Jika user mencopy beserta 'No', maka kolom akan tergeser.
-                // Kita asumsikan urutan: NIM, Nama, Tanggal, Waktu, Skema, No Meja, No Urut, Lokasi
+                // Kita asumsikan urutan: NIM, Nama, Nama Kegiatan, Tanggal, Waktu, Skema, No Meja, No Urut, Lokasi
                 if (columns.length >= 2 && columns[0].trim() !== '') {
                     // Jika kolom[0] tampaknya sebuah Nomor urut (hanya angka pendek dan bukan NIM), kita skip index 0
                     var startIndex = (columns[0].length < 5) ? 1 : 0;
@@ -270,12 +281,13 @@
                     parsedData.push({
                         nim: columns[startIndex] ? columns[startIndex].trim() : '',
                         nama: columns[startIndex+1] ? columns[startIndex+1].trim() : '',
-                        tanggal: columns[startIndex+2] ? columns[startIndex+2].trim() : '',
-                        waktu: columns[startIndex+3] ? columns[startIndex+3].trim() : '',
-                        skema: columns[startIndex+4] ? columns[startIndex+4].trim() : '',
-                        nomor_meja: columns[startIndex+5] ? columns[startIndex+5].trim() : '',
-                        no_urut: columns[startIndex+6] ? columns[startIndex+6].trim() : '',
-                        link_lok: columns[startIndex+7] ? columns[startIndex+7].trim() : ''
+                        nama_kegiatan: columns[startIndex+2] ? columns[startIndex+2].trim() : '',
+                        tanggal: columns[startIndex+3] ? columns[startIndex+3].trim() : '',
+                        waktu: columns[startIndex+4] ? columns[startIndex+4].trim() : '',
+                        skema: columns[startIndex+5] ? columns[startIndex+5].trim() : '',
+                        nomor_meja: columns[startIndex+6] ? columns[startIndex+6].trim() : '',
+                        no_urut: columns[startIndex+7] ? columns[startIndex+7].trim() : '',
+                        link_lok: columns[startIndex+8] ? columns[startIndex+8].trim() : ''
                     });
                 }
             }
@@ -302,6 +314,27 @@
                     console.log(response);
                 }
             });
+        });
+
+        $('#btn-set-default-namakegiatan').click(function() {
+            var defaultName = prompt("Masukkan 'Nama Kegiatan' yang akan diisi secara otomatis ke semua data lama yang masih kosong (contoh: LPKBJJ Tahap 1):");
+            if (defaultName !== null && defaultName.trim() !== '') {
+                if(confirm("Apakah Anda yakin ingin mengatur 'Nama Kegiatan' menjadi '" + defaultName + "' untuk SEMUA data yang kosong?")) {
+                    $.ajax({
+                        url: '{{ route("setBulkNamaKegiatan") }}',
+                        type: 'POST',
+                        data: { nama_kegiatan_default: defaultName.trim() },
+                        success: function (response) {
+                            alert(response.updated_count + ' baris data berhasil diperbarui!');
+                            location.reload();
+                        },
+                        error: function (response) {
+                            alert('Terjadi kesalahan saat memperbarui data.');
+                            console.log(response);
+                        }
+                    });
+                }
+            }
         });
     });
 </script>

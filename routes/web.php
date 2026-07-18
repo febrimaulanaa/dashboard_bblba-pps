@@ -145,6 +145,7 @@ Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->na
 Route::post('/pkbjj/import_jadwalexcel', [AdminController::class, 'import_jadwalexcel'])->name('importjadwalpkbjj');
 Route::post('/pkbjj/storejadwalpkbjj', [AdminController::class, 'storejadwalpkbjj'])->name('storejadwalpkbjj');
 Route::post('/pkbjj/bulkstorejadwalpkbjj', [AdminController::class, 'bulkstorejadwalpkbjj'])->name('bulkstorejadwalpkbjj');
+Route::post('/pkbjj/set_bulk_nama_kegiatan', [AdminController::class, 'setBulkNamaKegiatan'])->name('setBulkNamaKegiatan');
 Route::put('/pkbjj/updatejadwalpkbjj/{id}', [AdminController::class, 'updatejadwalpkbjj'])->name('updatejadwalpkbjj');
 Route::delete('/pkbjj/deletejadwalpkbjj/{id}', [AdminController::class, 'deletejadwalpkbjj'])->name('deletejadwalpkbjj');
 

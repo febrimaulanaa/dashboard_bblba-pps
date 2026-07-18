@@ -12,6 +12,7 @@ class JadwalPKBJJ extends Model
         'id',
         'nim',
         'nama',
+        'nama_kegiatan',
         'tanggal',
         'waktu',
         'skema',

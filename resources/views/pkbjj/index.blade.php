@@ -196,6 +196,7 @@
                         <thead>
                             <tr class="bg-surface-container-low border-b border-outline-variant/20">
                                 <th class="px-8 py-5 font-bold">Mahasiswa</th>
+                                <th class="px-8 py-5 font-bold">Nama Kegiatan</th>
                                 <th class="px-8 py-5 font-bold">Tanggal Pelaksanaan</th>
                                 <th class="px-8 py-5 font-bold">Waktu</th>
                                 <th class="px-8 py-5 font-bold">Skema</th>
@@ -332,13 +333,13 @@
                                 var tableHtml = `
                                 <tr class="hover:bg-surface-container-low transition-colors group">
                                     <td class="px-8 py-6">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-1 h-8 bg-secondary rounded-full"></div>
-                                            <div>
-                                                <div class="font-bold text-on-surface">${data.nama || '-'}</div>
-                                                <div class="text-xs text-on-surface-variant">NIM: ${data.nim || '-'}</div>
-                                            </div>
+                                        <div class="flex flex-col">
+                                            <span class="font-bold text-on-surface uppercase tracking-wide">${data.nama || '-'}</span>
+                                            <span class="text-sm font-medium text-outline">${data.nim || '-'}</span>
                                         </div>
+                                    </td>
+                                    <td class="px-8 py-6">
+                                        <div class="text-sm font-semibold text-on-surface">${data.nama_kegiatan || '-'}</div>
                                     </td>
                                     <td class="px-8 py-6">
                                         <div class="flex items-center gap-2 text-on-surface mb-1">

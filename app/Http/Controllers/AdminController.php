@@ -145,6 +145,7 @@ class AdminController extends Controller
         $jadwal = JadwalPKBJJ::create([
             'nim' => $request->nim,
             'nama' => $request->nama,
+            'nama_kegiatan' => $request->nama_kegiatan,
             'tanggal' => $request->tanggal,
             'waktu' => $request->waktu,
             'skema' => $request->skema,
@@ -167,6 +168,7 @@ class AdminController extends Controller
             JadwalPKBJJ::create([
                 'nim' => $row['nim'] ?? null,
                 'nama' => $row['nama'] ?? null,
+                'nama_kegiatan' => $row['nama_kegiatan'] ?? null,
                 'tanggal' => $row['tanggal'] ?? null,
                 'waktu' => $row['waktu'] ?? null,
                 'skema' => $row['skema'] ?? null,
@@ -179,12 +181,29 @@ class AdminController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function setBulkNamaKegiatan(Request $request)
+    {
+        $data = $request->validate([
+            'nama_kegiatan_default' => 'required|string',
+        ]);
+        
+        $count = JadwalPKBJJ::whereNull('nama_kegiatan')
+                            ->orWhere('nama_kegiatan', '')
+                            ->update(['nama_kegiatan' => $data['nama_kegiatan_default']]);
+        
+        return response()->json([
+            'status' => 'success',
+            'updated_count' => $count
+        ]);
+    }
+
     public function updatejadwalpkbjj(Request $request, $id)
     {
         $jadwal = JadwalPKBJJ::findOrFail($id);
         $jadwal->update([
             'nim' => $request->nim,
             'nama' => $request->nama,
+            'nama_kegiatan' => $request->nama_kegiatan,
             'tanggal' => $request->tanggal,
             'waktu' => $request->waktu,
             'skema' => $request->skema,

@@ -21,12 +21,13 @@ class JadwalPKBJJImport implements ToCollection
             $jdpkbjj = JadwalPKBJJ::create([
                 'nim' => $row[1] ?? null,
                 'nama' => $row[2] ?? null,
-                'tanggal' => $row[3] ?? null,
-                'waktu' => $row[4] ?? null,
-                'skema' => $row[5] ?? null,
-                'nomor_meja' => $row[6] ?? null,
-                'no_urut' => $row[7] ?? null,
-                'link_lok' => $row[8] ?? null,
+                'nama_kegiatan' => $row[3] ?? null,
+                'tanggal' => $row[4] ?? null,
+                'waktu' => $row[5] ?? null,
+                'skema' => $row[6] ?? null,
+                'nomor_meja' => $row[7] ?? null,
+                'no_urut' => $row[8] ?? null,
+                'link_lok' => $row[9] ?? null,
             ]);
         }
     }
