@@ -22,8 +22,15 @@ class AdminAuthController extends Controller
             'password' => 'required'
         ]);
 
-        if ($request->username === 'febri' && $request->password === 'sisio123') {
-            session(['admin_logged_in' => true]);
+        $admin = \App\Models\Admin::where('username', $request->username)->first();
+
+        if ($admin && \Illuminate\Support\Facades\Hash::check($request->password, $admin->password)) {
+            session([
+                'admin_logged_in' => true,
+                'admin_id' => $admin->id,
+                'admin_name' => $admin->name,
+                'admin_role' => $admin->role,
+            ]);
             
             $token = sha1('login_' . time());
             session()->put('login_redirect_' . $token, 'admin.dashboard');
@@ -41,8 +48,15 @@ class AdminAuthController extends Controller
         $username = $request->query('username');
         $password = $request->query('password');
 
-        if ($username === 'febri' && $password === 'sisio123') {
-            session(['admin_logged_in' => true]);
+        $admin = \App\Models\Admin::where('username', $username)->first();
+
+        if ($admin && \Illuminate\Support\Facades\Hash::check($password, $admin->password)) {
+            session([
+                'admin_logged_in' => true,
+                'admin_id' => $admin->id,
+                'admin_name' => $admin->name,
+                'admin_role' => $admin->role,
+            ]);
             
             $token = sha1('login_' . time());
             session()->put('login_redirect_' . $token, 'admin.dashboard');
@@ -79,7 +93,7 @@ class AdminAuthController extends Controller
 
     public function logout()
     {
-        session()->forget('admin_logged_in');
+        session()->forget(['admin_logged_in', 'admin_id', 'admin_name', 'admin_role']);
         return redirect()->route('admin.login');
     }
 }

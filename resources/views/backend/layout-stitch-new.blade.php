@@ -113,6 +113,14 @@
                     <a href="/admin301097/wisuda" class="sidebar-link">Wisuda</a>
                     <a href="/admin301097/sistem-sertifikat" class="sidebar-link">Sistem Sertifikat</a>
                 </div>
+                @if(session('admin_role') == 'superadmin')
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Manajemen Admin</div>
+                    <a href="{{ route('admin.admins.index') }}" class="sidebar-link {{ Request::is('admin301097/admins*') ? 'active' : '' }}">
+                        <span class="icon">&#9744;</span> Akun Admin
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
         
@@ -131,6 +139,10 @@
                 <div class="topbar-user">
                     <span>Administrator</span>
                     <div class="avatar">A</div>
+                    <form action="{{ route('admin.logout') }}" method="POST" style="margin-left: 15px; margin-bottom: 0;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger" style="padding: 5px 10px; font-size: 12px; height: 36px; display: flex; align-items: center;">Logout</button>
+                    </form>
                 </div>
             </div>
             

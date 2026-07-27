@@ -144,13 +144,32 @@
                 </a>
             </div>
         </div>
+
+        @if(session('admin_role') == 'superadmin')
+        <div class="sidebar-section">
+            <div class="sidebar-title">Manajemen Admin</div>
+            <div class="sidebar-menu">
+                <a href="{{ route('admin.admins.index') }}" class="{{ Request::is('admin301097/admins*') ? 'active' : '' }}">
+                    <span class="icon">&#9744;</span> Akun Admin
+                </a>
+            </div>
+        </div>
+        @endif
     </div>
     
     <!-- Main Content -->
     <div class="main">
-        <div class="page-header">
-            <h1>@yield('title', 'Dashboard')</h1>
-            <div class="breadcrumb">Dashboard / {{ Request::path() == 'admin301097' ? 'Overview' : ucfirst(Request::segment(2)) }}</div>
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>@yield('title', 'Dashboard')</h1>
+                <div class="breadcrumb">Dashboard / {{ Request::path() == 'admin301097' ? 'Overview' : ucfirst(Request::segment(2)) }}</div>
+            </div>
+            <div>
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" style="background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px;">Logout</button>
+                </form>
+            </div>
         </div>
         
         @yield('content')

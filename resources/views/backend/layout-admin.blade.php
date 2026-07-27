@@ -129,6 +129,14 @@
                         <span class="icon"><i class="fas fa-users"></i></span> Data Peserta
                     </a>
                 </div>
+                @if(session('admin_role') == 'superadmin')
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Manajemen Admin</div>
+                    <a href="{{ route('admin.admins.index') }}" class="sidebar-link {{ Request::is('admin301097/admins*') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span> Akun Admin
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
         
@@ -138,9 +146,13 @@
                     <span class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></span>
                     <h2 class="topbar-title">@yield('title', 'Admin Panel')</h2>
                 </div>
-                <div class="topbar-user">
+                <div class="topbar-user" style="display: flex; align-items: center; gap: 15px;">
                     <span class="d-none d-sm-inline">Administrator</span>
                     <div class="avatar">A</div>
+                    <form action="{{ route('admin.logout') }}" method="POST" style="margin-bottom: 0;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm" style="padding: 5px 10px; font-size: 12px; height: 36px; display: flex; align-items: center;">Logout</button>
+                    </form>
                 </div>
             </div>
             
