@@ -221,6 +221,12 @@ class AdminController extends Controller
         return response()->json(['success' => 'Data berhasil dihapus']);
     }
 
+    public function bulkdeletejadwalpkbjj()
+    {
+        JadwalPKBJJ::truncate();
+        return redirect()->back()->with('success', 'Semua data Jadwal PKBJJ berhasil dihapus!');
+    }
+
     public function getdatajadwalpkbjj(Request $request)
     {
         $data = $request->all();

@@ -168,6 +168,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/pkbjj/set_bulk_nama_kegiatan', [AdminController::class, 'setBulkNamaKegiatan'])->name('setBulkNamaKegiatan');
     Route::put('/pkbjj/updatejadwalpkbjj/{id}', [AdminController::class, 'updatejadwalpkbjj'])->name('updatejadwalpkbjj');
     Route::delete('/pkbjj/deletejadwalpkbjj/{id}', [AdminController::class, 'deletejadwalpkbjj'])->name('deletejadwalpkbjj');
+    Route::delete('/pkbjj/bulkdeletejadwalpkbjj', [AdminController::class, 'bulkdeletejadwalpkbjj'])->name('bulkdeletejadwalpkbjj');
 
     // CRUD Routes OSMB
     Route::post('/osmb/storeosmb', [AdminController::class, 'storeosmb'])->name('storeosmb');

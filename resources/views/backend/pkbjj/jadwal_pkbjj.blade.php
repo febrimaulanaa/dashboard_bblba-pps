@@ -7,6 +7,17 @@
         <h4 class="card-title mb-0">Data Peserta Kegiatan LPKBJJ</h4>
     </div>
     <div class="card-body">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="d-grid gap-2 d-md-block">
             <div class="row mb-3">
                 <div class="col-md-12">
@@ -19,9 +30,14 @@
                     <button type="button" class="btn btn-info mr-2" data-toggle="modal" data-target="#pasteExcelModal">
                         Paste dari Excel
                     </button>
-                    <button type="button" class="btn btn-secondary" id="btn-set-default-namakegiatan">
+                    <button type="button" class="btn btn-secondary mr-2" id="btn-set-default-namakegiatan">
                         Set Nama Kegiatan Default
                     </button>
+                    <form action="{{ route('bulkdeletejadwalpkbjj') }}" method="POST" class="d-inline" onsubmit="return confirm('PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA data Jadwal PKBJJ? Tindakan ini tidak dapat dibatalkan!');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus Semua Data</button>
+                    </form>
                 </div>
             </div>
 
