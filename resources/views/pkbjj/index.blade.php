@@ -329,50 +329,53 @@
 
                             var data = response.data;
 
-                            if (data && data.nim) {
-                                var tableHtml = `
-                                <tr class="hover:bg-surface-container-low transition-colors group">
-                                    <td class="px-8 py-6">
-                                        <div class="flex flex-col">
-                                            <span class="font-bold text-on-surface uppercase tracking-wide">${data.nama || '-'}</span>
-                                            <span class="text-sm font-medium text-outline">${data.nim || '-'}</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="text-sm font-semibold text-on-surface">${data.nama_kegiatan || '-'}</div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="flex items-center gap-2 text-on-surface mb-1">
-                                            <span class="material-symbols-outlined text-sm text-primary">event</span>
-                                            <span class="text-sm font-bold text-primary">${data.tanggal || '-'}</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="flex items-center gap-2 text-on-surface mb-1">
-                                            <span class="material-symbols-outlined text-sm text-tertiary">schedule</span>
-                                            <span class="text-sm font-bold text-tertiary">${data.waktu || '-'}</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="text-sm font-semibold text-on-surface">${data.skema || '-'}</div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="text-sm font-bold text-primary">${data.nomor_meja || '-'}</div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="text-sm font-bold text-error">${data.no_urut || '-'}</div>
-                                    </td>
-                                    <td class="px-8 py-6 min-w-[200px]">
-                                        <div class="flex flex-col gap-1">
-                                            <div class="flex items-center gap-2">
-                                                <span class="material-symbols-outlined text-sm text-tertiary">location_on</span>
-                                                <a href="${data.link_lok && data.link_lok.startsWith('http') ? data.link_lok : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(data.link_lok || '')}" target="_blank" class="text-sm font-medium text-primary hover:underline transition-colors">
-                                                    ${data.link_lok || '-'}
-                                                </a>
+                            if (data && data.length > 0) {
+                                var tableHtml = '';
+                                $.each(data, function(index, item) {
+                                    tableHtml += `
+                                    <tr class="hover:bg-surface-container-low transition-colors group">
+                                        <td class="px-8 py-6">
+                                            <div class="flex flex-col">
+                                                <span class="font-bold text-on-surface uppercase tracking-wide">${item.nama || '-'}</span>
+                                                <span class="text-sm font-medium text-outline">${item.nim || '-'}</span>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>`;
+                                        </td>
+                                        <td class="px-8 py-6">
+                                            <div class="text-sm font-semibold text-on-surface">${item.nama_kegiatan || '-'}</div>
+                                        </td>
+                                        <td class="px-8 py-6">
+                                            <div class="flex items-center gap-2 text-on-surface mb-1">
+                                                <span class="material-symbols-outlined text-sm text-primary">event</span>
+                                                <span class="text-sm font-bold text-primary">${item.tanggal || '-'}</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-8 py-6">
+                                            <div class="flex items-center gap-2 text-on-surface mb-1">
+                                                <span class="material-symbols-outlined text-sm text-tertiary">schedule</span>
+                                                <span class="text-sm font-bold text-tertiary">${item.waktu || '-'}</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-8 py-6">
+                                            <div class="text-sm font-semibold text-on-surface">${item.skema || '-'}</div>
+                                        </td>
+                                        <td class="px-8 py-6">
+                                            <div class="text-sm font-bold text-primary">${item.nomor_meja || '-'}</div>
+                                        </td>
+                                        <td class="px-8 py-6">
+                                            <div class="text-sm font-bold text-error">${item.no_urut || '-'}</div>
+                                        </td>
+                                        <td class="px-8 py-6 min-w-[200px]">
+                                            <div class="flex flex-col gap-1">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="material-symbols-outlined text-sm text-tertiary">location_on</span>
+                                                    <a href="${item.link_lok && item.link_lok.startsWith('http') ? item.link_lok : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.link_lok || '')}" target="_blank" class="text-sm font-medium text-primary hover:underline transition-colors">
+                                                        ${item.link_lok || '-'}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>`;
+                                });
                                 $('#result-tbody').html(tableHtml);
                                 $('#jadwal-table-container').removeClass('hidden');
                             } else {

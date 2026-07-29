@@ -17,8 +17,8 @@ class PKBJJController extends Controller
     public function cekjadwalpkbjj(Request $request)
     {
         $data = $request->validate(['nim' => 'required']);
-        $jadwal = JadwalPKBJJ::select(['nim', 'nama', 'nama_kegiatan', 'tanggal', 'waktu', 'skema', 'nomor_meja', 'no_urut', 'link_lok'])->where('nim', $data['nim'])->first();
-        if (is_null($jadwal)) {
+        $jadwal = JadwalPKBJJ::select(['nim', 'nama', 'nama_kegiatan', 'tanggal', 'waktu', 'skema', 'nomor_meja', 'no_urut', 'link_lok'])->where('nim', $data['nim'])->get();
+        if ($jadwal->isEmpty()) {
             return response()->json($this->response(false), 404);
         }
         return response()->json($this->response(true, $jadwal->toArray()));
