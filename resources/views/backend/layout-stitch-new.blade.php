@@ -72,6 +72,7 @@
         .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #95a5a6; margin-top: 5px; }
         .breadcrumb a { color: #3498db; text-decoration: none; }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <div class="app-container">

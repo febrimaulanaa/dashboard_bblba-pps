@@ -91,6 +91,7 @@
   </style>
 
   @yield('custom_style')
+    @include('partials.analytics')
 </head>
 
 <body class="bg-background font-body text-on-surface">

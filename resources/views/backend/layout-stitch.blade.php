@@ -66,6 +66,7 @@
         .quick-link { padding: 10px 18px; background: #f8f9fa; border-radius: 6px; color: #1a1a2e; text-decoration: none; font-size: 13px; transition: all 0.2s; }
         .quick-link:hover { background: #006191; color: white; }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <!-- Top Header -->

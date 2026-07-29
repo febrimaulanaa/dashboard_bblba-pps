@@ -15,6 +15,7 @@
         th, td { padding: 8px; border: 1px solid #ddd; text-align: left; }
         th { background: #006191; color: white; }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <div class="header"><h3>Admin UT Jakarta</h3></div>

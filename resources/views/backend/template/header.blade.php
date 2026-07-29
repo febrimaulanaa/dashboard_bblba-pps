@@ -37,6 +37,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/datatables_jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
+    @include('partials.analytics')
 </head>
 
 <body data-background-color="blue">

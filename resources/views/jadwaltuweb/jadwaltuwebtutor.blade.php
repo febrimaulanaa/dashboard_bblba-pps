@@ -96,6 +96,7 @@
             color: #3f4850;
         }
     </style>
+    @include('partials.analytics')
 </head>
 
 <body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">

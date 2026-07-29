@@ -59,6 +59,7 @@
             color: {{ $settings['number_color'] ?? '#555555' }};
         }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     @if(!empty($backgroundData))

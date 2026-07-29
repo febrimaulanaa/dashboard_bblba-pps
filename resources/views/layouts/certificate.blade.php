@@ -36,6 +36,7 @@
             border-top-right-radius: 12px;
         }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <div class="container form-container">

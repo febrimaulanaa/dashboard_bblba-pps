@@ -97,6 +97,7 @@
         .sidebar .collapse { display: none; }
         .sidebar .collapse.in { display: block; }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>

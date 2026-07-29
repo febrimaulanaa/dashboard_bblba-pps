@@ -4,6 +4,7 @@
     <title>Templates Sertifikat</title>
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
+    @include('partials.analytics')
 </head>
 <body style="padding:20px;font-family:sans-serif;">
     <h1>Templates Sertifikat</h1>

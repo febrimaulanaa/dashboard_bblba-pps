@@ -143,6 +143,7 @@
     <script src="{{ asset('assets/js/stitch-table.js') }}"></script>
     
     @stack('styles')
+    @include('partials.analytics')
 </head>
 <body class="bg-background text-on-surface min-h-screen flex flex-col">
     <!-- TopAppBar -->

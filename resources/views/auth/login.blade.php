@@ -17,6 +17,7 @@
             min-height: 100vh;
         }
     </style>
+    @include('partials.analytics')
 </head>
 <body class="antialiased text-gray-800 p-4 sm:p-8 flex items-center justify-center">
 

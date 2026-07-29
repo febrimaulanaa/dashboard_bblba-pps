@@ -41,6 +41,7 @@
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     </style>
+    @include('partials.analytics')
 </head>
 <body class="bg-background min-h-screen flex items-center justify-center font-body p-4 relative overflow-hidden">
     <!-- Decorative background elements -->

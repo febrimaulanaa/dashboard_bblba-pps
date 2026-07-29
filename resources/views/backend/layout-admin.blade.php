@@ -50,6 +50,7 @@
             .sidebar-overlay.show { display: block; }
         }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>

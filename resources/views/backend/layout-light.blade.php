@@ -24,6 +24,7 @@
         th { background: #006191; color: white; }
         .btn { padding: 5px 10px; background: #006191; color: white; text-decoration: none; border-radius: 3px; font-size: 12px; }
     </style>
+    @include('partials.analytics')
 </head>
 <body>
     <div class="header">
