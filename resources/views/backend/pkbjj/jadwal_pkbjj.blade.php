@@ -260,14 +260,18 @@
             var id = $(this).data("id");
             if(confirm("Apakah Anda yakin ingin menghapus data ini?")) {
                 $.ajax({
-                    type: "DELETE",
+                    type: "POST",
                     url: '/pkbjj/deletejadwalpkbjj/' + id,
+                    data: {
+                        _method: 'DELETE'
+                    },
+                    dataType: 'json',
                     success: function (data) {
                         $("#tr_" + id).remove();
                         alert('Data berhasil dihapus!');
                     },
                     error: function (data) {
-                        alert('Error: Data gagal dihapus!');
+                        alert('Error: Data gagal dihapus! Pastikan Anda sudah login atau hubungi admin.');
                         console.log('Error:', data);
                     }
                 });
