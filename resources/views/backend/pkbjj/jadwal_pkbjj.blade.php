@@ -236,12 +236,19 @@
             e.preventDefault();
             var id = $('#jadwal_id').val();
             var url = id ? '/pkbjj/updatejadwalpkbjj/' + id : '{{ route("storejadwalpkbjj") }}';
-            var method = id ? 'PUT' : 'POST';
+            
+            // Siapkan data form
+            var formData = $(this).serialize();
+            
+            // Jika ini proses edit (ada ID), gunakan trik spoofing PUT
+            if (id) {
+                formData += '&_method=PUT';
+            }
 
             $.ajax({
-                data: $(this).serialize(),
+                data: formData,
                 url: url,
-                type: method,
+                type: 'POST', // Selalu gunakan POST agar tidak diblokir server
                 dataType: 'json',
                 success: function (data) {
                     $('#dataForm').trigger("reset");
