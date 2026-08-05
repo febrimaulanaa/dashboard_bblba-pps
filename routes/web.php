@@ -161,6 +161,7 @@ Route::prefix('admin301097')->name('admin.')->group(function () {
 Route::middleware('admin.auth')->group(function () {
     Route::post('/pkbjj/storepkbjj', [AdminController::class, 'storepkbjj'])->name('storepkbjj');
     Route::get('/pkbjj/export_excel', [AdminController::class, 'export_excel'])->name('export');
+    Route::get('/pkbjj/export_jadwalexcel', [AdminController::class, 'export_jadwalexcel'])->name('exportjadwalpkbjj_excel');
     Route::post('/pkbjj/import_excel', [AdminController::class, 'import_excel'])->name('import');
     Route::post('/pkbjj/import_jadwalexcel', [AdminController::class, 'import_jadwalexcel'])->name('importjadwalpkbjj');
     Route::post('/pkbjj/storejadwalpkbjj', [AdminController::class, 'storejadwalpkbjj'])->name('storejadwalpkbjj');

@@ -234,6 +234,7 @@
                             <li>Mahasiswa yang namanya belum tercantum dimohon menunggu tahap LPKBJJ berikutnya.</li>
                             <li>Mahasiswa wajib mengikuti seluruh rangkaian kegiatan sampai selesai.</li>
                             <li>Dilarang merokok di lokasi pelaksanaan LPKBJJ.</li>
+                            <li id="tugas-pkbjj-wt-link" class="hidden">Mahasiswa wajib mendownload format tugas PKBJJ & WT melalui link berikut: <a href="https://sl.ut.ac.id/lembar_tugas_pkbjj_utjkt" target="_blank" class="text-primary hover:underline font-bold">sl.ut.ac.id/lembar_tugas_pkbjj_utjkt</a></li>
                         </ul>
                     </div>
                 </div>
@@ -332,7 +333,11 @@
 
                             if (data && data.length > 0) {
                                 var tableHtml = '';
+                                var isPkbjjWt = false;
                                 $.each(data, function(index, item) {
+                                    if (item.nama_kegiatan && item.nama_kegiatan.toUpperCase().includes('PKBJJ') && item.nama_kegiatan.toUpperCase().includes('WT')) {
+                                        isPkbjjWt = true;
+                                    }
                                     tableHtml += `
                                     <tr class="hover:bg-surface-container-low transition-colors group">
                                         <td class="px-8 py-6">
@@ -379,6 +384,12 @@
                                 });
                                 $('#result-tbody').html(tableHtml);
                                 $('#jadwal-table-container').removeClass('hidden');
+
+                                if (isPkbjjWt) {
+                                    $('#tugas-pkbjj-wt-link').removeClass('hidden');
+                                } else {
+                                    $('#tugas-pkbjj-wt-link').addClass('hidden');
+                                }
                             } else {
                                 $('#no-data-state').removeClass('hidden').addClass('flex');
                                 $('#no-data-state h5').text('Data tidak ditemukan');

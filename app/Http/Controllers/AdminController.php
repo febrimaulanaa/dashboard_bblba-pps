@@ -11,6 +11,7 @@ use App\Exports\PKBJJExport;
 use App\Imports\PKBJJImport;
 use App\Exports\WisudaExport;
 use App\Imports\WisudaImport;
+use App\Exports\JadwalPKBJJExport;
 use Illuminate\Http\Request;
 use App\Models\DataSertifMhs;
 use App\Exports\SeminarExport;
@@ -110,6 +111,11 @@ class AdminController extends Controller
     {
         $jdpkbjj = JadwalPKBJJ::get();
         return view('backend.pkbjj.jadwal_pkbjj')->with(compact('jdpkbjj'));
+    }
+
+    public function export_jadwalexcel()
+    {
+        return Excel::download(new JadwalPKBJJExport, 'Data_Jadwal_LKPBJJ.xlsx');
     }
 
     public function import_jadwalexcel(Request $request)

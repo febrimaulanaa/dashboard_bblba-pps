@@ -27,6 +27,9 @@
                     <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#importExcel">
                         Import Excel
                     </button>
+                    <a href="{{ route('exportjadwalpkbjj_excel') }}" class="btn btn-warning mr-2">
+                        Export Excel
+                    </a>
                     <button type="button" class="btn btn-info mr-2" data-toggle="modal" data-target="#pasteExcelModal">
                         Paste dari Excel
                     </button>
