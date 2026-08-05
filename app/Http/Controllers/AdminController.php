@@ -157,6 +157,7 @@ class AdminController extends Controller
             'skema' => $request->skema,
             'nomor_meja' => $request->nomor_meja,
             'no_urut' => $request->no_urut,
+            'lokasi' => $request->lokasi,
             'link_lok' => $request->link_lok
         ]);
         return response()->json($jadwal);
@@ -180,6 +181,7 @@ class AdminController extends Controller
                 'skema' => $row['skema'] ?? null,
                 'nomor_meja' => $row['nomor_meja'] ?? null,
                 'no_urut' => $row['no_urut'] ?? null,
+                'lokasi' => $row['lokasi'] ?? null,
                 'link_lok' => $row['link_lok'] ?? null
             ]);
         }
@@ -215,6 +217,7 @@ class AdminController extends Controller
             'skema' => $request->skema,
             'nomor_meja' => $request->nomor_meja,
             'no_urut' => $request->no_urut,
+            'lokasi' => $request->lokasi,
             'link_lok' => $request->link_lok
         ]);
         return response()->json($jadwal);

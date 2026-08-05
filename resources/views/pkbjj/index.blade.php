@@ -374,8 +374,8 @@
                                             <div class="flex flex-col gap-1">
                                                 <div class="flex items-center gap-2">
                                                     <span class="material-symbols-outlined text-sm text-tertiary">location_on</span>
-                                                    <a href="${item.link_lok && item.link_lok.startsWith('http') ? item.link_lok : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.link_lok || '')}" target="_blank" class="text-sm font-medium text-primary hover:underline transition-colors">
-                                                        ${item.link_lok || '-'}
+                                                    <a href="${item.link_lok && item.link_lok.startsWith('http') ? item.link_lok : (item.link_lok || item.lokasi ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.lokasi || item.link_lok || '') : '#')}" target="_blank" class="text-sm font-medium text-primary hover:underline transition-colors">
+                                                        ${item.lokasi || item.link_lok || '-'}
                                                     </a>
                                                 </div>
                                             </div>

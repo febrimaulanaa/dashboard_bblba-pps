@@ -87,8 +87,12 @@
                                     <input type="text" class="form-control" id="no_urut" name="no_urut" placeholder="Misal: 12" required>
                                 </div>
                                 <div class="form-group">
-                                    Link / Lokasi: <br>
-                                    <input type="text" class="form-control" id="link_lok" name="link_lok" placeholder="Masukkan Link atau Lokasi" required>
+                                    Lokasi Detail: <br>
+                                    <input type="text" class="form-control" id="lokasi" name="lokasi" placeholder="Misal: Universitas Mercu Buana" required>
+                                </div>
+                                <div class="form-group">
+                                    Link Google Maps: <br>
+                                    <input type="text" class="form-control" id="link_lok" name="link_lok" placeholder="Masukkan Link Google Maps" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button id="savedata" type="submit" class="btn btn-primary">Save</button>
@@ -133,7 +137,7 @@
                             <div class="alert alert-info">
                                 <strong>Cara penggunaan:</strong><br>
                                 1. Buka file Excel Anda.<br>
-                                2. Blok baris data Anda mulai dari NIM hingga Lokasi (<strong>Jangan blok nomor urut baris di sebelah kiri, dan jangan blok judul kolom di atas</strong>).<br>
+                                2. Blok baris data Anda mulai dari NIM hingga Link Google Maps (<strong>Jangan blok nomor urut baris di sebelah kiri, dan jangan blok judul kolom di atas</strong>).<br>
                                 3. Tekan Copy (Ctrl+C), lalu klik di dalam kotak di bawah ini dan tekan Paste (Ctrl+V).
                             </div>
                             <div class="form-group">
@@ -162,7 +166,8 @@
                         <th>Skema</th>
                         <th>Nomor Meja</th>
                         <th>No Urut</th>
-                        <th>Link / Lokasi</th>
+                        <th>Lokasi Detail</th>
+                        <th>Link Google Maps</th>
                         <th width="150px">Action</th>
                     </tr>
                 </thead>
@@ -179,6 +184,7 @@
                             <td>{{ $p->skema }}</td>
                             <td>{{ $p->nomor_meja }}</td>
                             <td>{{ $p->no_urut }}</td>
+                            <td>{{ $p->lokasi }}</td>
                             <td>{{ $p->link_lok }}</td>
                             <td>
                                 <button data-id="{{ $p->id }}"
@@ -190,6 +196,7 @@
                                         data-skema="{{ $p->skema }}"
                                         data-nomor_meja="{{ $p->nomor_meja }}"
                                         data-no_urut="{{ $p->no_urut }}"
+                                        data-lokasi="{{ $p->lokasi }}"
                                         data-link_lok="{{ $p->link_lok }}"
                                         class="btn btn-sm btn-info edit-btn">Edit</button>
                                 <button data-id="{{ $p->id }}" class="btn btn-sm btn-danger delete-btn">Delete</button>
@@ -231,6 +238,7 @@
             $('#skema').val($(this).data('skema'));
             $('#nomor_meja').val($(this).data('nomor_meja'));
             $('#no_urut').val($(this).data('no_urut'));
+            $('#lokasi').val($(this).data('lokasi'));
             $('#link_lok').val($(this).data('link_lok'));
             $('#ajaxModel').modal('show');
         });
@@ -317,7 +325,8 @@
                         skema: columns[startIndex+5] ? columns[startIndex+5].trim() : '',
                         nomor_meja: columns[startIndex+6] ? columns[startIndex+6].trim() : '',
                         no_urut: columns[startIndex+7] ? columns[startIndex+7].trim() : '',
-                        link_lok: columns[startIndex+8] ? columns[startIndex+8].trim() : ''
+                        lokasi: columns[startIndex+8] ? columns[startIndex+8].trim() : '',
+                        link_lok: columns[startIndex+9] ? columns[startIndex+9].trim() : ''
                     });
                 }
             }

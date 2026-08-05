@@ -27,7 +27,8 @@ class JadwalPKBJJImport implements ToCollection
                 'skema' => $row[6] ?? null,
                 'nomor_meja' => $row[7] ?? null,
                 'no_urut' => $row[8] ?? null,
-                'link_lok' => $row[9] ?? null,
+                'lokasi' => $row[9] ?? null,
+                'link_lok' => $row[10] ?? null,
             ]);
         }
     }

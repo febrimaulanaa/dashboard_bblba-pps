@@ -18,6 +18,7 @@ class JadwalPKBJJ extends Model
         'skema',
         'nomor_meja',
         'no_urut',
+        'lokasi',
         'link_lok',
     ];
     protected $table = 'jadwalpkbjj';
