@@ -36,6 +36,9 @@
                     <button type="button" class="btn btn-secondary mr-2" id="btn-set-default-namakegiatan">
                         Set Nama Kegiatan Default
                     </button>
+                    <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#findReplaceModal">
+                        Cari & Ganti Masal
+                    </button>
                     <form action="{{ route('bulkdeletejadwalpkbjj') }}" method="POST" class="d-inline" onsubmit="return confirm('PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA data Jadwal PKBJJ? Tindakan ini tidak dapat dibatalkan!');">
                         @csrf
                         @method('DELETE')
@@ -148,6 +151,50 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             <button type="button" id="btn-process-paste" class="btn btn-primary">Simpan Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Find & Replace Modal -->
+            <div class="modal fade" id="findReplaceModal" tabindex="-1" role="dialog" aria-labelledby="findReplaceModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="findReplaceModalLabel">Cari & Ganti Data Masal</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning">
+                                <strong>Peringatan!</strong> Aksi ini akan mengubah semua baris data yang cocok dengan nilai yang Anda cari, dan tidak dapat dibatalkan.
+                            </div>
+                            <form id="formFindReplace">
+                                <div class="form-group">
+                                    <label>Pilih Kolom:</label>
+                                    <select class="form-control" id="replace_kolom" required>
+                                        <option value="">-- Pilih Kolom --</option>
+                                        <option value="nama_kegiatan">Nama Kegiatan</option>
+                                        <option value="tanggal">Tanggal Pelaksanaan</option>
+                                        <option value="waktu">Waktu Pelaksanaan</option>
+                                        <option value="skema">Skema</option>
+                                        <option value="nomor_meja">Nomor Meja</option>
+                                        <option value="no_urut">No Urut</option>
+                                        <option value="lokasi">Lokasi Detail</option>
+                                        <option value="link_lok">Link Google Maps</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nilai Lama (Yang ingin diganti):</label>
+                                    <input type="text" class="form-control" id="replace_lama" placeholder="Misal: Graha Pariwisata" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nilai Baru (Penggantinya):</label>
+                                    <input type="text" class="form-control" id="replace_baru" placeholder="Misal: Gedung Serbaguna" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="button" id="btn-process-replace" class="btn btn-primary">Ganti Sekarang</button>
                         </div>
                     </div>
                 </div>
@@ -373,6 +420,39 @@
                         }
                     });
                 }
+            }
+        });
+
+        $('#btn-process-replace').click(function() {
+            var kolom = $('#replace_kolom').val();
+            var lama = $('#replace_lama').val();
+            var baru = $('#replace_baru').val();
+
+            if (!kolom || !lama || !baru) {
+                alert("Harap isi semua kolom!");
+                return;
+            }
+
+            if(confirm("PERINGATAN: Apakah Anda yakin ingin mengubah semua data '" + lama + "' menjadi '" + baru + "' pada kolom yang dipilih?")) {
+                $(this).prop('disabled', true).text('Memproses...');
+                $.ajax({
+                    url: '{{ route("bulkReplaceJadwalPKBJJ") }}',
+                    type: 'POST',
+                    data: { 
+                        kolom: kolom,
+                        nilai_lama: lama,
+                        nilai_baru: baru
+                    },
+                    success: function (response) {
+                        alert(response.updated_count + ' baris data berhasil diperbarui!');
+                        location.reload();
+                    },
+                    error: function (response) {
+                        $('#btn-process-replace').prop('disabled', false).text('Ganti Sekarang');
+                        alert('Terjadi kesalahan saat memproses data.');
+                        console.log(response);
+                    }
+                });
             }
         });
     });

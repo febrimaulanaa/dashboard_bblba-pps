@@ -205,6 +205,23 @@ class AdminController extends Controller
         ]);
     }
 
+    public function bulkReplaceJadwalPKBJJ(Request $request)
+    {
+        $data = $request->validate([
+            'kolom' => 'required|string|in:nama_kegiatan,tanggal,waktu,skema,nomor_meja,no_urut,lokasi,link_lok',
+            'nilai_lama' => 'required|string',
+            'nilai_baru' => 'required|string',
+        ]);
+
+        $count = JadwalPKBJJ::where($data['kolom'], $data['nilai_lama'])
+                            ->update([$data['kolom'] => $data['nilai_baru']]);
+
+        return response()->json([
+            'status' => 'success',
+            'updated_count' => $count
+        ]);
+    }
+
     public function updatejadwalpkbjj(Request $request, $id)
     {
         $jadwal = JadwalPKBJJ::findOrFail($id);

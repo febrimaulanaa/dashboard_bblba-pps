@@ -167,6 +167,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/pkbjj/storejadwalpkbjj', [AdminController::class, 'storejadwalpkbjj'])->name('storejadwalpkbjj');
     Route::post('/pkbjj/bulkstorejadwalpkbjj', [AdminController::class, 'bulkstorejadwalpkbjj'])->name('bulkstorejadwalpkbjj');
     Route::post('/pkbjj/set_bulk_nama_kegiatan', [AdminController::class, 'setBulkNamaKegiatan'])->name('setBulkNamaKegiatan');
+    Route::post('/pkbjj/bulk_replace', [AdminController::class, 'bulkReplaceJadwalPKBJJ'])->name('bulkReplaceJadwalPKBJJ');
     Route::put('/pkbjj/updatejadwalpkbjj/{id}', [AdminController::class, 'updatejadwalpkbjj'])->name('updatejadwalpkbjj');
     Route::delete('/pkbjj/deletejadwalpkbjj/{id}', [AdminController::class, 'deletejadwalpkbjj'])->name('deletejadwalpkbjj');
     Route::delete('/pkbjj/bulkdeletejadwalpkbjj', [AdminController::class, 'bulkdeletejadwalpkbjj'])->name('bulkdeletejadwalpkbjj');
