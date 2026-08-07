@@ -190,6 +190,26 @@
                                     <label>Nilai Baru (Penggantinya):</label>
                                     <input type="text" class="form-control" id="replace_baru" placeholder="Misal: Gedung Serbaguna" required>
                                 </div>
+                                <hr>
+                                <h5>Kondisi Tambahan (Opsional)</h5>
+                                <div class="form-group">
+                                    <label>Filter Kolom:</label>
+                                    <select class="form-control" id="filter_kolom">
+                                        <option value="">-- Tidak Ada Filter --</option>
+                                        <option value="nama_kegiatan">Nama Kegiatan</option>
+                                        <option value="tanggal">Tanggal Pelaksanaan</option>
+                                        <option value="waktu">Waktu Pelaksanaan</option>
+                                        <option value="skema">Skema</option>
+                                        <option value="nomor_meja">Nomor Meja</option>
+                                        <option value="no_urut">No Urut</option>
+                                        <option value="lokasi">Lokasi Detail</option>
+                                        <option value="link_lok">Link Google Maps</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Filter Nilai:</label>
+                                    <input type="text" class="form-control" id="filter_nilai" placeholder="Misal: 9 Agustus 2026">
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -427,13 +447,20 @@
             var kolom = $('#replace_kolom').val();
             var lama = $('#replace_lama').val();
             var baru = $('#replace_baru').val();
+            var filter_kolom = $('#filter_kolom').val();
+            var filter_nilai = $('#filter_nilai').val();
 
             if (!kolom || !lama || !baru) {
-                alert("Harap isi semua kolom!");
+                alert("Harap isi semua kolom utama!");
                 return;
             }
 
-            if(confirm("PERINGATAN: Apakah Anda yakin ingin mengubah semua data '" + lama + "' menjadi '" + baru + "' pada kolom yang dipilih?")) {
+            var confirmMsg = "PERINGATAN: Apakah Anda yakin ingin mengubah semua data '" + lama + "' menjadi '" + baru + "' pada kolom " + kolom + "?";
+            if (filter_kolom && filter_nilai) {
+                confirmMsg = "PERINGATAN: Apakah Anda yakin ingin mengubah semua data '" + lama + "' menjadi '" + baru + "' pada kolom " + kolom + "\n(HANYA untuk data yang " + filter_kolom + " = '" + filter_nilai + "')?";
+            }
+
+            if(confirm(confirmMsg)) {
                 $(this).prop('disabled', true).text('Memproses...');
                 $.ajax({
                     url: '{{ route("bulkReplaceJadwalPKBJJ") }}',
@@ -441,7 +468,9 @@
                     data: { 
                         kolom: kolom,
                         nilai_lama: lama,
-                        nilai_baru: baru
+                        nilai_baru: baru,
+                        filter_kolom: filter_kolom,
+                        filter_nilai: filter_nilai
                     },
                     success: function (response) {
                         alert(response.updated_count + ' baris data berhasil diperbarui!');

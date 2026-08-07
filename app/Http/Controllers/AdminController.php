@@ -211,10 +211,17 @@ class AdminController extends Controller
             'kolom' => 'required|string|in:nama_kegiatan,tanggal,waktu,skema,nomor_meja,no_urut,lokasi,link_lok',
             'nilai_lama' => 'required|string',
             'nilai_baru' => 'required|string',
+            'filter_kolom' => 'nullable|string|in:nama_kegiatan,tanggal,waktu,skema,nomor_meja,no_urut,lokasi,link_lok',
+            'filter_nilai' => 'nullable|string',
         ]);
 
-        $count = JadwalPKBJJ::where($data['kolom'], $data['nilai_lama'])
-                            ->update([$data['kolom'] => $data['nilai_baru']]);
+        $query = JadwalPKBJJ::where($data['kolom'], $data['nilai_lama']);
+
+        if (!empty($data['filter_kolom']) && $data['filter_nilai'] !== null) {
+            $query->where($data['filter_kolom'], $data['filter_nilai']);
+        }
+
+        $count = $query->update([$data['kolom'] => $data['nilai_baru']]);
 
         return response()->json([
             'status' => 'success',
