@@ -240,6 +240,18 @@ class CertificateAdminController extends Controller
 
     public function storeParticipant(Request $request)
     {
+        // Bypass WAF by decoding base64 inputs
+        if ($request->has('is_encoded')) {
+            $fieldsToDecode = ['name', 'email', 'nim', 'prodi', 'fakultas'];
+            foreach ($fieldsToDecode as $field) {
+                if ($request->has($field) && !empty($request->input($field))) {
+                    $request->merge([
+                        $field => base64_decode($request->input($field))
+                    ]);
+                }
+            }
+        }
+
         $request->validate([
             'event_id' => 'required|exists:certificate_events,id',
             'name' => 'required|string|max:255',
