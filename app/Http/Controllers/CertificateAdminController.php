@@ -243,10 +243,27 @@ class CertificateAdminController extends Controller
         $request->validate([
             'event_id' => 'required|exists:certificate_events,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'nim' => 'nullable|string|max:50',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                \Illuminate\Validation\Rule::unique('certificate_participants')->where(function ($query) use ($request) {
+                    return $query->where('event_id', $request->event_id);
+                })
+            ],
+            'nim' => [
+                'nullable',
+                'string',
+                'max:50',
+                \Illuminate\Validation\Rule::unique('certificate_participants')->where(function ($query) use ($request) {
+                    return $query->where('event_id', $request->event_id);
+                })
+            ],
             'prodi' => 'nullable|string|max:100',
             'fakultas' => 'nullable|string|max:100',
+        ], [
+            'email.unique' => 'Email ini sudah terdaftar sebagai peserta pada kegiatan ini.',
+            'nim.unique' => 'NIM ini sudah terdaftar sebagai peserta pada kegiatan ini.',
         ]);
 
         $event = CertificateEvent::findOrFail($request->event_id);
