@@ -75,6 +75,8 @@ Route::post('/cekjadwalpkbjj', [PKBJJController::class, 'cekjadwalpkbjj'])->name
 //Jadwal Tuweb
 Route::get('/jadwaltuwebmahasiswa', [TuwebController::class, 'index'])->name('jadwaltuwebmhs');
 Route::get('/jadwaltuwebtutor', [TuwebController::class, 'indexTutor'])->name('jadwaltuwebtutor');
+Route::get('/data/{id}', [AdminController::class, 'show'])->name('showdatatuweb');
+Route::get('/data-tutor/{id}', [AdminController::class, 'showTutor'])->name('showdatatutor');
 
 //Sertif PKBJJ
 Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertif');
