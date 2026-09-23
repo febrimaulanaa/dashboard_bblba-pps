@@ -175,5 +175,6 @@
             document.querySelector('.sidebar-overlay').classList.toggle('show');
         }
     </script>
+    @stack('scripts')
 </body>
 </html>

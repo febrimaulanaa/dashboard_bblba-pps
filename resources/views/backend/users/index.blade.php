@@ -98,9 +98,11 @@
     </div>
 </div>
 
+@push('scripts')
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
         });
     </script>
+@endpush
 @endsection

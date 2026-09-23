@@ -142,10 +142,10 @@
     </div>
 </div>
 
+@push('scripts')
     <script>
         let number = 1
         $(document).ready(function() {
-            let url = "{!! route('getwisuda') !!}"
             let table = $('#example').DataTable()
 
             $('#savedata').on('click', function() {
@@ -206,4 +206,5 @@
             })
         });
     </script>
+@endpush
 @endsection
