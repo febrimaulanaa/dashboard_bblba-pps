@@ -16,8 +16,7 @@
       <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
       
       <div class="relative z-10">
-        <form method="POST" action="{{ route('cetakseminar') }}" class="space-y-6">
-            @csrf
+        <form method="GET" action="{{ route('cetakseminar') }}" class="space-y-6">
             <div>
                 <label for="nim" class="block text-sm font-bold text-on-surface mb-2 font-headline">Nomor Induk Mahasiswa</label>
                 <div class="relative">
