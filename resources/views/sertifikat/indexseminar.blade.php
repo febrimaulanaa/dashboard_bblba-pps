@@ -16,7 +16,7 @@
       <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
       
       <div class="relative z-10">
-        <form method="GET" action="{{ route('cetakseminar') }}" class="space-y-6">
+        <div class="space-y-6">
             <div>
                 <label for="nim" class="block text-sm font-bold text-on-surface mb-2 font-headline">Nomor Induk Mahasiswa</label>
                 <div class="relative">
@@ -28,11 +28,29 @@
                 </div>
             </div>
             
-            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-md active:scale-[0.98] flex items-center justify-center gap-2">
+            <button type="button" onclick="cetakSertifikat()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-md active:scale-[0.98] flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
                 Buat Sertifikat
             </button>
-        </form>
+        </div>
+        
+        <script>
+            function cetakSertifikat() {
+                var nim = document.getElementById('nim').value;
+                if(nim.trim() === '') {
+                    alert('NIM tidak boleh kosong');
+                    return;
+                }
+                window.location.href = "{{ url('/sertifikatseminar/cetak') }}/" + nim;
+            }
+            
+            // Allow pressing Enter in the input field
+            document.getElementById('nim').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    cetakSertifikat();
+                }
+            });
+        </script>
       </div>
     </div>
   </main>

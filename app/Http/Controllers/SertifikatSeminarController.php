@@ -17,9 +17,9 @@ class SertifikatSeminarController extends Controller
         return view('sertifikat.indexseminar')->with(compact('usersCount', 'usersData', 'masa'));
     }
 
-    public function process(Request $request)
+    public function process(Request $request, $nim = null)
     {
-        $nim = $request->nim;
+        $nim = $nim ?? $request->nim;
 
         $data = DataSertifSeminar::select('nama', 'prodi')
             ->where('nim', $nim)
