@@ -90,7 +90,7 @@ Route::get('/sertifikatosmb/file/{token}', [SertifikatOSMBController::class, 'do
 
 //Sertif Seminar Akademik
 Route::get('/sertifikatseminar', [SertifikatSeminarController::class, 'index'])->name('sertifseminar');
-Route::post('/generate-seminar', [SertifikatSeminarController::class, 'process'])->name('cetakseminar');
+Route::post('/cetaksertifikatseminar', [SertifikatSeminarController::class, 'process'])->name('cetakseminar');
 
 //Sertif WTKU
 Route::get('/sertifikatwtku', [SertifikatWTKUController::class, 'index'])->name('sertifwtku');
