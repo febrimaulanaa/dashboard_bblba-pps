@@ -396,6 +396,58 @@ class AdminController extends Controller
         return redirect()->back()->with(compact('seminar'));
     }
 
+    public function deleteAllSeminar(Request $request)
+    {
+        DataSertifSeminar::truncate();
+        return redirect()->back()->with('success', 'Semua data seminar berhasil dihapus.');
+    }
+
+    public function admin_seminar_template()
+    {
+        $configPath = storage_path('app/seminar_cert_config.json');
+        if (file_exists($configPath)) {
+            $config = json_decode(file_get_contents($configPath), true);
+        } else {
+            $config = [
+                'y_nama' => 78,
+                'y_nim' => 92,
+                'y_prodi' => 100,
+                'font_size_nama' => 25,
+                'font_size_nim_prodi' => 18
+            ];
+        }
+        return view('backend.seminar.template_seminar', compact('config'));
+    }
+
+    public function upload_seminar_template(Request $request)
+    {
+        $request->validate([
+            'template_pdf' => 'required|mimes:pdf|max:10240', // max 10MB
+        ]);
+
+        $file = $request->file('template_pdf');
+        $fileName = 'sertifikatseminar.pdf';
+        
+        // Upload to public/template_sertif
+        $file->move(public_path('template_sertif'), $fileName);
+
+        return redirect()->back()->with('success', 'Template sertifikat seminar berhasil diupdate.');
+    }
+
+    public function update_seminar_config(Request $request)
+    {
+        $config = [
+            'y_nama' => $request->y_nama ?? 78,
+            'y_nim' => $request->y_nim ?? 92,
+            'y_prodi' => $request->y_prodi ?? 100,
+            'font_size_nama' => $request->font_size_nama ?? 25,
+            'font_size_nim_prodi' => $request->font_size_nim_prodi ?? 18
+        ];
+
+        file_put_contents(storage_path('app/seminar_cert_config.json'), json_encode($config));
+
+        return redirect()->back()->with('success', 'Konfigurasi teks sertifikat berhasil disimpan.');
+    }
     //WTKU
 
     public function admin_wtku()

@@ -15,6 +15,13 @@
                                         data-target="#importExcel">
                                         IMPORT EXCEL
                                     </button>
+                                    <form action="{{ route('seminar.delete_all') }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus SEMUA data seminar secara permanen?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger my-3">
+                                            HAPUS SEMUA DATA
+                                        </button>
+                                    </form>
 
                                     {{-- Tambah Data --}}
                                     <div class="modal fade" id="ajaxModel" aria-hidden="true">
@@ -121,6 +128,7 @@
 </div>
 
 
+    @push('scripts')
     <script>
         $(document).ready(function() {
             let table = $('#example').DataTable();
@@ -130,7 +138,7 @@
                 var nama = $('#nama').val();
                 var nim = $('#nim').val();
                 var prodi = $('#prodi').val();
-                var _url = '/seminar/storeseminar';
+                var _url = '{{ route("storeseminar") }}';
                 // var _token = $('meta[name="csrf-token"]').attr('content');
 
                 $.ajax({
@@ -165,6 +173,7 @@
                         $('#prodi').val('');
 
                         $('#ajaxModel').modal('hide');
+                        location.reload(); // To see the update immediately
                     },
                     error: function(response) {
                         $('#taskError').text(response.responseJSON.errors.seminar);
@@ -173,4 +182,5 @@
             })
         });
     </script>
+    @endpush
 @endsection

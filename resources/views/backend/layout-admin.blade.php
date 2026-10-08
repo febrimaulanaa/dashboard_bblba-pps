@@ -80,9 +80,6 @@
                     <a href="{{ route('admin.osmb') }}" class="sidebar-link {{ request()->routeIs('admin.osmb') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-file-alt"></i></span> Data OSMB
                     </a>
-                    <a href="{{ route('admin.seminar') }}" class="sidebar-link {{ request()->routeIs('admin.seminar') ? 'active' : '' }}">
-                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data Seminar
-                    </a>
                     <a href="{{ route('admin.wtku') }}" class="sidebar-link {{ request()->routeIs('admin.wtku') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-file-alt"></i></span> Data WTKU
                     </a>
@@ -109,9 +106,15 @@
                 </div>
                 
                 <div class="sidebar-section">
-                    <div class="sidebar-section-title">Lainnya</div>
+                    <div class="sidebar-section-title">Wisuda & Data Seminar</div>
                     <a href="{{ route('admin.wisuda') }}" class="sidebar-link {{ request()->routeIs('admin.wisuda') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-graduation-cap"></i></span> Wisuda
+                    </a>
+                    <a href="{{ route('admin.seminar') }}" class="sidebar-link {{ request()->routeIs('admin.seminar') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-file-alt"></i></span> Data Seminar
+                    </a>
+                    <a href="{{ route('admin.seminar.template') }}" class="sidebar-link {{ request()->routeIs('admin.seminar.template') ? 'active' : '' }}">
+                        <span class="icon"><i class="fas fa-paint-brush"></i></span> Template Sertifikat Seminar
                     </a>
                 </div>
 

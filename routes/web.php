@@ -184,6 +184,10 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/seminar/storeseminar', [AdminController::class, 'storeseminar'])->name('storeseminar');
     Route::get('/seminar/export_excelseminar', [AdminController::class, 'export_excelseminar'])->name('exportseminar');
     Route::post('/seminar/import_excelseminar', [AdminController::class, 'import_excelseminar'])->name('importseminar');
+    Route::delete('/seminar/delete_all', [AdminController::class, 'deleteAllSeminar'])->name('seminar.delete_all');
+    Route::get('/seminar/template', [AdminController::class, 'admin_seminar_template'])->name('admin.seminar.template');
+    Route::post('/seminar/template/upload', [AdminController::class, 'upload_seminar_template'])->name('admin.seminar.template.upload');
+    Route::post('/seminar/template/config', [AdminController::class, 'update_seminar_config'])->name('admin.seminar.template.config');
 
     // CRUD Routes WTKU
     Route::post('/wtku/storewtku', [AdminController::class, 'storewtku'])->name('storewtku');

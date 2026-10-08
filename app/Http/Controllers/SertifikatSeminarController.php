@@ -69,7 +69,19 @@ class SertifikatSeminarController extends Controller
         $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
         $pdf->useTemplate($template);
 
-        $pdf->SetFont('Helvetica', '', 25);
+        $configPath = storage_path('app/seminar_cert_config.json');
+        $config = [
+            'y_nama' => 78,
+            'y_nim' => 92,
+            'y_prodi' => 100,
+            'font_size_nama' => 25,
+            'font_size_nim_prodi' => 18
+        ];
+        if (file_exists($configPath)) {
+            $config = array_merge($config, json_decode(file_get_contents($configPath), true));
+        }
+
+        $pdf->SetFont('Helvetica', '', $config['font_size_nama']);
         $pdf->SetTextColor(0, 0, 0);
 
         $name = strtoupper($nama);
@@ -78,21 +90,21 @@ class SertifikatSeminarController extends Controller
         $textWidthName = $pdf->GetStringWidth($name);
         $centerXName = ($pageWidth - $textWidthName) / 2;
 
-        $pdf->SetXY($centerXName, 78);
+        $pdf->SetXY($centerXName, $config['y_nama']);
         $pdf->Write(0, $name);
 
-        $pdf->SetFont('Helvetica', '', 18);
+        $pdf->SetFont('Helvetica', '', $config['font_size_nim_prodi']);
 
         $textWidthNIM = $pdf->GetStringWidth("NIM : $nim");
         $centerXNIM = ($pageWidth - $textWidthNIM) / 2;
 
-        $pdf->SetXY($centerXNIM, 92);
+        $pdf->SetXY($centerXNIM, $config['y_nim']);
         $pdf->Write(0, "NIM : $nim");
 
         $textWidthProdi = $pdf->GetStringWidth("Program Studi : $prodi");
         $centerXProdi = ($pageWidth - $textWidthProdi) / 2;
 
-        $pdf->SetXY($centerXProdi, 100);
+        $pdf->SetXY($centerXProdi, $config['y_prodi']);
         $pdf->Write(0, "Program Studi : $prodi");
 
         $pdf->Output('F', $outputfile);
