@@ -419,34 +419,132 @@ class AdminController extends Controller
         return view('backend.seminar.template_seminar', compact('config'));
     }
 
-    public function upload_seminar_template(Request $request)
+    public function update_seminar_template(Request $request)
     {
         $request->validate([
-            'template_pdf' => 'required|mimes:pdf|max:10240', // max 10MB
+            'background' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:10240',
+            'template_pdf' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:10240',
+            'y_nama' => 'nullable|numeric',
+            'y_nim' => 'nullable|numeric',
+            'y_prodi' => 'nullable|numeric',
+            'font_size_nama' => 'nullable|numeric',
+            'font_size_nim_prodi' => 'nullable|numeric',
         ]);
 
-        $file = $request->file('template_pdf');
-        $fileName = 'sertifikatseminar.pdf';
-        
-        // Upload to public/template_sertif
-        $file->move(public_path('template_sertif'), $fileName);
+        $file = $request->file('background') ?? $request->file('template_pdf');
+        if ($file) {
+            $destDir = public_path('template_sertif');
+            if (!file_exists($destDir)) {
+                mkdir($destDir, 0777, true);
+            }
+            $destPath = $destDir . '/sertifikatseminar.pdf';
+            $ext = strtolower($file->getClientOriginalExtension());
 
-        return redirect()->back()->with('success', 'Template sertifikat seminar berhasil diupdate.');
+            if ($ext === 'pdf') {
+                $file->move($destDir, 'sertifikatseminar.pdf');
+            } else {
+                // If an image (JPG/PNG) is uploaded, convert to PDF via FPDI
+                list($imgWidth, $imgHeight) = getimagesize($file->getRealPath());
+                $orientation = ($imgWidth >= $imgHeight) ? 'L' : 'P';
+                $pageWidth = ($orientation === 'L') ? 297 : 210;
+                $pageHeight = ($orientation === 'L') ? 210 : 297;
+
+                $pdf = new \setasign\Fpdi\Fpdi($orientation, 'mm', [$pageWidth, $pageHeight]);
+                $pdf->AddPage($orientation, [$pageWidth, $pageHeight]);
+                $pdf->Image($file->getRealPath(), 0, 0, $pageWidth, $pageHeight);
+                $pdf->Output('F', $destPath);
+            }
+        }
+
+        $configPath = storage_path('app/seminar_cert_config.json');
+        $currentConfig = [
+            'y_nama' => 78,
+            'y_nim' => 92,
+            'y_prodi' => 100,
+            'font_size_nama' => 25,
+            'font_size_nim_prodi' => 18
+        ];
+        if (file_exists($configPath)) {
+            $currentConfig = array_merge($currentConfig, json_decode(file_get_contents($configPath), true) ?: []);
+        }
+
+        $config = [
+            'y_nama' => (float)($request->input('y_nama') ?? $currentConfig['y_nama']),
+            'y_nim' => (float)($request->input('y_nim') ?? $currentConfig['y_nim']),
+            'y_prodi' => (float)($request->input('y_prodi') ?? $currentConfig['y_prodi']),
+            'font_size_nama' => (int)($request->input('font_size_nama') ?? $currentConfig['font_size_nama']),
+            'font_size_nim_prodi' => (int)($request->input('font_size_nim_prodi') ?? $currentConfig['font_size_nim_prodi'])
+        ];
+
+        file_put_contents($configPath, json_encode($config, JSON_PRETTY_PRINT));
+
+        return redirect()->route('admin.seminar.template')->with('success', 'Template sertifikat seminar berhasil diperbarui.');
+    }
+
+    public function preview_seminar_template()
+    {
+        $templatePath = public_path('template_sertif/sertifikatseminar.pdf');
+        if (!file_exists($templatePath)) {
+            return redirect()->back()->with('error', 'File template sertifikat belum tersedia.');
+        }
+
+        $configPath = storage_path('app/seminar_cert_config.json');
+        $config = [
+            'y_nama' => 78,
+            'y_nim' => 92,
+            'y_prodi' => 100,
+            'font_size_nama' => 25,
+            'font_size_nim_prodi' => 18
+        ];
+        if (file_exists($configPath)) {
+            $config = array_merge($config, json_decode(file_get_contents($configPath), true) ?: []);
+        }
+
+        $pdf = new \setasign\Fpdi\Fpdi();
+        $pdf->setSourceFile($templatePath);
+        $template = $pdf->importPage(1);
+        $size = $pdf->getTemplateSize($template);
+
+        $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+        $pdf->useTemplate($template);
+
+        $pdf->SetFont('Helvetica', '', $config['font_size_nama']);
+        $pdf->SetTextColor(0, 0, 0);
+
+        $name = 'CONTOH NAMA MAHASISWA';
+        $pageWidth = $pdf->GetPageWidth();
+        $textWidthName = $pdf->GetStringWidth($name);
+        $centerXName = ($pageWidth - $textWidthName) / 2;
+        $pdf->SetXY($centerXName, $config['y_nama']);
+        $pdf->Write(0, $name);
+
+        $pdf->SetFont('Helvetica', '', $config['font_size_nim_prodi']);
+
+        $nim = '012345678';
+        $textWidthNIM = $pdf->GetStringWidth("NIM : $nim");
+        $centerXNIM = ($pageWidth - $textWidthNIM) / 2;
+        $pdf->SetXY($centerXNIM, $config['y_nim']);
+        $pdf->Write(0, "NIM : $nim");
+
+        $prodi = 'S1 Sistem Informasi';
+        $textWidthProdi = $pdf->GetStringWidth("Program Studi : $prodi");
+        $centerXProdi = ($pageWidth - $textWidthProdi) / 2;
+        $pdf->SetXY($centerXProdi, $config['y_prodi']);
+        $pdf->Write(0, "Program Studi : $prodi");
+
+        return response($pdf->Output('S'), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="preview_sertifikat_seminar.pdf"');
+    }
+
+    public function upload_seminar_template(Request $request)
+    {
+        return $this->update_seminar_template($request);
     }
 
     public function update_seminar_config(Request $request)
     {
-        $config = [
-            'y_nama' => $request->y_nama ?? 78,
-            'y_nim' => $request->y_nim ?? 92,
-            'y_prodi' => $request->y_prodi ?? 100,
-            'font_size_nama' => $request->font_size_nama ?? 25,
-            'font_size_nim_prodi' => $request->font_size_nim_prodi ?? 18
-        ];
-
-        file_put_contents(storage_path('app/seminar_cert_config.json'), json_encode($config));
-
-        return redirect()->back()->with('success', 'Konfigurasi teks sertifikat berhasil disimpan.');
+        return $this->update_seminar_template($request);
     }
     //WTKU
 

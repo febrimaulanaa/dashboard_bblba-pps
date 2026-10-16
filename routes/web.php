@@ -135,6 +135,10 @@ Route::prefix('admin301097')->name('admin.')->group(function () {
         Route::get('/pkbjj', [AdminController::class, 'admin_pkbjj'])->name('pkbjj');
         Route::get('/osmb', [AdminController::class, 'admin_osmb'])->name('osmb');
         Route::get('/seminar', [AdminController::class, 'admin_seminar'])->name('seminar');
+        Route::get('/seminar/template', [AdminController::class, 'admin_seminar_template'])->name('seminar.template');
+        Route::put('/seminar/template', [AdminController::class, 'update_seminar_template'])->name('seminar.template.update');
+        Route::post('/seminar/template', [AdminController::class, 'update_seminar_template'])->name('seminar.template.save');
+        Route::get('/seminar/template/preview', [AdminController::class, 'preview_seminar_template'])->name('seminar.template.preview');
         Route::get('/wtku', [AdminController::class, 'admin_wtku'])->name('wtku');
         Route::get('/wisuda', [AdminController::class, 'admin_wisuda'])->name('wisuda');
         Route::get('/tuweb', [AdminController::class, 'admin_tuweb'])->name('tuweb');
@@ -185,7 +189,11 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/seminar/export_excelseminar', [AdminController::class, 'export_excelseminar'])->name('exportseminar');
     Route::post('/seminar/import_excelseminar', [AdminController::class, 'import_excelseminar'])->name('importseminar');
     Route::delete('/seminar/delete_all', [AdminController::class, 'deleteAllSeminar'])->name('seminar.delete_all');
-    Route::get('/seminar/template', [AdminController::class, 'admin_seminar_template'])->name('admin.seminar.template');
+    Route::get('/seminar/template', function () {
+        return redirect()->route('admin.seminar.template');
+    });
+    Route::put('/seminar/template', [AdminController::class, 'update_seminar_template']);
+    Route::post('/seminar/template', [AdminController::class, 'update_seminar_template']);
     Route::post('/seminar/template/upload', [AdminController::class, 'upload_seminar_template'])->name('admin.seminar.template.upload');
     Route::post('/seminar/template/config', [AdminController::class, 'update_seminar_config'])->name('admin.seminar.template.config');
 

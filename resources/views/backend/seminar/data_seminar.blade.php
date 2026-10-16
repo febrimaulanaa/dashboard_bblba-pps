@@ -22,6 +22,9 @@
                                             HAPUS SEMUA DATA
                                         </button>
                                     </form>
+                                    <a href="{{ route('admin.seminar.template') }}" class="btn btn-outline-primary my-3">
+                                        <i class="fas fa-paint-brush mr-1"></i> TEMPLATE SERTIFIKAT
+                                    </a>
 
                                     {{-- Tambah Data --}}
                                     <div class="modal fade" id="ajaxModel" aria-hidden="true">
