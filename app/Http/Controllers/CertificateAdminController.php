@@ -168,18 +168,21 @@ class CertificateAdminController extends Controller
         
         $request->validate([
             'name' => 'required|string|max:255',
-            'background' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'name_x' => 'required|numeric',
+            'background' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'name_x' => 'nullable|numeric',
             'name_y' => 'required|numeric',
             'name_font_size' => 'required|numeric',
             'name_color' => 'nullable|string|max:20',
-            'number_x' => 'required|numeric',
-            'number_y' => 'required|numeric',
-            'number_font_size' => 'required|numeric',
+            'number_x' => 'nullable|numeric',
+            'number_y' => 'nullable|numeric',
+            'number_font_size' => 'nullable|numeric',
             'number_color' => 'nullable|string|max:20',
-            'qrcode_x' => 'required|numeric',
-            'qrcode_y' => 'required|numeric',
-            'qrcode_size' => 'required|numeric',
+            'qrcode_x' => 'nullable|numeric',
+            'qrcode_y' => 'nullable|numeric',
+            'qrcode_size' => 'nullable|numeric',
+            'y_nim' => 'nullable|numeric',
+            'y_prodi' => 'nullable|numeric',
+            'font_size_nim_prodi' => 'nullable|numeric',
             'status' => 'boolean'
         ]);
 
@@ -192,26 +195,65 @@ class CertificateAdminController extends Controller
             }
             $path = $request->file('background')->store('certificates/templates', 'public');
             $template->background = $path;
+
+            // If seminar template, also sync to public/template_sertif/sertifikatseminar.pdf
+            if (str_contains(strtolower($template->name), 'seminar')) {
+                try {
+                    $fullPath = storage_path('app/public/' . $path);
+                    list($imgWidth, $imgHeight) = getimagesize($fullPath);
+                    $orientation = ($imgWidth >= $imgHeight) ? 'L' : 'P';
+                    $pageWidth = ($orientation === 'L') ? 297 : 210;
+                    $pageHeight = ($orientation === 'L') ? 210 : 297;
+
+                    $pdf = new \setasign\Fpdi\Fpdi($orientation, 'mm', [$pageWidth, $pageHeight]);
+                    $pdf->AddPage($orientation, [$pageWidth, $pageHeight]);
+                    $pdf->Image($fullPath, 0, 0, $pageWidth, $pageHeight);
+                    $destDir = public_path('template_sertif');
+                    if (!file_exists($destDir)) {
+                        mkdir($destDir, 0777, true);
+                    }
+                    $pdf->Output('F', $destDir . '/sertifikatseminar.pdf');
+                } catch (\Exception $e) {
+                    \Log::error('Error syncing seminar template PDF: ' . $e->getMessage());
+                }
+            }
         }
 
-        $template->settings_json = [
-            'name_x' => $request->name_x,
+        $currentSettings = is_array($template->settings_json) ? $template->settings_json : (json_decode($template->settings_json, true) ?: []);
+
+        $template->settings_json = array_merge($currentSettings, [
+            'name_x' => $request->name_x ?? ($currentSettings['name_x'] ?? 400),
             'name_y' => $request->name_y,
             'name_font_size' => $request->name_font_size,
-            'name_color' => $request->name_color ?? '#000000',
-            'number_x' => $request->number_x,
-            'number_y' => $request->number_y,
-            'number_font_size' => $request->number_font_size,
-            'number_color' => $request->number_color ?? '#000000',
-            'qrcode_x' => $request->qrcode_x,
-            'qrcode_y' => $request->qrcode_y,
-            'qrcode_size' => $request->qrcode_size,
-        ];
+            'name_color' => $request->name_color ?? ($currentSettings['name_color'] ?? '#000000'),
+            'number_x' => $request->number_x ?? ($currentSettings['number_x'] ?? 400),
+            'number_y' => $request->number_y ?? ($currentSettings['number_y'] ?? 250),
+            'number_font_size' => $request->number_font_size ?? ($currentSettings['number_font_size'] ?? 18),
+            'number_color' => $request->number_color ?? ($currentSettings['number_color'] ?? '#000000'),
+            'qrcode_x' => $request->qrcode_x ?? ($currentSettings['qrcode_x'] ?? 100),
+            'qrcode_y' => $request->qrcode_y ?? ($currentSettings['qrcode_y'] ?? 500),
+            'qrcode_size' => $request->qrcode_size ?? ($currentSettings['qrcode_size'] ?? 100),
+            'y_nim' => $request->y_nim ?? ($currentSettings['y_nim'] ?? 92),
+            'y_prodi' => $request->y_prodi ?? ($currentSettings['y_prodi'] ?? 100),
+            'font_size_nim_prodi' => $request->font_size_nim_prodi ?? ($currentSettings['font_size_nim_prodi'] ?? 18),
+        ]);
         $template->status = $request->has('status');
         
         $template->save();
 
-        return redirect()->route('admin.sertifikat.templates')->with('success', 'Template berhasil diperbarui');
+        // If seminar template, also sync config JSON
+        if (str_contains(strtolower($template->name), 'seminar')) {
+            $seminarConfig = [
+                'y_nama' => (float)$request->name_y,
+                'y_nim' => (float)($request->y_nim ?? 92),
+                'y_prodi' => (float)($request->y_prodi ?? 100),
+                'font_size_nama' => (int)$request->name_font_size,
+                'font_size_nim_prodi' => (int)($request->font_size_nim_prodi ?? 18)
+            ];
+            file_put_contents(storage_path('app/seminar_cert_config.json'), json_encode($seminarConfig, JSON_PRETTY_PRINT));
+        }
+
+        return redirect()->back()->with('success', 'Template berhasil diperbarui');
     }
 
     public function destroyTemplate($id)

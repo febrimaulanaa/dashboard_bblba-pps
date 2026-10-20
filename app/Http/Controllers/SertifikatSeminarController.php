@@ -60,14 +60,30 @@ class SertifikatSeminarController extends Controller
 
     public function fillPDF($file, $outputfile, $nama, $nim, $prodi)
     {
-        $pdf = new FPDI();
+        $certTemplate = \App\Models\CertificateTemplate::where('name', 'like', '%Seminar%')->first();
+        $bgPath = null;
+        if ($certTemplate && $certTemplate->background && \Storage::disk('public')->exists($certTemplate->background)) {
+            $bgPath = storage_path('app/public/' . $certTemplate->background);
+        }
 
-        $pdf->setSourceFile($file);
-        $template = $pdf->importPage(1);
-        $size = $pdf->getTemplateSize($template);
+        if ($bgPath && file_exists($bgPath)) {
+            list($imgWidth, $imgHeight) = getimagesize($bgPath);
+            $orientation = ($imgWidth >= $imgHeight) ? 'L' : 'P';
+            $pageWidth = ($orientation === 'L') ? 297 : 210;
+            $pageHeight = ($orientation === 'L') ? 210 : 297;
 
-        $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
-        $pdf->useTemplate($template);
+            $pdf = new FPDI($orientation, 'mm', [$pageWidth, $pageHeight]);
+            $pdf->AddPage($orientation, [$pageWidth, $pageHeight]);
+            $pdf->Image($bgPath, 0, 0, $pageWidth, $pageHeight);
+        } else {
+            $pdf = new FPDI();
+            $pdf->setSourceFile($file);
+            $template = $pdf->importPage(1);
+            $size = $pdf->getTemplateSize($template);
+
+            $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+            $pdf->useTemplate($template);
+        }
 
         $configPath = storage_path('app/seminar_cert_config.json');
         $config = [
@@ -77,8 +93,15 @@ class SertifikatSeminarController extends Controller
             'font_size_nama' => 25,
             'font_size_nim_prodi' => 18
         ];
-        if (file_exists($configPath)) {
-            $config = array_merge($config, json_decode(file_get_contents($configPath), true));
+        if ($certTemplate && !empty($certTemplate->settings_json)) {
+            $s = is_array($certTemplate->settings_json) ? $certTemplate->settings_json : (json_decode($certTemplate->settings_json, true) ?: []);
+            $config['y_nama'] = (float)($s['name_y'] ?? $s['y_nama'] ?? $config['y_nama']);
+            $config['font_size_nama'] = (int)($s['name_font_size'] ?? $s['font_size_nama'] ?? $config['font_size_nama']);
+            $config['y_nim'] = (float)($s['y_nim'] ?? $config['y_nim']);
+            $config['y_prodi'] = (float)($s['y_prodi'] ?? $config['y_prodi']);
+            $config['font_size_nim_prodi'] = (int)($s['font_size_nim_prodi'] ?? $config['font_size_nim_prodi']);
+        } elseif (file_exists($configPath)) {
+            $config = array_merge($config, json_decode(file_get_contents($configPath), true) ?: []);
         }
 
         $pdf->SetFont('Helvetica', '', $config['font_size_nama']);
