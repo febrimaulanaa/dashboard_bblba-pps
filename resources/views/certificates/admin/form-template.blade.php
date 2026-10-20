@@ -76,28 +76,7 @@
                 </div>
             </div>
 
-            @if(isset($template) && str_contains(strtolower($template->name), 'seminar'))
-            <div class="row">
-                <!-- Text: NIM -->
-                <div class="col-md-4 form-group">
-                    <label class="font-weight-bold">NIM - Posisi Y <span class="text-danger">*</span></label>
-                    <input type="number" step="0.1" name="y_nim" class="form-control" value="{{ old('y_nim', $template->settings_json['y_nim'] ?? '92') }}" required>
-                    <small class="form-text text-muted">Jarak vertikal NIM dari atas.</small>
-                </div>
-                <!-- Text: Prodi -->
-                <div class="col-md-4 form-group">
-                    <label class="font-weight-bold">Program Studi - Posisi Y <span class="text-danger">*</span></label>
-                    <input type="number" step="0.1" name="y_prodi" class="form-control" value="{{ old('y_prodi', $template->settings_json['y_prodi'] ?? '100') }}" required>
-                    <small class="form-text text-muted">Jarak vertikal Program Studi dari atas.</small>
-                </div>
-                <!-- Text: Ukuran Font NIM & Prodi -->
-                <div class="col-md-4 form-group">
-                    <label class="font-weight-bold">Ukuran Font NIM & Prodi <span class="text-danger">*</span></label>
-                    <input type="number" step="1" name="font_size_nim_prodi" class="form-control" value="{{ old('font_size_nim_prodi', $template->settings_json['font_size_nim_prodi'] ?? '18') }}" required>
-                    <small class="form-text text-muted">Ukuran teks NIM dan Prodi dalam pt.</small>
-                </div>
-            </div>
-            @endif
+
 
             <div class="row" style="display: none;">
                 <!-- Text: Nomor Sertifikat (Hidden since user requested to remove it earlier) -->

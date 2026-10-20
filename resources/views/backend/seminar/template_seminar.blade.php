@@ -45,23 +45,7 @@
             </div>
         @endif
 
-        @php
-            $templateModel = \App\Models\CertificateTemplate::firstOrCreate(
-                ['name' => 'Template Sertifikat Seminar'],
-                [
-                    'settings_json' => [
-                        'name_x' => 400,
-                        'name_y' => 78,
-                        'name_font_size' => 25,
-                        'y_nim' => 92,
-                        'y_prodi' => 100,
-                        'font_size_nim_prodi' => 18,
-                    ],
-                    'status' => true
-                ]
-            );
-        @endphp
-        <form action="{{ route('admin.sertifikat.templates.update', $templateModel->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.seminar.template.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -74,9 +58,9 @@
                 </div>
                 
                 <div class="col-md-6 form-group">
-                    <label class="font-weight-bold">Background Template (Gambar JPG / PNG)</label>
-                    <input type="file" name="background" class="form-control-file" accept="image/jpeg,image/png,image/jpg">
-                    <small class="form-text text-muted mt-1">Format: JPG, PNG (maks. 5MB). Rekomendasi: Ukuran A4 Landscape (2000x1414px).</small>
+                    <label class="font-weight-bold">Background Template (PDF / Gambar JPG / PNG)</label>
+                    <input type="file" name="background" class="form-control-file" accept="application/pdf,image/jpeg,image/png,image/jpg">
+                    <small class="form-text text-muted mt-1">Format: PDF, JPG, PNG (maks. 10MB). Rekomendasi: Ukuran A4 Landscape (2000x1414px).</small>
                     @if(file_exists(public_path('template_sertif/sertifikatseminar.pdf')))
                         <div class="mt-2">
                             <a href="{{ asset('template_sertif/sertifikatseminar.pdf') }}?v={{ time() }}" target="_blank" class="text-primary font-weight-bold" style="font-size: 14px;">

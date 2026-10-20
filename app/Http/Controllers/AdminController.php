@@ -404,22 +404,18 @@ class AdminController extends Controller
 
     public function admin_seminar_template()
     {
-        $template = \App\Models\CertificateTemplate::firstOrCreate(
-            ['name' => 'Template Sertifikat Seminar'],
-            [
-                'settings_json' => [
-                    'name_x' => 400,
-                    'name_y' => 78,
-                    'name_font_size' => 25,
-                    'y_nim' => 92,
-                    'y_prodi' => 100,
-                    'font_size_nim_prodi' => 18,
-                ],
-                'status' => true
-            ]
-        );
-
-        return redirect()->route('admin.sertifikat.templates.edit', $template->id);
+        $configPath = storage_path('app/seminar_cert_config.json');
+        $config = [
+            'y_nama' => 78,
+            'y_nim' => 92,
+            'y_prodi' => 100,
+            'font_size_nama' => 25,
+            'font_size_nim_prodi' => 18
+        ];
+        if (file_exists($configPath)) {
+            $config = array_merge($config, json_decode(file_get_contents($configPath), true) ?: []);
+        }
+        return view('backend.seminar.template_seminar', compact('config'));
     }
 
     public function update_seminar_template(Request $request)

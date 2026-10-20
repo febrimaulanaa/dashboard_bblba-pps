@@ -195,28 +195,6 @@ class CertificateAdminController extends Controller
             }
             $path = $request->file('background')->store('certificates/templates', 'public');
             $template->background = $path;
-
-            // If seminar template, also sync to public/template_sertif/sertifikatseminar.pdf
-            if (str_contains(strtolower($template->name), 'seminar')) {
-                try {
-                    $fullPath = storage_path('app/public/' . $path);
-                    list($imgWidth, $imgHeight) = getimagesize($fullPath);
-                    $orientation = ($imgWidth >= $imgHeight) ? 'L' : 'P';
-                    $pageWidth = ($orientation === 'L') ? 297 : 210;
-                    $pageHeight = ($orientation === 'L') ? 210 : 297;
-
-                    $pdf = new \setasign\Fpdi\Fpdi($orientation, 'mm', [$pageWidth, $pageHeight]);
-                    $pdf->AddPage($orientation, [$pageWidth, $pageHeight]);
-                    $pdf->Image($fullPath, 0, 0, $pageWidth, $pageHeight);
-                    $destDir = public_path('template_sertif');
-                    if (!file_exists($destDir)) {
-                        mkdir($destDir, 0777, true);
-                    }
-                    $pdf->Output('F', $destDir . '/sertifikatseminar.pdf');
-                } catch (\Exception $e) {
-                    \Log::error('Error syncing seminar template PDF: ' . $e->getMessage());
-                }
-            }
         }
 
         $currentSettings = is_array($template->settings_json) ? $template->settings_json : (json_decode($template->settings_json, true) ?: []);
