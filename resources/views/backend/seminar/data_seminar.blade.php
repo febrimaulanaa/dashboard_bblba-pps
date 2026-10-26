@@ -22,7 +22,7 @@
                                             HAPUS SEMUA DATA
                                         </button>
                                     </form>
-                                    <a href="{{ route('admin.seminar.template') }}" class="btn btn-outline-primary my-3">
+                                    <a href="{{ Route::has('admin.seminar.template') ? route('admin.seminar.template') : url('admin301097/seminar/template') }}" class="btn btn-outline-primary my-3">
                                         <i class="fas fa-paint-brush mr-1"></i> TEMPLATE SERTIFIKAT
                                     </a>
 

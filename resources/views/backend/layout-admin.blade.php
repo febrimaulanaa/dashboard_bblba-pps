@@ -113,7 +113,7 @@
                     <a href="{{ route('admin.seminar') }}" class="sidebar-link {{ request()->routeIs('admin.seminar') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-file-alt"></i></span> Data Seminar
                     </a>
-                    <a href="{{ route('admin.seminar.template') }}" class="sidebar-link {{ request()->routeIs('admin.seminar.template*') ? 'active' : '' }}">
+                    <a href="{{ Route::has('admin.seminar.template') ? route('admin.seminar.template') : url('admin301097/seminar/template') }}" class="sidebar-link {{ request()->is('admin301097/seminar/template*') || request()->routeIs('admin.seminar.template*') ? 'active' : '' }}">
                         <span class="icon"><i class="fas fa-paint-brush"></i></span> Template Sertifikat Seminar
                     </a>
                 </div>

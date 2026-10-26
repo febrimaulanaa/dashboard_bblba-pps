@@ -190,7 +190,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/seminar/import_excelseminar', [AdminController::class, 'import_excelseminar'])->name('importseminar');
     Route::delete('/seminar/delete_all', [AdminController::class, 'deleteAllSeminar'])->name('seminar.delete_all');
     Route::get('/seminar/template', function () {
-        return redirect()->route('admin.seminar.template');
+        return redirect()->to(url('admin301097/seminar/template'));
     });
     Route::put('/seminar/template', [AdminController::class, 'update_seminar_template']);
     Route::post('/seminar/template', [AdminController::class, 'update_seminar_template']);

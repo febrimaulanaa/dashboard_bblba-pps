@@ -19,32 +19,49 @@ class SertifikatSeminarController extends Controller
 
     public function process(Request $request, $nim = null)
     {
-        $nim = $nim ?? $request->nim;
+        try {
+            $nim = $nim ?? $request->nim;
 
-        $data = DataSertifSeminar::select('nama', 'prodi')
-            ->where('nim', $nim)
-            ->first();
+            $data = DataSertifSeminar::select('nama', 'prodi')
+                ->where('nim', $nim)
+                ->first();
 
-        if (!$data) {
+            if (!$data) {
+                return redirect('/sertifikatseminar')
+                    ->with('error', 'Anda Tidak Terdaftar');
+            }
+
+            $templatePath = public_path('template_sertif/sertifikatseminar.pdf');
+            if (!@file_exists($templatePath)) {
+                return redirect('/sertifikatseminar')
+                    ->with('error', 'Template sertifikat seminar belum tersedia. Silakan hubungi admin.');
+            }
+
+            $storageDir = storage_path('app/public');
+            if (!@file_exists($storageDir)) {
+                @mkdir($storageDir, 0777, true);
+            }
+
+            $filename = 'sertifikatseminar_' . $nim . '.pdf';
+            $outputfile = $storageDir . '/' . $filename;
+            
+            $this->fillPDF(
+                $templatePath,
+                $outputfile,
+                $data->nama,
+                $nim,
+                $data->prodi
+            );
+
+            $token = sha1($nim . now());
+            session()->put('pdf_' . $token, $filename);
+
+            return redirect()->route('cetakseminar.download', $token);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Error in SertifikatSeminar process: ' . $e->getMessage() . "\n" . $e->getTraceAsString());
             return redirect('/sertifikatseminar')
-                ->with('error', 'Anda Tidak Terdaftar');
+                ->with('error', 'Gagal memproses sertifikat: ' . $e->getMessage());
         }
-
-        $filename = 'sertifikatseminar_' . $nim . '.pdf';
-        $outputfile = storage_path('app/public/' . $filename);
-        
-        $this->fillPDF(
-            $templatePath = public_path('template_sertif/sertifikatseminar.pdf'),
-            $outputfile,
-            $data->nama,
-            $nim,
-            $data->prodi
-        );
-
-        $token = sha1($nim . now());
-        session()->put('pdf_' . $token, $filename);
-
-        return redirect()->route('cetakseminar.download', $token);
     }
 
     public function download($token)
@@ -60,8 +77,8 @@ class SertifikatSeminarController extends Controller
 
     public function fillPDF($file, $outputfile, $nama, $nim, $prodi)
     {
-        if (!file_exists($file)) {
-            abort(500, 'Template sertifikat seminar tidak ditemukan.');
+        if (!@file_exists($file)) {
+            throw new \Exception('File template sertifikat seminar tidak ditemukan.');
         }
 
         $pdf = new FPDI();
@@ -80,8 +97,14 @@ class SertifikatSeminarController extends Controller
             'font_size_nama' => 25,
             'font_size_nim_prodi' => 18
         ];
-        if (file_exists($configPath)) {
-            $config = array_merge($config, json_decode(file_get_contents($configPath), true) ?: []);
+        if (@file_exists($configPath) && @is_readable($configPath)) {
+            $raw = @file_get_contents($configPath);
+            if ($raw) {
+                $decoded = json_decode($raw, true);
+                if (is_array($decoded)) {
+                    $config = array_merge($config, $decoded);
+                }
+            }
         }
 
         $pdf->SetFont('Helvetica', '', $config['font_size_nama']);
