@@ -464,15 +464,36 @@ class AdminController extends Controller
                     $file->move($destDir, 'sertifikatseminar.pdf');
                 } else {
                     // If an image (JPG/PNG) is uploaded, convert to PDF via FPDI
-                    list($imgWidth, $imgHeight) = @getimagesize($file->getRealPath());
+                    $imgInfo = @getimagesize($file->getRealPath());
+                    if (!$imgInfo) {
+                        throw new \Exception('File gambar tidak valid atau rusak.');
+                    }
+                    $imgWidth = $imgInfo[0];
+                    $imgHeight = $imgInfo[1];
                     $orientation = ($imgWidth >= $imgHeight) ? 'L' : 'P';
                     $pageWidth = ($orientation === 'L') ? 297 : 210;
                     $pageHeight = ($orientation === 'L') ? 210 : 297;
 
+                    $imageType = 'jpg';
+                    if (isset($imgInfo[2])) {
+                        if ($imgInfo[2] === IMAGETYPE_PNG) {
+                            $imageType = 'png';
+                        } elseif ($imgInfo[2] === IMAGETYPE_JPEG) {
+                            $imageType = 'jpg';
+                        }
+                    } elseif ($ext === 'png') {
+                        $imageType = 'png';
+                    }
+
+                    $tempImage = tempnam(sys_get_temp_dir(), 'cert_img_') . '.' . $imageType;
+                    @copy($file->getRealPath(), $tempImage);
+
                     $pdf = new \setasign\Fpdi\Fpdi($orientation, 'mm', [$pageWidth, $pageHeight]);
                     $pdf->AddPage($orientation, [$pageWidth, $pageHeight]);
-                    $pdf->Image($file->getRealPath(), 0, 0, $pageWidth, $pageHeight);
+                    $pdf->Image($tempImage, 0, 0, $pageWidth, $pageHeight, $imageType);
                     $pdf->Output('F', $destPath);
+
+                    @unlink($tempImage);
                 }
             }
 
