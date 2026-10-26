@@ -139,6 +139,7 @@ Route::prefix('admin301097')->name('admin.')->group(function () {
         Route::put('/seminar/template', [AdminController::class, 'update_seminar_template'])->name('seminar.template.update');
         Route::post('/seminar/template', [AdminController::class, 'update_seminar_template'])->name('seminar.template.save');
         Route::get('/seminar/template/preview', [AdminController::class, 'preview_seminar_template'])->name('seminar.template.preview');
+        Route::get('/seminar/template/current', [AdminController::class, 'current_seminar_template'])->name('seminar.template.current');
         Route::get('/wtku', [AdminController::class, 'admin_wtku'])->name('wtku');
         Route::get('/wisuda', [AdminController::class, 'admin_wisuda'])->name('wisuda');
         Route::get('/tuweb', [AdminController::class, 'admin_tuweb'])->name('tuweb');

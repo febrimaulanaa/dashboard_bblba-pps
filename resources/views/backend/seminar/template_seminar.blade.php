@@ -10,7 +10,7 @@
         <p class="text-muted mb-0">Atur file background template dan koordinat teks pada sertifikat seminar.</p>
     </div>
     <div class="d-flex">
-        @if(@file_exists(public_path('template_sertif/sertifikatseminar.pdf')))
+        @if(\App\Http\Controllers\AdminController::getSeminarTemplatePath())
             <a href="{{ Route::has('admin.seminar.template.preview') ? route('admin.seminar.template.preview') : url('admin301097/seminar/template/preview') }}" target="_blank" class="btn btn-outline-info mr-2">
                 <i class="fas fa-eye mr-1"></i> Preview Sertifikat
             </a>
@@ -79,9 +79,9 @@
                     <label class="font-weight-bold">Background Template (PDF / Gambar JPG / PNG)</label>
                     <input type="file" name="background" class="form-control-file" accept="application/pdf,image/jpeg,image/png,image/jpg">
                     <small class="form-text text-muted mt-1">Format: PDF, JPG, PNG (maks. 10MB). Rekomendasi: Ukuran A4 Landscape (2000x1414px).</small>
-                    @if(@file_exists(public_path('template_sertif/sertifikatseminar.pdf')))
+                    @if(\App\Http\Controllers\AdminController::getSeminarTemplatePath())
                         <div class="mt-2">
-                            <a href="{{ asset('template_sertif/sertifikatseminar.pdf') }}?v={{ time() }}" target="_blank" class="text-primary font-weight-bold" style="font-size: 14px;">
+                            <a href="{{ Route::has('admin.seminar.template.current') ? route('admin.seminar.template.current') : url('admin301097/seminar/template/current') }}" target="_blank" class="text-primary font-weight-bold" style="font-size: 14px;">
                                 <i class="fas fa-file-pdf mr-1"></i> Lihat Template Saat Ini
                             </a>
                         </div>

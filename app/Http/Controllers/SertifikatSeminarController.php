@@ -31,8 +31,8 @@ class SertifikatSeminarController extends Controller
                     ->with('error', 'Anda Tidak Terdaftar');
             }
 
-            $templatePath = public_path('template_sertif/sertifikatseminar.pdf');
-            if (!@file_exists($templatePath)) {
+            $templatePath = \App\Http\Controllers\AdminController::getSeminarTemplatePath();
+            if (!$templatePath || !@file_exists($templatePath)) {
                 return redirect('/sertifikatseminar')
                     ->with('error', 'Template sertifikat seminar belum tersedia. Silakan hubungi admin.');
             }

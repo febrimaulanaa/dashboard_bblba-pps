@@ -402,6 +402,23 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Semua data seminar berhasil dihapus.');
     }
 
+    public static function getSeminarTemplatePath()
+    {
+        $storagePath = storage_path('template_sertif/sertifikatseminar.pdf');
+        if (@file_exists($storagePath) && @filesize($storagePath) > 0) {
+            return $storagePath;
+        }
+        $appStoragePath = storage_path('app/template_sertif/sertifikatseminar.pdf');
+        if (@file_exists($appStoragePath) && @filesize($appStoragePath) > 0) {
+            return $appStoragePath;
+        }
+        $publicPath = public_path('template_sertif/sertifikatseminar.pdf');
+        if (@file_exists($publicPath) && @filesize($publicPath) > 0) {
+            return $publicPath;
+        }
+        return null;
+    }
+
     public function admin_seminar_template()
     {
         try {
@@ -453,18 +470,26 @@ class AdminController extends Controller
 
             $file = $request->file('background') ?? $request->file('template_pdf');
             if ($file) {
-                $destDir = public_path('template_sertif');
-                if (!@file_exists($destDir)) {
-                    @mkdir($destDir, 0777, true);
+                $storageDir = storage_path('template_sertif');
+                if (!@file_exists($storageDir)) {
+                    @mkdir($storageDir, 0777, true);
                 }
-                $destPath = $destDir . '/sertifikatseminar.pdf';
+                $storagePath = $storageDir . '/sertifikatseminar.pdf';
                 $ext = strtolower($file->getClientOriginalExtension());
 
                 if ($ext === 'pdf') {
-                    $file->move($destDir, 'sertifikatseminar.pdf');
+                    $realPath = $file->getRealPath();
+                    if ($realPath && @file_exists($realPath)) {
+                        if (!@copy($realPath, $storagePath)) {
+                            $file->move($storageDir, 'sertifikatseminar.pdf');
+                        }
+                    } else {
+                        $file->move($storageDir, 'sertifikatseminar.pdf');
+                    }
                 } else {
-                    // If an image (JPG/PNG) is uploaded, convert to PDF via FPDI
-                    $imgInfo = @getimagesize($file->getRealPath());
+                    // Konversi file gambar JPG/PNG ke PDF via FPDI
+                    $realPath = $file->getRealPath();
+                    $imgInfo = @getimagesize($realPath);
                     if (!$imgInfo) {
                         throw new \Exception('File gambar tidak valid atau rusak.');
                     }
@@ -486,14 +511,32 @@ class AdminController extends Controller
                     }
 
                     $tempImage = tempnam(sys_get_temp_dir(), 'cert_img_') . '.' . $imageType;
-                    @copy($file->getRealPath(), $tempImage);
+                    @copy($realPath, $tempImage);
 
                     $pdf = new \setasign\Fpdi\Fpdi($orientation, 'mm', [$pageWidth, $pageHeight]);
                     $pdf->AddPage($orientation, [$pageWidth, $pageHeight]);
                     $pdf->Image($tempImage, 0, 0, $pageWidth, $pageHeight, $imageType);
-                    $pdf->Output('F', $destPath);
-
+                    $pdfContent = $pdf->Output('S');
                     @unlink($tempImage);
+
+                    if (empty($pdfContent)) {
+                        throw new \Exception('Gagal memproses konversi gambar ke PDF.');
+                    }
+
+                    if (@file_put_contents($storagePath, $pdfContent) === false) {
+                        throw new \Exception('Gagal menyimpan file template ke direktori storage (' . $storagePath . '). Pastikan izin folder server sudah benar.');
+                    }
+                }
+
+                // Sinkronisasi opsional ke public/template_sertif jika diizinkan (abaikan error jika public read-only)
+                try {
+                    $publicDir = public_path('template_sertif');
+                    if (!@file_exists($publicDir)) {
+                        @mkdir($publicDir, 0777, true);
+                    }
+                    @copy($storagePath, $publicDir . '/sertifikatseminar.pdf');
+                } catch (\Throwable $ignored) {
+                    // Abaikan jika folder public/template_sertif tidak memiliki hak tulis
                 }
             }
 
@@ -539,9 +582,9 @@ class AdminController extends Controller
     public function preview_seminar_template()
     {
         try {
-            $templatePath = public_path('template_sertif/sertifikatseminar.pdf');
-            if (!@file_exists($templatePath)) {
-                return redirect()->to(url('admin301097/seminar/template'))->with('error', 'File template sertifikat belum tersedia.');
+            $templatePath = self::getSeminarTemplatePath();
+            if (!$templatePath || !@file_exists($templatePath)) {
+                return redirect()->to(url('admin301097/seminar/template'))->with('error', 'File template sertifikat belum tersedia. Silakan unggah terlebih dahulu.');
             }
 
             $configPath = storage_path('app/seminar_cert_config.json');
@@ -600,6 +643,24 @@ class AdminController extends Controller
         } catch (\Throwable $e) {
             Log::error('Error in preview_seminar_template: ' . $e->getMessage() . "\n" . $e->getTraceAsString());
             return redirect()->to(url('admin301097/seminar/template'))->with('error', 'Gagal memuat preview template: ' . $e->getMessage());
+        }
+    }
+
+    public function current_seminar_template()
+    {
+        try {
+            $templatePath = self::getSeminarTemplatePath();
+            if (!$templatePath || !@file_exists($templatePath)) {
+                return redirect()->to(url('admin301097/seminar/template'))->with('error', 'File template sertifikat belum tersedia.');
+            }
+
+            return response()->file($templatePath, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="sertifikatseminar.pdf"'
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('Error in current_seminar_template: ' . $e->getMessage() . "\n" . $e->getTraceAsString());
+            return redirect()->to(url('admin301097/seminar/template'))->with('error', 'Gagal memuat template saat ini: ' . $e->getMessage());
         }
     }
 
